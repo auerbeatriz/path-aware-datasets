@@ -1,0 +1,12 @@
+Total de amostras: 3660
+
+Classes únicas:		[1 2 3 4]
+Classes em y_train:	[1 2 3 4]
+Classes em y_test:	[1 2 3 4]
+
+Distribuição das classes:
+4    3051
+3     400
+1     196
+2      13
+Name: count, dtype: int64

@@ -1,0 +1,10 @@
+2025-11-26 15:56:10	latencia	rota_h11_h61	BEGIN
+2025-11-26 15:56:10	latencia	rota_h12_h62	BEGIN
+2025-11-26 15:56:10	latencia	rota_h13_h63	BEGIN
+2025-11-26 15:56:10	latencia	rota_h14_h64	BEGIN
+2025-11-26 15:56:10	iperf	proc2	BEGIN
+2025-11-26 16:56:50	iperf	proc2	END
+2025-11-26 16:57:14	latencia	rota_h11_h61	END
+2025-11-26 16:57:14	latencia	rota_h12_h62	END
+2025-11-26 16:57:14	latencia	rota_h13_h63	END
+2025-11-26 16:57:14	latencia	rota_h14_h64	END
