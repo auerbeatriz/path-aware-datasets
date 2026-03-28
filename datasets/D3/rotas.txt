@@ -1,0 +1,4 @@
+rota_h11_h61: h11-s1-s2-s3-s6-h61
+rota_h12_h62: h12-s1-s2-s5-s6-h62
+rota_h13_h63: h13-s1-s4-s5-s6-h63
+rota_h14_h64: h14-s1-s4-s5-s2-s3-s6-h64
