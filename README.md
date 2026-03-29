@@ -1,6 +1,6 @@
 # Avaliação do uso de Aprendizado de Máquina para Engenharia de Tráfego em Redes Cientes de Caminho
 
-Este repositório contém o código-fonte e os datasets utilizados no artigo [Avaliação do uso de Aprendizado de Máquina para Engenharia de Tráfego em Redes Cientes de Caminho](Artigo_Avaliacao_AM_para_ET_em_RedesCientesCaminho.pdf), submetido para avaliação no [44º Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos (SBRC)](https://sbrc.sbc.org.br/2026/).
+Este repositório contém o código-fonte e os datasets utilizados no artigo *Avaliação do uso de Aprendizado de Máquina para Engenharia de Tráfego em Redes Cientes de Caminho*, submetido para avaliação no [44º Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos (SBRC)](https://sbrc.sbc.org.br/2026/).
 
 Este projeto investiga a aplicação de modelos de aprendizado de máquina para previsão de caminhos em redes conscientes de caminho, com o objetivo de otimizar a engenharia de tráfego. Inclui um protótipo de simulação de rede, datasets coletados e análises de modelos de AM.
 
@@ -62,7 +62,7 @@ O arquivo `config.json` contém configurações para a simulação:
 
 Exemplo de configuração básica pode ser encontrado em `config.example.json`.
 
-Cada teste coleta latências, largura de banda e rotas utilizadas. Mais detalhes sobre os tipos de teste podem ser encontrados no [artigo](Artigo_Avaliacao_AM_para_ET_em_RedesCientesCaminho.pdf).
+Cada teste coleta latências, largura de banda e rotas utilizadas.
 
 ## Datasets
 
@@ -79,7 +79,7 @@ Os datasets foram coletados utilizando o protótipo deste repositório, na segui
     </figure>
 </div>
 
-Todos os datasets descritos no [Artigo](Artigo_Avaliacao_AM_para_ET_em_RedesCientesCaminho.pdf) (página 9) estão disponibilizados dentro da pasta `datasets`. A estrutura de pastas segue o mesmo padrão de nomenclatura definidas no Artigo.
+Todos os datasets coletados no protótipo estão disponibilizados dentro da pasta `datasets`. A estrutura de pastas segue o mesmo padrão de nomenclatura definidas no artigo.
 
 Os datasets incluem:
 - Arquivos de latência por rota (e.g., `latencia_rota_h11_h61.txt`)
