@@ -3,7 +3,7 @@
 if [ "$USER" == "root" ]; then
 	cd /home/sdn
 	source venv/bin/activate
-	cd AmbienteVirtualMininet
+	cd prototipo
 	mkdir -p relatorios
 	killall iperf3 2> /dev/null
 	python3 main.py
