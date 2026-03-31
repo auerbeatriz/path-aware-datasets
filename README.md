@@ -10,7 +10,7 @@ Cristina Dominicini<sup>1</sup>,
 Domingos Paraíso<sup>1</sup>,
 Eduarda Coelho<sup>1</sup>,
 Daniel Ventorim<sup>2</sup>, 
-Giovanni Comarela<sup>2</sup>,
+Giovanni Ventorim Comarela<sup>2</sup>,
 Magnos Martinello<sup>2</sup>
 
 <sup>1</sup> Instituto Federal do Espírito Santo (IFES),
@@ -111,5 +111,5 @@ Para dúvidas, entre em contato com os autores.
 - danielventorim@gmail.com
 - domingos.paraiso@gmail.com 
 - dudancoelho13@gmail.com
-- giovannicomarela@gmail.com
-- magnos.martinello@gmail.com
+- gc@inf.ufes.br
+- magnos@inf.ufes.br
