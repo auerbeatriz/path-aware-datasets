@@ -30,9 +30,31 @@ Magnos Martinello<sup>2</sup>
    cd path-aware-datasets
    ```
 
-2. Instale as dependências Python
+2. Para o protótipo, instale o Mininet conforme a documentação oficial: [Mininet Installation](http://mininet.org/download/)
+3. Crie um ambiente virtual python:
+    ```
+    python3 -m venv venv
 
-3. Para o protótipo, instale o Mininet conforme a documentação oficial: [Mininet Installation](http://mininet.org/download/)
+    ou
+
+    python3 -m venv --system-site-packages venv (mantêm visão global dos pacotes instalados globalmente)
+    source venv/bin/activate
+    ```
+
+4. Instale as dependências Python:
+    ```
+    pip install -r requirements.txt
+    ```
+
+5. Atualize o arquivo `prototipo/run.sh` para adequar-se ao seu ambiente de trabalho (linhas 4 e 11) 
+
+6. Atualize os cenários de teste em `prototipo/config.json`
+
+7. Execute o protótipo:
+    ```
+    cd prototipo
+    ./run.sh
+    ```
 
 ## Protótipo
 
