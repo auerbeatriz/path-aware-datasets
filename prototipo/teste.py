@@ -35,6 +35,9 @@ def testeExecuta(config_testes, net, fila, config_topologia):
     msg.info("Todos os testes foram executados!")
 
     os.system("killall bwm-ng")
+    monitor_bw.terminate()
+    monitor_bw.join()
+
     return None
 
 def procTeste(teste, net, fila, topologia):
@@ -124,10 +127,13 @@ def iperf(item, net, procid, fila):
             ip_destino = host_destino.IP()
             cmd_destino = f"iperf3 -s -B {ip_destino} -p {porta} -1 -fk --forceflush --timestamps=%F;%T; {parametros_destino}"
             cmd_origem = f"iperf3 -c {ip_destino} -p {porta} -t {duracao} {parametros_origem}"
+
             p_destino = host_destino.popen(cmd_destino.strip().split(' '))
             p_origem = host_origem.popen(cmd_origem.strip().split(' '))
+
             stdout_d, stderr_d = p_destino.communicate()
             stdout_o, stderr_o = p_origem.communicate()
+
             lista = stdout_d.decode().split('\n')
             envia = False
             incializado = False
