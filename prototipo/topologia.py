@@ -77,6 +77,25 @@ class topologiaGenerica(Topo):
     def get_links_to_graph(self):
         return self.links_to_graph
 
+    def get_interfaces_links(self):
+        """Retorna as interfaces Mininet associadas a cada link da topologia.
+
+        A numeracao das interfaces e obtida diretamente do objeto Topo, por
+        meio de port(), evitando reproduzir manualmente a ordem dos addLink().
+        Inclui tambem links adicionados posteriormente por rotas.py.
+        """
+        interfaces = {}
+
+        for a, b in self.links_to_graph:
+            porta_a, porta_b = self.port(a, b)
+
+            interfaces[(a, b)] = {
+                a: f"{a}-eth{porta_a}",
+                b: f"{b}-eth{porta_b}"
+            }
+
+        return interfaces
+
     def set_rotas_estaticas(self, rotas):
         self.rotas_estaticas = rotas
         return None

@@ -28,7 +28,8 @@
 		]
 	},
 	"telemetria": [
-		{ "tipo": "latencia", "origens": [ "rotas" ] }
+		{ "tipo": "latencia", "origens": [ "rotas" ] },
+		{ "tipo": "banda"	, "origens": [ "rotas" ], "monitorar_via_servidor": false }
 	],
 	"testefluxo": [
 		{
@@ -36,62 +37,14 @@
 			"descricao": "Processo Um",
 			"itens": [
 				{
-					"tipo": "iperf-udp",
-					"origem": "h50",
-					"destino": "h60",
-					"duracao": 10,
-					"porta": 5001,
-					"parametros_origem": "",
-					"parametros_destino": "",
-					"otimizador": "default",
-                    "taxa": "10M"
-				},
-				{
-					"tipo": "delay",
-					"duracao": 10
-				},
-				{
-					"tipo": "iperf-udp",
-					"origem": "h50",
-					"destino": "h60",
-					"duracao": 30,
-					"porta": 5001,
-					"parametros_origem": "",
-					"parametros_destino": "",
-					"otimizador": "default",
-                    "taxa": "50M"
-				}
-			]
-		},
-		{
-			"id": "proc2",
-			"descricao": "Processo Dois",
-			"itens": [
-				{
 					"tipo": "iperf",
+					"duracao": 30,
 					"origem": "h10",
 					"destino": "h60",
-					"duracao": 40,
-					"porta": 5002,
-					"parametros_origem": "",
+					"porta": 5001,
+					"parametros_origem": "-u -b 100G",
 					"parametros_destino": "",
 					"otimizador": "default"
-				}
-			]
-		},
-		{
-			"id": "proc3",
-			"descricao": "Processo Tres",
-			"itens": [
-				{
-					"tipo": "poisson",
-					"duracao": 40,
-					"porta": 5003,
-					"parametros_origem": "",
-					"parametros_destino": "",
-					"otimizador": "default",
-					"lambda": 0.1,
-					"tamanhofluxo": 1000
 				}
 			]
 		}
@@ -106,12 +59,12 @@
 			"descricao": "Latência das Rotas",
 			"origens": {
 				"latencia": [ "rotas" ]
-				}
+			}
 		},
 		{
 			"tipo": "testefluxo",
 			"descricao": "Fluxos de Dados",
-			"origens": [ "proc1", "proc2", "proc3" ]
+			"origens": [ "proc1" ]
 		}
 	]
 }

@@ -1,4 +1,7 @@
 import msg
+import signal
+import subprocess
+import os
 from multiprocessing import Queue
 from multiprocessing import Process
 from time import sleep
@@ -71,7 +74,13 @@ def salvarTelemetria(item):
     if evento == None and valor != None:
         set_valor(tipo, nome, datahora, valor)
     if evento != None and valor == None:
-        set_evento(tipo, nome, datahora, evento)
+        set_evento(
+            tipo,
+            nome,
+            datahora,
+            evento,
+            salvar_valor=item.get('salvar_valor', True)
+        )
     return None
 
 ################################################################################
@@ -103,29 +112,45 @@ def telemetriaFinalizaServidor(telemetriaServidor):
 def telemetriaInicializaAgentes(config, telemetriaServidor, net):
     # Lista de agentes ativos
     telemetriaAgentes = []
+
     # Queue onde o servidor de telemetria aguarda os valores
     fila = telemetriaServidor['fila']
     config_topologia = config.topologia
     config_telemetria = config.telemetria
+
     # Passar por todas as telemetrias configuradas
     for item in config_telemetria:
         tipo = item['tipo']
+        monitorar_via_servidor = item.get('monitorar_via_servidor', True)
+
         # Tratar de acordo com o tipo
-        if tipo == 'latencia':
+        if tipo == 'latencia' or tipo == 'banda':
             for origem in item['origens']:
                 # Quando origem == 'rotas', pegar da lista na configuração
                 if origem == 'rotas':
                     for rota in config_topologia['rotas']:
                         # Inicia um processo de agente
-                        processo = Process(target=procAgenteTelemetria, args=(fila, tipo, rota['nome'], rota['caminho'], net))
+                        processo = Process(
+                            target=procAgenteTelemetria,
+                            args=(
+                                fila,
+                                tipo,
+                                rota['nome'],
+                                rota['caminho'],
+                                net,
+                                monitorar_via_servidor
+                            )
+                        )
                         processo.start()
                         # Armazena os dados do processo para controle futuro
                         telemetriaAgentes.append( { 
                             'tipo': tipo,
                             'nome': rota['nome'],
                             'parametros': rota['caminho'],
+                            'monitorar_via_servidor': monitorar_via_servidor,
                             'processo': processo
                         } )
+    
     msg.info("Agentes de telemetria inicializados!")
     return telemetriaAgentes
 
@@ -138,8 +163,16 @@ def telemetriaInicializaAgentes(config, telemetriaServidor, net):
 #   nome - nome do agente (ex: rota1)
 #   parametros - objeto contendo os valores para configuração do agente
 #   net - objeto para acessar o Mininet e enviar os comandos aos hosts
+#   monitorar_via_servidor - inclui os instantes dos eventos no DataLake
 #
-def procAgenteTelemetria(fila, tipo, nome, parametros, net):
+def procAgenteTelemetria(
+    fila,
+    tipo,
+    nome,
+    parametros,
+    net,
+    monitorar_via_servidor=True
+):
     if tipo == 'latencia':
         origem = parametros[0]
         destino = parametros[-1]
@@ -150,9 +183,10 @@ def procAgenteTelemetria(fila, tipo, nome, parametros, net):
         fila.put( { 
             'tipo': 'latencia',
             'nome': nome,
-            'datahora': datahora,
-            'valor': None,
-            'evento': 'BEGIN'
+                'datahora': datahora,
+                'valor': None,
+                'evento': 'BEGIN',
+                'salvar_valor': monitorar_via_servidor
         } )
         sleep(1)
         linha_inicial = True
@@ -175,6 +209,44 @@ def procAgenteTelemetria(fila, tipo, nome, parametros, net):
                         'valor': valor,
                         'evento': None
                     } )
+
+    if tipo == 'banda':
+        interfaces = []        
+        for indiceA in range(1, len(parametros) - 2):
+            switchA = net.get(parametros[indiceA])
+            switchB = net.get(parametros[indiceA + 1])
+            links = switchA.connectionsTo(switchB)
+            if links:
+                interfaces.append(links[0][0].name)
+
+        if interfaces:
+            datahora = datetime.timestamp(datetime.now())
+            fila.put( { 
+                'tipo': 'banda',
+                'nome': nome,
+                'datahora': datahora,
+                'valor': None,
+                'evento': 'BEGIN',
+                'salvar_valor': monitorar_via_servidor
+            } )
+            sleep(1)
+            argumentos = [
+                'bwm-ng', '-t', '1000', '-o', 'csv', '-u', 'bytes',
+                '-T', 'rate', '-C', ',', '-F',
+                'relatorios/banda_%s.csv' % nome,
+                '-I', ','.join(interfaces)
+            ]
+            processo_bwm = subprocess.Popen(argumentos)
+
+            def finalizar_bwm(signum, frame):
+                os.system("killall bwm-ng")
+                processo_bwm.terminate()
+                processo_bwm.wait()
+                raise SystemExit(0)
+
+            signal.signal(signal.SIGTERM, finalizar_bwm)
+            processo_bwm.wait()
+    
     return None
 
 ################################################################################
@@ -196,7 +268,8 @@ def telemetriaFinalizaAgentes(telemetriaAgentes, fila):
             'nome': nome,
             'datahora': datahora,
             'valor': None,
-            'evento': 'END'
+            'evento': 'END',
+            'salvar_valor': agente.get('monitorar_via_servidor', True)
         } )
         msg.debug("Finalizando %s, tipo=%s" % (nome, tipo))
         processo = agente['processo']
@@ -228,4 +301,3 @@ def telemetriaHistorico(telemetriaServidor):
     resultado = retorno.get()
     msg.info("Dados históricos carregados!")
     return resultado
-

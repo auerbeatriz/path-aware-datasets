@@ -1,5 +1,6 @@
 import msg
 from datetime import datetime
+from helpers.parser_banda import parseBanda
 
 ################################################################################
 # Salva o histórico de telemetria e dados de teste em arquivos texto
@@ -10,9 +11,10 @@ from datetime import datetime
 # Retorno:
 #   None
 #
-def arquivosSalvar(resultado):
+def arquivosSalvar(resultado, topologia):
     # Telemetria armazenada e dados de vazão
     valores = resultado['valores']
+
     for tipo, lista_nomes in valores.items():
         for nome, lista in lista_nomes.items():
             f = open(f'relatorios/{tipo}_{nome}.txt', 'w')
@@ -29,6 +31,11 @@ def arquivosSalvar(resultado):
                     svalor = str(valor)
                 f.write('%s\t%s\n' % (datahora, svalor))
             f.close()
+    
+    # Parse de relatórios de banda por caminho
+    for rota in topologia['rotas']:
+        parseBanda(rota, topologia)
+    
     # Eventos registrados durante os testes
     eventos = resultado['eventos']
     # Colocando em orgem cronológica

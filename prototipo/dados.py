@@ -135,7 +135,7 @@ def set_valor(tipo, nome, datahora, valor):
     DataLake.update( { tipo: dados_tipo } )
     return None
 
-# set_evento - grava um evento na base de eventos e None na base de dados
+# set_evento - grava um evento na base de eventos e, opcionalmente, None na base de dados
 #
 # Parâmetros:
 #   tipo - tipo de dados a armazenar, ex: 'latencia', 'vazao'
@@ -143,10 +143,11 @@ def set_valor(tipo, nome, datahora, valor):
 #   datahora - data e hora no formato timestamp, valor do tipo float
 #       semelhante ao retornado por datetime.timestamp
 #   evento - string com o evento a ser armazenado
+#   salvar_valor - indica se o evento tambem deve gerar um valor no DataLake
 # Retorno:
 #   None
 #
-def set_evento(tipo, nome, datahora, evento):
+def set_evento(tipo, nome, datahora, evento, salvar_valor=True):
     if type(datahora) == float:
         fdatahora = datahora
     else:
@@ -162,6 +163,8 @@ def set_evento(tipo, nome, datahora, evento):
         'nome': nome,
         'evento': evento
     } )
+    if not salvar_valor:
+        return None
     dados_tipo = DataLake.get(tipo, {})
     lista = dados_tipo.get(nome, {})
     chaves = lista.keys()

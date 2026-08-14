@@ -21,10 +21,6 @@ def testeExecuta(config_testes, net, fila, config_topologia):
     msg.info("Iniciando todos os processos de teste...")
     processos = []
 
-    arq_bwm = f"relatorios/banda.bwm"
-    monitor_bw = Process(target=monitor_bwm_ng, args=(arq_bwm, 1.0))
-    monitor_bw.start()
-
     for teste in config_testes:
         processo = Process(target=procTeste, args=(teste, net, fila, config_topologia))
         processo.start()
@@ -33,10 +29,6 @@ def testeExecuta(config_testes, net, fila, config_topologia):
     for processo in processos:
         processo['proc'].join()
     msg.info("Todos os testes foram executados!")
-
-    os.system("killall bwm-ng")
-    monitor_bw.terminate()
-    monitor_bw.join()
 
     return None
 
@@ -261,7 +253,3 @@ def generate_flows(lambda_rate, duration, flow_size_kb, src, dst, counter = 0):
 
         # Increment the port number for the next flow
         port += 1
-
-def monitor_bwm_ng(fname, interval_sec):
-    cmd = f"sleep 1; bwm-ng -t {interval_sec * 1000} -o csv -u bytes -T rate -C ',' > {fname}"
-    subprocess.Popen(cmd, shell=True).wait()

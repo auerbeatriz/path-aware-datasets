@@ -7,6 +7,7 @@ from telemetria import telemetriaInicializaServidor, telemetriaInicializaAgentes
 from topologia import topologiaGenerica
 from teste import testeExecuta
 from rotas import gerarRotasEstaticas
+from dataset_banda import gerar_dataset_banda
 #from mininet.cli import CLI
 
 ################################################################################
@@ -39,34 +40,44 @@ if __name__ == '__main__':
     if controlador == None:
         msg.main("Finalizando por falha.")
         exit(1)
-    msg.debug("Testando as conexões entre as máquinas da rede...")
+    # msg.debug("Testando as conexões entre as máquinas da rede...")
     #net.pingAll()
+
     msg.main("Inicializando o servidor de telemetria...")
     telemetriaServidor = telemetriaInicializaServidor()
     if telemetriaServidor == None:
         msg.main("Finalizando por falha.")
         exit(1)
+    
     msg.main("Inicializando agentes de telemetria...")
     telemetriaAgentes = telemetriaInicializaAgentes(config, telemetriaServidor, net)
     if telemetriaAgentes == None:
         msg.main("Finalizando por falha.")
         exit(1)
+    
     msg.main("Executando os testes...")
     testeExecuta(config.testefluxo, net, telemetriaServidor['fila'], config.topologia)
+
     msg.main("Finalizando agentes de telemetria...")
     telemetriaFinalizaAgentes(telemetriaAgentes, telemetriaServidor['fila'])
+
     msg.main("Obtendo o resultado dos testes...")
     resultado = telemetriaHistorico(telemetriaServidor)
+
     #CLI(net)
     msg.main("Finalizando o servidor de telemetria...")
     telemetriaFinalizaServidor(telemetriaServidor)
+
     msg.main("Finalizando o controlador...")
     controladorFinaliza(controlador)
+
     msg.main("Finalizando o mininet...")
     mininetFinaliza(net)
     resultado.update( { 'rotas': config.topologia['rotas'] } )
+
     msg.main("Salvando o resultado em arquivos...")
-    arquivosSalvar(resultado)
+    arquivosSalvar(resultado, config.topologia)
+    
     msg.main("Gerando os gráficos dos resultados...")
     graficosGerar(resultado, config)
     msg.main("Fim do processamento.")
