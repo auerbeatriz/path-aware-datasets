@@ -7,7 +7,6 @@ from telemetria import telemetriaInicializaServidor, telemetriaInicializaAgentes
 from topologia import topologiaGenerica
 from teste import testeExecuta
 from rotas import gerarRotasEstaticas
-from dataset_banda import gerar_dataset_banda
 from mininet.cli import CLI
 
 ################################################################################

@@ -307,7 +307,7 @@ def procAgenteTelemetriaBanda(fila, rotas, net):
         argumentos = [
             'bwm-ng', '-t', '1000', '-o', 'csv', '-u', 'bytes',
             '-T', 'rate', '-C', ',', '-F',
-            'relatorios/banda_%s.csv' % rota['nome'],
+            'relatorios/banda_raw_%s.csv' % rota['nome'],
             '-I', ','.join(rota['interfaces'])
         ]
         processos_bwm.append(subprocess.Popen(argumentos))

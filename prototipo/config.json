@@ -42,7 +42,7 @@
 					"origem": "h10",
 					"destino": "h60",
 					"porta": 5001,
-					"parametros_origem": "-u -b 100G",
+					"parametros_origem": "-u -b 20M",
 					"parametros_destino": "",
 					"otimizador": "default"
 				}

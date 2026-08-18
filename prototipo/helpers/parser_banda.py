@@ -10,9 +10,9 @@ def toMbps(df):
     dfY = (df * 8.0) / (1 << 20)  ## 1byte x 8bits / 1048576
     return dfY
         
-def parseBanda(rota, topologia):
+def parseBanda(rota, topologia, capacidade_por_interface):
     nomeRota = rota['nome']
-    arquivo = f"relatorios/banda_{nomeRota}.csv"
+    arquivo = f"relatorios/banda_raw_{nomeRota}.csv"
 
     data = pd.read_csv(arquivo, delimiter=',', usecols=range(len(BWM_NG_COLUNAS)))
     data.columns = BWM_NG_COLUNAS
@@ -26,20 +26,21 @@ def parseBanda(rota, topologia):
     # Cria uma colula com a taxa total em Mbps
     data['taxa_total_Mbps'] = toMbps(data['bytes_total_s'])
 
-    # Cria uma coluna com a banda disponível no link
-    # todo: obter a capacidade do link a partir da topologia e da interface
-    data['banda_disponivel'] = 100 - data['taxa_total_Mbps']
+    data['banda_disponivel'] = (
+        data['interface'].map(capacidade_por_interface) - data['taxa_total_Mbps']
+    )
     
     # Salva resultado em um TXT por tabulação (\t)
     colunas_desejadas = ['datetime', 'interface', 'taxa_total_Mbps', 'banda_disponivel']
-    data.to_csv(f"relatorios/consolidado/banda_teste_{nomeRota}.txt", sep='\t', columns=colunas_desejadas, index=False)
+    data.to_csv(f"relatorios/banda_tratada_{nomeRota}.csv", columns=colunas_desejadas, index=False)
 
+    # Agrupa por segundo e mantem apenas o gargalo (menor banda disponivel entre as interfaces da rota) em cada segundo
+    data['datahora'] = data['datetime'].dt.floor('s')
+    gargalo = data.groupby('datahora')['banda_disponivel'].min().reset_index()
+    gargalo.columns = ['datahora', 'banda']
 
-    # open csv
-    # foreach line:
-        # parse dateTime 
-        # parse bytes_total_s to MB 
-        # calcula disponivel (capacidade - bytes_total_mb)
-        # add interface
-        # append to list
-    # end: [{datetime, interface, throuputh, disponivel }]
+    gargalo.to_csv(f"relatorios/banda_{nomeRota}.txt", sep="\t", index=False, header=False)
+
+    # with open(f"relatorios/banda_{nomeRota}.csv", 'w') as f:
+    #     f.write('# datahora min(banda_disponivel)\n')
+    #     gargalo.to_csv(f, index=False, header=False)

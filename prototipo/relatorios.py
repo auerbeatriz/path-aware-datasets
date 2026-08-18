@@ -3,6 +3,29 @@ from datetime import datetime
 from helpers.parser_banda import parseBanda
 
 ################################################################################
+# Salva o histórico de telemetria de banda por caminho em arquivos texto
+#
+# Parâmetros:
+#   topologia - estrutura carregada de config.json
+# Retorno:
+#   None
+#
+def salvarRelatorioBanda(topologia):
+    # Cria uma coluna com a banda disponível no link
+    proxima_porta = {}
+    capacidade_por_interface = {}
+    for link in topologia['links']:
+        capacidade = link.get('banda')
+        for ponto in link['pontos']:
+            porta = proxima_porta.get(ponto, 0) + 1
+            proxima_porta[ponto] = porta
+            capacidade_por_interface[f'{ponto}-eth{porta}'] = float(capacidade)
+    
+    # Parse de relatórios de banda por caminho
+    for rota in topologia['rotas']:
+        parseBanda(rota, topologia, capacidade_por_interface)
+
+################################################################################
 # Salva o histórico de telemetria e dados de teste em arquivos texto
 #
 # Parâmetros:
@@ -31,10 +54,8 @@ def arquivosSalvar(resultado, topologia):
                     svalor = str(valor)
                 f.write('%s\t%s\n' % (datahora, svalor))
             f.close()
-    
-    # Parse de relatórios de banda por caminho
-    for rota in topologia['rotas']:
-        parseBanda(rota, topologia)
+
+    salvarRelatorioBanda(topologia)
     
     # Eventos registrados durante os testes
     eventos = resultado['eventos']
