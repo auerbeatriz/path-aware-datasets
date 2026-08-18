@@ -118,13 +118,18 @@ def telemetriaInicializaAgentes(config, telemetriaServidor, net):
     config_topologia = config.topologia
     config_telemetria = config.telemetria
 
+    # Rotas de banda são acumuladas aqui para serem monitoradas por um
+    # único processo (em vez de um processo Python por rota), já que o
+    # custo de CPU observado vinha dos processos Python e não do bwm-ng
+    rotas_banda = []
+
     # Passar por todas as telemetrias configuradas
     for item in config_telemetria:
         tipo = item['tipo']
         monitorar_via_servidor = item.get('monitorar_via_servidor', True)
 
         # Tratar de acordo com o tipo
-        if tipo == 'latencia' or tipo == 'banda':
+        if tipo == 'latencia':
             for origem in item['origens']:
                 # Quando origem == 'rotas', pegar da lista na configuração
                 if origem == 'rotas':
@@ -150,7 +155,36 @@ def telemetriaInicializaAgentes(config, telemetriaServidor, net):
                             'monitorar_via_servidor': monitorar_via_servidor,
                             'processo': processo
                         } )
-    
+
+        elif tipo == 'banda':
+            for origem in item['origens']:
+                # Quando origem == 'rotas', pegar da lista na configuração
+                if origem == 'rotas':
+                    for rota in config_topologia['rotas']:
+                        rotas_banda.append( {
+                            'nome': rota['nome'],
+                            'parametros': rota['caminho'],
+                            'monitorar_via_servidor': monitorar_via_servidor
+                        } )
+
+    # Todas as rotas de banda são monitoradas por um único processo,
+    # que dispara um bwm-ng por rota internamente (sem criar N processos
+    # Python separados)
+    if rotas_banda:
+        processo_banda = Process(
+            target=procAgenteTelemetriaBanda,
+            args=(fila, rotas_banda, net)
+        )
+        processo_banda.start()
+        for rota in rotas_banda:
+            telemetriaAgentes.append( {
+                'tipo': 'banda',
+                'nome': rota['nome'],
+                'parametros': rota['parametros'],
+                'monitorar_via_servidor': rota['monitorar_via_servidor'],
+                'processo': processo_banda
+            } )
+
     msg.info("Agentes de telemetria inicializados!")
     return telemetriaAgentes
 
@@ -210,8 +244,32 @@ def procAgenteTelemetria(
                         'evento': None
                     } )
 
-    if tipo == 'banda':
-        interfaces = []        
+    return None
+
+################################################################################
+# Rotina executada em um único processo separado, responsável por monitorar
+#   a banda de TODAS as rotas configuradas do tipo 'banda'. Substitui a
+#   criação de um processo Python por rota (que estava saturando a CPU do
+#   host e derrubando o throughput real dos links do Mininet) por um único
+#   processo que dispara um bwm-ng por rota internamente. O bwm-ng em si é
+#   leve; o custo estava no número de interpretadores Python rodando em
+#   paralelo, não no monitor de banda.
+#
+# Parâmetros:
+#   fila - objeto Queue para onde os dados devem ser enviados (servidor)
+#   rotas - lista de dicionários com 'nome', 'parametros' (caminho) e
+#           'monitorar_via_servidor' para cada rota de banda
+#   net - objeto para acessar o Mininet e enviar os comandos aos hosts
+#
+def procAgenteTelemetriaBanda(fila, rotas, net):
+    # Resolve as interfaces de cada rota antes de iniciar qualquer bwm-ng
+    rotas_com_interfaces = []
+    for rota in rotas:
+        nome = rota['nome']
+        parametros = rota['parametros']
+        monitorar_via_servidor = rota.get('monitorar_via_servidor', True)
+
+        interfaces = []
         for indiceA in range(1, len(parametros) - 2):
             switchA = net.get(parametros[indiceA])
             switchB = net.get(parametros[indiceA + 1])
@@ -220,33 +278,55 @@ def procAgenteTelemetria(
                 interfaces.append(links[0][0].name)
 
         if interfaces:
-            datahora = datetime.timestamp(datetime.now())
-            fila.put( { 
-                'tipo': 'banda',
+            rotas_com_interfaces.append( {
                 'nome': nome,
-                'datahora': datahora,
-                'valor': None,
-                'evento': 'BEGIN',
-                'salvar_valor': monitorar_via_servidor
+                'interfaces': interfaces,
+                'monitorar_via_servidor': monitorar_via_servidor
             } )
-            sleep(1)
-            argumentos = [
-                'bwm-ng', '-t', '1000', '-o', 'csv', '-u', 'bytes',
-                '-T', 'rate', '-C', ',', '-F',
-                'relatorios/banda_%s.csv' % nome,
-                '-I', ','.join(interfaces)
-            ]
-            processo_bwm = subprocess.Popen(argumentos)
 
-            def finalizar_bwm(signum, frame):
-                os.system("killall bwm-ng")
-                processo_bwm.terminate()
-                processo_bwm.wait()
-                raise SystemExit(0)
+    if not rotas_com_interfaces:
+        return None
 
-            signal.signal(signal.SIGTERM, finalizar_bwm)
+    # Sinaliza o início de todas as rotas de uma vez
+    datahora = datetime.timestamp(datetime.now())
+    for rota in rotas_com_interfaces:
+        fila.put( {
+            'tipo': 'banda',
+            'nome': rota['nome'],
+            'datahora': datahora,
+            'valor': None,
+            'evento': 'BEGIN',
+            'salvar_valor': rota['monitorar_via_servidor']
+        } )
+    sleep(1)
+
+    # Dispara um bwm-ng por rota (mantém um CSV por rota, como antes),
+    # mas todos gerenciados a partir deste único processo Python
+    processos_bwm = []
+    for rota in rotas_com_interfaces:
+        argumentos = [
+            'bwm-ng', '-t', '1000', '-o', 'csv', '-u', 'bytes',
+            '-T', 'rate', '-C', ',', '-F',
+            'relatorios/banda_%s.csv' % rota['nome'],
+            '-I', ','.join(rota['interfaces'])
+        ]
+        processos_bwm.append(subprocess.Popen(argumentos))
+
+    def finalizar_bwm(signum, frame):
+        os.system("killall bwm-ng")
+        for processo_bwm in processos_bwm:
+            processo_bwm.terminate()
+        for processo_bwm in processos_bwm:
             processo_bwm.wait()
-    
+        raise SystemExit(0)
+
+    signal.signal(signal.SIGTERM, finalizar_bwm)
+
+    # Aguarda todos os bwm-ng (eles rodam indefinidamente até receberem
+    # SIGTERM, então isso mantém o processo vivo até finalizarAgentes)
+    for processo_bwm in processos_bwm:
+        processo_bwm.wait()
+
     return None
 
 ################################################################################
@@ -259,10 +339,16 @@ def procAgenteTelemetria(
 #   None
 #
 def telemetriaFinalizaAgentes(telemetriaAgentes, fila):
+    # Como várias rotas de banda agora compartilham o mesmo processo
+    # consolidado, controla por id() do processo para não chamar
+    # terminate()/kill()/join() mais de uma vez sobre o mesmo processo
+    processos_sinalizados = set()
     for agente in telemetriaAgentes:
         nome = agente['nome']
         tipo = agente['tipo']
         datahora = datetime.timestamp(datetime.now())
+        # O evento END é enviado individualmente por rota, mesmo quando
+        # o processo é compartilhado, para preservar o histórico de cada uma
         fila.put( { 
             'tipo': tipo,
             'nome': nome,
@@ -273,10 +359,16 @@ def telemetriaFinalizaAgentes(telemetriaAgentes, fila):
         } )
         msg.debug("Finalizando %s, tipo=%s" % (nome, tipo))
         processo = agente['processo']
-        processo.terminate()
+        if id(processo) not in processos_sinalizados:
+            processo.terminate()
+            processos_sinalizados.add(id(processo))
     sleep(2)
+    processos_finalizados = set()
     for agente in telemetriaAgentes:
         processo = agente['processo']
+        if id(processo) in processos_finalizados:
+            continue
+        processos_finalizados.add(id(processo))
         if processo.is_alive():
             processo.kill()
             processo.join()

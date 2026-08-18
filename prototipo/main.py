@@ -8,7 +8,7 @@ from topologia import topologiaGenerica
 from teste import testeExecuta
 from rotas import gerarRotasEstaticas
 from dataset_banda import gerar_dataset_banda
-#from mininet.cli import CLI
+from mininet.cli import CLI
 
 ################################################################################
 # Programa principal
@@ -58,13 +58,16 @@ if __name__ == '__main__':
     msg.main("Executando os testes...")
     testeExecuta(config.testefluxo, net, telemetriaServidor['fila'], config.topologia)
 
+    # CLI(net)
+
     msg.main("Finalizando agentes de telemetria...")
     telemetriaFinalizaAgentes(telemetriaAgentes, telemetriaServidor['fila'])
 
     msg.main("Obtendo o resultado dos testes...")
     resultado = telemetriaHistorico(telemetriaServidor)
 
-    #CLI(net)
+    # CLI(net)
+
     msg.main("Finalizando o servidor de telemetria...")
     telemetriaFinalizaServidor(telemetriaServidor)
 

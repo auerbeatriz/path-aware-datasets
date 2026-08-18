@@ -127,7 +127,7 @@ def set_valor(tipo, nome, datahora, valor):
         except:
             fdatahora = datetime.timestamp(datetime.now())
     lista = dados_tipo.get(nome, {})
-    chaves = lista.keys()
+    chaves = list(lista.keys())
     if len(chaves)>(SIZE_CACHE):
         lista.pop(chaves[0])
     lista.update( { idx(fdatahora): fvalor } )
@@ -167,7 +167,7 @@ def set_evento(tipo, nome, datahora, evento, salvar_valor=True):
         return None
     dados_tipo = DataLake.get(tipo, {})
     lista = dados_tipo.get(nome, {})
-    chaves = lista.keys()
+    chaves = list(lista.keys())
     if len(chaves)>(SIZE_CACHE):
         lista.pop(chaves[0])
     lista.update( { idx(fdatahora): None } )
