@@ -1,9 +1,14 @@
 import csv
 import math
+import os
+import re
 import pandas as pd
 from datetime import datetime
 
 BWM_NG_COLUNAS = ['unix_timestamp','interface','bytes_out_s','bytes_in_s','bytes_total_s','bytes_in','bytes_out','packets_out_s','packets_in_s','packets_total_s','packets_in','packets_out','errors_out_s','errors_in_s','errors_in','errors_out']
+
+PADRAO_NOME_ROTA = re.compile(r'rota_h1(\d+)_h6\1')
+PADRAO_ARQUIVO_BANDA = re.compile(r'banda_rota_h1(\d+)_h6\1\.txt')
 
 # Converte taxa para Mbps
 def toMbps(df):
@@ -20,8 +25,11 @@ def parseBanda(rota, topologia, capacidade_por_interface):
     # Mantem apenas as linhas das interfaces
     data = data.drop(data[data['interface'] == 'total'].index)
 
-    # Cria coluna com tempo em datetime
-    data['datetime'] = pd.to_datetime(data['unix_timestamp'], unit='s')
+    # Cria coluna com tempo em datetime, no horário local (mesma convenção usada
+    #   em arquivosSalvar/relatorios.py, que usa datetime.fromtimestamp). Usar
+    #   pd.to_datetime(..., unit='s') geraria o horário em UTC, ficando
+    #   defasado do horário local usado nos demais relatórios (ex: latência).
+    data['datetime'] = data['unix_timestamp'].apply(datetime.fromtimestamp)
 
     # Cria uma colula com a taxa total em Mbps
     data['taxa_total_Mbps'] = toMbps(data['bytes_total_s'])
@@ -114,7 +122,8 @@ def carregarBandaConsolidada(arquivo):
     # Mantem apenas as linhas das interfaces
     data = data.drop(data[data['interface'] == 'total'].index)
 
-    data['datetime'] = pd.to_datetime(data['unix_timestamp'], unit='s')
+    # Horário local, mesma convenção do restante do código (ver parseBanda)
+    data['datetime'] = data['unix_timestamp'].apply(datetime.fromtimestamp)
     data['taxa_total_Mbps'] = toMbps(data['bytes_total_s'])
     return data
 
@@ -148,3 +157,96 @@ def parseBandaCaminho(nome, interfaces, data, capacidade_por_interface, pasta_sa
     gargalo.columns = ['datahora', 'banda']
 
     gargalo.to_csv(f"{pasta_saida}/banda_{nome}.txt", sep="\t", index=False, header=False)
+
+################################################################################
+# Extrai o id (r) de um nome de rota no formato 'rota_h1<r>_h6<r>'
+#
+# Parâmetros:
+#   nome - nome da rota, ex: 'rota_h11_h61'
+# Retorno:
+#   int com o id da rota, ou None se o nome não seguir o padrão
+#
+def idRotaDoNome(nome):
+    correspondencia = PADRAO_NOME_ROTA.match(nome)
+    return int(correspondencia.group(1)) if correspondencia else None
+
+################################################################################
+# Lê um arquivo de banda (linhas 'datahora\tbanda') e retorna um dicionário
+#   {timestamp: banda}, no mesmo formato usado para ler arquivos de latência
+#
+# Parâmetros:
+#   caminho_arquivo - caminho do arquivo de banda por caminho (banda_rota_h1<r>_h6<r>.txt)
+# Retorno:
+#   dict {timestamp: banda}
+#
+def lerArquivoBanda(caminho_arquivo):
+    bandas = {}
+
+    with open(caminho_arquivo, 'r') as arquivo:
+        for linha in arquivo:
+            linha = linha.strip()
+            if not linha:
+                continue
+
+            partes = linha.split('\t')
+            if len(partes) == 2:
+                timestamp, valor = partes
+                if valor != 'None':
+                    bandas[timestamp] = float(valor)
+
+    return bandas
+
+################################################################################
+# Consolida os arquivos individuais de banda disponível por caminho
+#   (banda_rota_h1<r>_h6<r>.txt) em um único CSV, seguindo o mesmo formato
+#   usado para consolidar as latências em 'latencia_rotas_h1_h6.csv'
+#
+# Parâmetros:
+#   diretorio - diretório contendo os arquivos de banda por rota
+#   nome_arquivo_saida - nome do arquivo CSV de saída
+#   rotas - lista com os IDs das rotas a consolidar
+# Retorno:
+#   Tupla (caminho_arquivo_saida, rotas_encontradas) ou None se nenhum arquivo for encontrado
+#
+def consolidarBanda(diretorio, nome_arquivo_saida, rotas):
+    dados_rotas = {}
+
+    for nome_arquivo in os.listdir(diretorio):
+        correspondencia = PADRAO_ARQUIVO_BANDA.match(nome_arquivo)
+        if not correspondencia:
+            continue
+
+        pathId = int(correspondencia.group(1))
+        if pathId not in rotas:
+            continue
+
+        caminho = os.path.join(diretorio, nome_arquivo)
+        dados_rotas[pathId] = lerArquivoBanda(caminho)
+
+    if not dados_rotas:
+        return None
+
+    rotas_ordenadas = sorted(dados_rotas.keys())
+
+    # União de todos os timestamps presentes nos arquivos
+    todos_timestamps = sorted(
+        {ts for bandas in dados_rotas.values() for ts in bandas}
+    )
+
+    # Escrita do CSV consolidado
+    caminho_saida = os.path.join(diretorio, nome_arquivo_saida)
+    with open(caminho_saida, 'w') as arquivo_saida:
+        cabecalho = 'timestamp,' + ','.join(f'h1{r}_h6{r}' for r in rotas_ordenadas)
+        arquivo_saida.write(cabecalho + '\n')
+
+        for timestamp in todos_timestamps:
+            valores = []
+            for id_rota in rotas_ordenadas:
+                banda = dados_rotas[id_rota].get(timestamp)
+                valores.append(str(banda) if banda is not None else '')
+
+            # Ignora linhas sem nenhuma banda válida
+            if any(v != '' for v in valores):
+                arquivo_saida.write(timestamp + ',' + ','.join(valores) + '\n')
+
+    return caminho_saida, rotas_ordenadas
