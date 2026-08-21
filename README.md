@@ -106,8 +106,24 @@ Todos os datasets coletados no protótipo estão disponibilizados dentro da past
 Os datasets incluem:
 - Arquivos de latência por rota (e.g., `latencia_rota_h11_h61.txt`)
 - Arquivo de configuração utilizado para a coleta (`config.json`)
-- Eventos e resumos (`eventos.txt`, `banda.txt`, `rotas.txt`, `iperf_procN.txt`)
+- Eventos e resumos (`eventos.txt`, `rotas.txt`, `iperf_procN.txt`)
 - Dados consolidados de latência e rótulos de classificação (`latencia_rotas_h1_h6.csv` e `rotulos_h1_h6.txt`)
+- Banda consolidada de todas as interfaces no momento da coleta (`banda.bwm`), a partir da qual são extraídos os relatórios de banda por caminho (ver `gerar_relatorio_banda_rotas.py`)
+
+### Relatórios de banda por caminho
+
+O arquivo `banda.bwm` de cada cenário contém a saída do `bwm-ng` para todas as interfaces monitoradas durante a coleta, sem distinção de rota. O script `gerar_relatorio_banda_rotas.py`, na raiz do repositório, extrai desse arquivo a banda disponível de cada rota listada em `rotas.txt`, usando as interfaces e capacidades definidas em `config.json`.
+
+Para gerar (ou regenerar) os relatórios de todos os cenários em `datasets/`:
+```
+python3 gerar_relatorio_banda_rotas.py
+```
+
+Para cada rota, são gerados dentro da própria pasta do cenário:
+- `banda_tratada_<rota>.csv`: taxa e banda disponível de cada interface do caminho, amostra a amostra.
+- `banda_<rota>.txt`: gargalo (menor banda disponível entre as interfaces do caminho) por segundo, no mesmo formato tabulado dos arquivos `latencia_rota_*.txt`.
+
+Cenários sem `banda.bwm`, `config.json` ou `rotas.txt` (e.g. `D3a`, `D4a`) são ignorados pelo script.
 
 ## Resultados da aplicação de Aprendizado de Máquina
 
@@ -121,6 +137,7 @@ Scripts auxiliares:
 - `main.py`: Consolida dados de latência.
 - `plot_latencias.py`: Plota latências nos caminhos.
 - `plot_matriz_confusao.py`: Gera matriz de confusão para modelos de classificação.
+- `gerar_relatorio_banda_rotas.py`: Extrai, a partir de `banda.bwm`, os relatórios de banda disponível por caminho de cada cenário em `datasets/` (ver seção [Relatórios de banda por caminho](#relatórios-de-banda-por-caminho)).
 
 Resultados salvos em `resultados_am/`.
 
