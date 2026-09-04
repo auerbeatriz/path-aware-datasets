@@ -1,5 +1,6 @@
 prototipo/__pycache__
 prototipo/helpers/__pycache__
+feature_store/__pycache__
 # prototipo/relatorios
 prototipo/graph_topo.pickle
 
