@@ -49,39 +49,69 @@ def para_epoch(serie):
 # 1. Alinhamento temporal
 ################################################################################
 
-def _separar_runs(segundos):
+def _separar_runs(segundos, gap_maximo_s=1):
     """Rotula runs distintos numa serie de segundos, cortando nos intervalos.
 
     O bwm-ng abre o arquivo de saida em modo append, entao coletas sucessivas se
-    acumulam no mesmo CSV e precisam ser separadas.
+    acumulam no mesmo CSV e precisam ser separadas. gap_maximo_s e a maior
+    lacuna tolerada como amostra perdida (nao corte de run); nos relatorios do
+    prototipo os runs sao separados por dezenas de segundos e o padrao (1s)
+    basta, mas o `banda.bwm` dos datasets/D* apresenta ocasionais lacunas de
+    1-2s por amostras perdidas do bwm-ng dentro de uma unica coleta continua,
+    exigindo tolerancia maior para nao fragmentar indevidamente a serie.
     """
     if len(segundos) == 0:
         return np.array([], dtype=int)
-    return np.concatenate([[0], np.cumsum(np.diff(segundos) > 1)])
+    return np.concatenate([[0], np.cumsum(np.diff(segundos) > gap_maximo_s)])
 
 
-def inferir_alinhamento(pasta_relatorios=RELATORIOS_PADRAO):
+def inferir_alinhamento(pasta_relatorios=RELATORIOS_PADRAO, arquivo_banda=None, gap_maximo_s=None):
     """Descobre o offset entre os relogios e qual run e o valido.
 
-    Para cada run candidato no CSV do bwm-ng, compara a primeira amostra com o
-    evento BEGIN de banda. O -1 compensa o sleep(1) que telemetria.py executa
-    entre enfileirar o BEGIN e disparar o bwm-ng.
+    Para cada run candidato na fonte de banda, compara a primeira amostra com o
+    evento BEGIN de referencia. O -1 compensa o sleep(1) que telemetria.py
+    executa entre enfileirar o BEGIN e disparar o bwm-ng.
+
+    arquivo_banda: caminho para um unico CSV do bwm-ng cobrindo todas as
+        interfaces (formato `banda.bwm` dos datasets/D*). Quando omitido
+        (padrao), usa o primeiro `banda_raw_rota_*.csv` encontrado em
+        pasta_relatorios, formato usado pelos relatorios do prototipo.
+    gap_maximo_s: tolerancia repassada a _separar_runs. Quando omitido, usa 1s
+        para banda_raw_rota_*.csv (runs distintos separados por dezenas de
+        segundos) e 5s para arquivo_banda (banda.bwm, onde ha amostras
+        perdidas isoladas de 1-2s dentro de uma unica coleta continua).
+
+    O evento de referencia e o BEGIN de banda quando presente. Os datasets/D*
+    nao registram esse evento (bwm-ng roda direto, sem fila de eventos), entao
+    cai-se para o BEGIN de latencia, que e sincrono o suficiente para o mesmo
+    calculo de offset e tolerancia de residuo.
 
     Retorna dict com offset_s, run_id, t_ini, t_fim e residuo_s.
     """
     eventos = carregar_eventos(pasta_relatorios)
     begin = eventos[(eventos.tipo == 'banda') & (eventos.evento == 'BEGIN')].datahora.min()
     if pd.isna(begin):
-        raise ValueError(f'{pasta_relatorios}/eventos.txt nao tem BEGIN de banda')
+        begin = eventos[(eventos.tipo == 'latencia') & (eventos.evento == 'BEGIN')].datahora.min()
+    if pd.isna(begin):
+        raise ValueError(f'{pasta_relatorios}/eventos.txt nao tem BEGIN de banda nem de latencia')
     begin_ingenuo = para_epoch(pd.Series([begin])).iloc[0]
 
-    arquivos = sorted(glob.glob(os.path.join(pasta_relatorios, 'banda_raw_rota_*.csv')))
-    if not arquivos:
-        raise FileNotFoundError(f'nenhum banda_raw_rota_*.csv em {pasta_relatorios}')
+    if arquivo_banda:
+        if not os.path.exists(arquivo_banda):
+            raise FileNotFoundError(arquivo_banda)
+        bruto = pd.read_csv(arquivo_banda, header=None, usecols=[0])
+        if gap_maximo_s is None:
+            gap_maximo_s = 5
+    else:
+        arquivos = sorted(glob.glob(os.path.join(pasta_relatorios, 'banda_raw_rota_*.csv')))
+        if not arquivos:
+            raise FileNotFoundError(f'nenhum banda_raw_rota_*.csv em {pasta_relatorios}')
+        bruto = pd.read_csv(arquivos[0], header=None, usecols=range(len(BWM_NG_COLUNAS)))
+        if gap_maximo_s is None:
+            gap_maximo_s = 1
 
-    bruto = pd.read_csv(arquivos[0], header=None, usecols=range(len(BWM_NG_COLUNAS)))
     segundos = np.sort(bruto[0].astype(int).unique())
-    runs = _separar_runs(segundos)
+    runs = _separar_runs(segundos, gap_maximo_s)
 
     candidatos = []
     for run_id in np.unique(runs):
@@ -138,11 +168,22 @@ def carregar_topologia(caminho_config='prototipo/config.json',
 
     proxima_porta = {}
     capacidade_por_interface = {}
+    # interface, do ponto de vista de quem envia, para cada direcao do link -
+    # necessario para resolver, a partir da sequencia de switches de uma rota,
+    # qual interface de cada switch aponta para o proximo salto (mesma logica
+    # de telemetria.py: switchA.connectionsTo(switchB))
+    interface_por_direcao = {}
     for link in topologia['links']:
-        for ponto in link['pontos']:
-            porta = proxima_porta.get(ponto, 0) + 1
-            proxima_porta[ponto] = porta
-            capacidade_por_interface[f'{ponto}-eth{porta}'] = float(link['banda'])
+        a, b = link['pontos']
+        porta_a = proxima_porta.get(a, 0) + 1
+        proxima_porta[a] = porta_a
+        capacidade_por_interface[f'{a}-eth{porta_a}'] = float(link['banda'])
+        interface_por_direcao[(a, b)] = f'{a}-eth{porta_a}'
+
+        porta_b = proxima_porta.get(b, 0) + 1
+        proxima_porta[b] = porta_b
+        capacidade_por_interface[f'{b}-eth{porta_b}'] = float(link['banda'])
+        interface_por_direcao[(b, a)] = f'{b}-eth{porta_b}'
 
     atraso_por_link = {
         tuple(sorted(link['pontos'])): float(link['atraso'] or 0)
@@ -160,9 +201,29 @@ def carregar_topologia(caminho_config='prototipo/config.json',
 
     return {
         'capacidade_por_interface': capacidade_por_interface,
+        'interface_por_direcao': interface_por_direcao,
         'atraso_por_link': atraso_por_link,
         'rotas': rotas,
     }
+
+
+def interfaces_por_rota(topologia):
+    """Interfaces (lado de origem) atravessadas por cada rota, na ordem do caminho.
+
+    Reproduz a logica de procAgenteTelemetriaBanda (telemetria.py): para cada
+    par consecutivo de switches do caminho, usa a interface do switch de
+    origem voltada ao proximo salto. E o mesmo conjunto de interfaces presente
+    em banda_tratada_rota_*.csv para cada rota.
+    """
+    interface_por_direcao = topologia['interface_por_direcao']
+    resultado = {}
+    for rota_id, caminho in topologia['rotas'].items():
+        switches = [no for no in caminho if no.startswith('s')]
+        interfaces = []
+        for i in range(len(switches) - 1):
+            interfaces.append(interface_por_direcao[(switches[i], switches[i + 1])])
+        resultado[rota_id] = interfaces
+    return resultado
 
 
 def metadados_das_rotas(topologia):
@@ -243,6 +304,63 @@ def ingerir_banda(alinhamento, topologia, pasta_relatorios=RELATORIOS_PADRAO):
 
     if not quadros:
         raise FileNotFoundError(f'nenhum banda_raw_rota_*.csv em {pasta_relatorios}')
+
+    return (pd.concat(quadros, ignore_index=True)
+            .sort_values(['rota_id', 'ts_epoch', 'interface'])
+            .reset_index(drop=True))
+
+
+def ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda):
+    """Variante de ingerir_banda para a fonte `banda.bwm` dos datasets/D*.
+
+    Nesses conjuntos o bwm-ng roda uma unica vez monitorando todas as
+    interfaces do experimento (nao um processo por rota), produzindo um CSV
+    com todas elas misturadas. A funcao filtra apenas as interfaces
+    efetivamente percorridas por alguma rota (via interfaces_por_rota) e
+    replica cada leitura de interface para todas as rotas que a atravessam -
+    interfaces compartilhadas (ex: s1-eth1) aparecem, portanto, em mais de
+    uma rota, tal como em ingerir_banda.
+    """
+    capacidades = topologia['capacidade_por_interface']
+    por_rota = interfaces_por_rota(topologia)
+
+    interface_para_rotas = {}
+    for rota_id, interfaces in por_rota.items():
+        for interface in interfaces:
+            interface_para_rotas.setdefault(interface, []).append(rota_id)
+
+    dados = pd.read_csv(
+        arquivo_banda,
+        header=None,
+        usecols=range(len(BWM_NG_COLUNAS)),
+        names=BWM_NG_COLUNAS,
+    )
+    dados = dados[dados.interface.isin(interface_para_rotas)].copy()
+
+    dados['ts_epoch'] = dados.unix_timestamp.astype(int)
+    dados = dados[
+        (dados.ts_epoch >= alinhamento['t_ini']) & (dados.ts_epoch <= alinhamento['t_fim'])
+    ].copy()
+
+    dados['taxa_Mbps'] = dados.bytes_total_s * 8.0 / 1e6
+    dados['capacidade_Mbps'] = dados.interface.map(capacidades)
+    dados['banda_disp_Mbps'] = dados.capacidade_Mbps - dados.taxa_Mbps
+    dados['util_pct'] = 100 * dados.taxa_Mbps / dados.capacidade_Mbps
+    dados['run_id'] = alinhamento['run_id']
+
+    quadros = []
+    for interface, rotas in interface_para_rotas.items():
+        fatia = dados[dados.interface == interface]
+        for rota_id in rotas:
+            replicado = fatia.copy()
+            replicado['rota_id'] = rota_id
+            quadros.append(replicado[[
+                'run_id', 'rota_id', 'interface', 'ts_epoch',
+                'taxa_Mbps', 'capacidade_Mbps', 'banda_disp_Mbps', 'util_pct',
+            ]])
+
+    if not quadros:
+        raise ValueError(f'nenhuma interface de rota encontrada em {arquivo_banda}')
 
     return (pd.concat(quadros, ignore_index=True)
             .sort_values(['rota_id', 'ts_epoch', 'interface'])
@@ -623,12 +741,23 @@ def _limite_para_epoch(valor):
 def construir(pasta_relatorios=RELATORIOS_PADRAO,
               caminho_config='prototipo/config.json',
               pasta_destino=DESTINO_PADRAO,
-              persistir_em_disco=True):
-    """Executa o pipeline completo e devolve as tabelas construidas."""
-    alinhamento = inferir_alinhamento(pasta_relatorios)
+              persistir_em_disco=True,
+              arquivo_banda=None):
+    """Executa o pipeline completo e devolve as tabelas construidas.
+
+    arquivo_banda: quando informado (caminho para um `banda.bwm`, formato dos
+        datasets/D*), a banda e ingerida a partir desse arquivo unico via
+        ingerir_banda_arquivo_unico, em vez dos banda_raw_rota_*.csv de
+        pasta_relatorios. Usado para reconstruir a store sobre datasets/D*, que
+        nao produzem um CSV por rota.
+    """
+    alinhamento = inferir_alinhamento(pasta_relatorios, arquivo_banda=arquivo_banda)
     topologia = carregar_topologia(caminho_config, pasta_relatorios)
 
-    fg_banda_interface = ingerir_banda(alinhamento, topologia, pasta_relatorios)
+    if arquivo_banda:
+        fg_banda_interface = ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda)
+    else:
+        fg_banda_interface = ingerir_banda(alinhamento, topologia, pasta_relatorios)
     fg_latencia = ingerir_latencia(alinhamento, pasta_relatorios)
     fg_banda_rota = agregar_por_rota(fg_banda_interface, topologia)
     dim_rota = metadados_das_rotas(topologia)
