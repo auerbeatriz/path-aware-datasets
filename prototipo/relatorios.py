@@ -1,6 +1,6 @@
 import msg
 from datetime import datetime
-from helpers.parser_banda import parseBanda
+from helpers.parser_banda import parseBanda, consolidarBanda, idRotaDoNome
 
 ################################################################################
 # Salva o histórico de telemetria de banda por caminho em arquivos texto
@@ -22,8 +22,16 @@ def salvarRelatorioBanda(topologia):
             capacidade_por_interface[f'{ponto}-eth{porta}'] = float(capacidade)
     
     # Parse de relatórios de banda por caminho
+    pathIds = []
     for rota in topologia['rotas']:
         parseBanda(rota, topologia, capacidade_por_interface)
+        pathId = idRotaDoNome(rota['nome'])
+        if pathId is not None:
+            pathIds.append(pathId)
+
+    # Consolida a banda de todos os caminhos em um único CSV, assim como é
+    #   feito para a latência em 'latencia_rotas_h1_h6.csv'
+    consolidarBanda('relatorios', 'banda_rotas_h1_h6.csv', pathIds)
 
 ################################################################################
 # Salva o histórico de telemetria e dados de teste em arquivos texto
