@@ -141,7 +141,34 @@ latência/bdp, azul = feature de banda/gargalo
 
 ![MDI por cenário com latência](_/resultados_feature_importance/mdi_por_cenario_com_latencia.png)
 
-### 3.4 Comparação: latência vs. banda
+### 3.4 Por que o MDI parece atribuir mais importância que a permutação?
+
+Nos gráficos acima, é visível que os valores de MDI são, em geral, maiores e
+mais distribuídos entre as features do que os valores de permutação — mesmo
+para features fracas. Isso acontece porque os dois métodos medem coisas
+diferentes:
+
+- **MDI** soma a redução de impureza em *todos* os splits, de *todas* as
+  árvores, em que aquela feature foi usada. Como toda feature acaba sendo
+  usada em algum split (ainda que pouco informativo), o MDI raramente é
+  próximo de zero. Além disso, é calculado durante o **treino**, o que o
+  torna sensível a padrões espúrios/overfit e a features de alta
+  cardinalidade (métricas instantâneas têm mais valores distintos que
+  agregados de janela, gerando mais oportunidades de split).
+- **Permutação** mede o quanto a acurácia **no teste** cai ao embaralhar
+  apenas aquela coluna. Se a feature é redundante com outras (ex.:
+  `banda_media_Mbps` correlacionada com `banda_media_micro_5s`), o modelo
+  compensa usando as demais, e a queda de acurácia é pequena — por isso os
+  valores de permutação tendem a ser baixos e concentrados em poucas
+  features realmente insubstituíveis.
+
+Esse contraste explica, por exemplo, o cenário `D1`: mesmo sem sinal real de
+congestionamento, o MDI ainda atribui importância não-trivial a quase todas
+as features (capturando ruído do treino), enquanto a permutação cai perto de
+zero (refletindo a ausência de ganho real de acurácia no teste). Por isso a
+permutação é a referência mais confiável quando os dois métodos divergem.
+
+### 3.5 Comparação: latência vs. banda
 
 | | sem latência (13 features) | com latência (25 features) |
 |---|---|---|
@@ -176,7 +203,7 @@ features: `banda_media_Mbps` na 7ª posição, `util_max_pct` na 10ª,
 `gargalo_Mbps` na 14ª — todas dentro do top-15, evidência de que carregam
 sinal complementar, não apenas redundante em relação à latência.
 
-### 3.5 Resultados gerais e features mais importantes
+### 3.6 Resultados gerais e features mais importantes
 
 **Sem latência**, os dois métodos concordam que `banda_media_Mbps` é a
 feature mais importante, com folga, tanto por MDI (0,154) quanto por
