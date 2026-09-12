@@ -379,7 +379,582 @@ completo.head()
 """),
 
 md(r"""
-## 8. Limitações
+## 8. Análise de feature importance
+
+Reaproveita o ferramental de `Análise_de_modelos_de_ML_para_previsão_de_caminhos.ipynb`
+(RandomForest + `sklearn`) para estimar a importância relativa de cada feature
+da store na previsão de `melhor_rota`, combinando os dois métodos usuais:
+
+- **Importância por impureza (MDI)**: `feature_importances_` do RandomForest,
+  calculada durante o treino a partir da redução média de impureza (Gini) em
+  cada split. É rápida, mas enviesada a favor de features com muitos valores
+  distintos e não reflete diretamente o desempenho do modelo.
+- **Importância por permutação**: embaralha cada coluna (uma de cada vez) no
+  conjunto de teste e mede a queda de acurácia. É mais confiável — reflete o
+  impacto real na métrica escolhida — mas mais cara computacionalmente.
+
+Como `melhor_rota` é função determinística de `latencia_ms` (ver seção de
+Limitações), as colunas derivadas de latência dominam a análise por
+construção. A célula de preparação dos dados por isso oferece a opção de
+excluir o grupo `latencia_*` para revelar a importância relativa **dentro**
+das features de banda/gargalo — a pergunta mais interessante do ponto de
+vista de um modelo que não tenha acesso direto à latência da rota candidata.
+
+Além da análise geral (todos os datasets combinados), a seção também repete o
+cálculo **separadamente por cenário de tráfego** (`D1`/`D1b`, `D2`/`D2b`,
+`D3`/`D3b`, `D4`/`D4b`), permitindo verificar se a importância relativa das
+features muda conforme o regime de congestionamento de fundo.
+"""),
+
+code(r"""
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.inspection import permutation_importance
+
+RANDOM_STATE = 1234
+"""),
+
+md(r"""
+### Preparação dos dados
+
+Usa o conjunto consolidado de todos os datasets (`completo`, seção 7), com
+`melhor_rota` como alvo. Colunas identificadoras/temporais e as próprias
+colunas de origem do alvo (que definiriam `melhor_rota` por construção, se
+mantidas por rota) são descartadas; linhas sem alvo (`melhor_rota` nulo, por
+falha de ping em alguma rota naquele instante) são removidas.
+
+`EXCLUIR_LATENCIA` controla se as features de latência entram na análise —
+mantenha `True` para focar na importância relativa das features de banda.
+"""),
+
+code(r"""
+EXCLUIR_LATENCIA = True
+
+COLUNAS_NAO_FEATURE = {
+    'dataset_id', 'run_id', 'rota_id', 'ts_epoch', 'datetime_utc',
+    'tempo_relativo_s', 'melhor_rota',
+}
+
+base = completo.dropna(subset=['melhor_rota']).copy()
+
+candidatas = [c for c in base.columns if c not in COLUNAS_NAO_FEATURE]
+if EXCLUIR_LATENCIA:
+    candidatas = [c for c in candidatas if not c.startswith('latencia_')
+                  and c not in ('bdp',)]
+
+# Descarta colunas totalmente nulas para o corte atual (ex.: features de janela
+# sem amostras suficientes no início de cada run)
+candidatas = [c for c in candidatas if base[c].notna().any()]
+
+X_fi = base[candidatas].fillna(base[candidatas].median(numeric_only=True))
+y_fi = base['melhor_rota'].astype(int)
+
+print(f"features candidatas: {len(candidatas)}")
+print(f"registros: {len(X_fi)}")
+print(f"classes (rotas): {sorted(y_fi.unique())}")
+"""),
+
+md(r"""
+### Treino do RandomForest
+
+Split treino/teste estratificado (80/20), igual ao usado no notebook de
+referência, para permitir tanto a importância por impureza (calculada no
+treino) quanto a importância por permutação (calculada no teste, para não
+inflar a métrica com overfitting).
+"""),
+
+code(r"""
+X_train_fi, X_test_fi, y_train_fi, y_test_fi = train_test_split(
+    X_fi, y_fi, test_size=0.2, random_state=RANDOM_STATE, stratify=y_fi
+)
+
+modelo_fi = RandomForestClassifier(n_estimators=300, random_state=RANDOM_STATE, n_jobs=-1)
+modelo_fi.fit(X_train_fi, y_train_fi)
+
+acuracia_fi = modelo_fi.score(X_test_fi, y_test_fi)
+print(f"acurácia no teste: {acuracia_fi:.4f}")
+"""),
+
+md(r"""
+### Importância por impureza (MDI)
+"""),
+
+code(r"""
+importancia_mdi = pd.Series(modelo_fi.feature_importances_, index=candidatas)
+importancia_mdi = importancia_mdi.sort_values(ascending=False)
+
+top_n = min(20, len(importancia_mdi))
+fig, ax = plt.subplots(figsize=(9, 0.35 * top_n + 1))
+importancia_mdi.head(top_n).iloc[::-1].plot.barh(ax=ax, color='steelblue')
+ax.set_xlabel('Importância (redução média de impureza)')
+ax.set_title(f'Top {top_n} features — MDI (RandomForest)')
+ax.grid(axis='x', alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+importancia_mdi.head(top_n)
+"""),
+
+md(r"""
+### Importância por permutação
+
+Calculada sobre o conjunto de teste, com 10 repetições por feature para
+estimar a variabilidade (barras de erro = desvio padrão entre repetições).
+"""),
+
+code(r"""
+resultado_perm = permutation_importance(
+    modelo_fi, X_test_fi, y_test_fi,
+    n_repeats=10, random_state=RANDOM_STATE, n_jobs=1
+)
+
+importancia_perm = pd.Series(resultado_perm.importances_mean, index=candidatas)
+desvio_perm = pd.Series(resultado_perm.importances_std, index=candidatas)
+ordem_perm = importancia_perm.sort_values(ascending=False)
+
+top_n = min(20, len(ordem_perm))
+fig, ax = plt.subplots(figsize=(9, 0.35 * top_n + 1))
+ax.barh(
+    ordem_perm.head(top_n).index[::-1],
+    ordem_perm.head(top_n).iloc[::-1],
+    xerr=desvio_perm.reindex(ordem_perm.head(top_n).index).iloc[::-1],
+    color='darkorange',
+)
+ax.set_xlabel('Queda de acurácia ao permutar (média ± desvio)')
+ax.set_title(f'Top {top_n} features — Importância por permutação')
+ax.grid(axis='x', alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+ordem_perm.head(top_n)
+"""),
+
+md(r"""
+### Comparação entre os dois métodos
+
+Concorda quando a mesma feature aparece bem posicionada nos dois rankings;
+diverge tipicamente para features de alta cardinalidade, que a MDI tende a
+supervalorizar frente ao real impacto na acurácia.
+"""),
+
+code(r"""
+comparacao_fi = pd.DataFrame({
+    'mdi': importancia_mdi,
+    'permutacao': importancia_perm,
+}).sort_values('permutacao', ascending=False)
+
+comparacao_fi['rank_mdi'] = comparacao_fi['mdi'].rank(ascending=False).astype(int)
+comparacao_fi['rank_permutacao'] = comparacao_fi['permutacao'].rank(ascending=False).astype(int)
+
+comparacao_fi.head(15)
+"""),
+
+md(r"""
+### Feature importance por cenário
+
+A análise anterior combina todos os datasets — mas cada par (`D1`/`D1b`,
+`D2`/`D2b`, `D3`/`D3b`, `D4`/`D4b`) representa um cenário de tráfego de fundo
+distinto (ver Seção "Conjuntos processados"), e a importância relativa das
+features pode variar conforme o regime de congestionamento. Esta seção repete
+o treino e a importância por permutação **separadamente para cada cenário**,
+usando o mesmo conjunto de 13 features de banda/gargalo (sem latência), para
+permitir comparar se, por exemplo, o gargalo importa mais sob tráfego
+concorrente (`D4`) do que na linha de base (`D1`).
+"""),
+
+code(r"""
+CENARIOS = {
+    'D1 (baseline)': ['D1', 'D1b'],
+    'D2 (tráfego constante)': ['D2', 'D2b'],
+    'D3 (iperf longo)': ['D3', 'D3b'],
+    'D4 (iperf concorrente)': ['D4', 'D4b'],
+}
+
+importancias_por_cenario = {}
+importancias_mdi_por_cenario = {}
+acuracias_por_cenario = {}
+
+for nome_cenario, datasets_cenario in CENARIOS.items():
+    base_c = base[base.dataset_id.isin(datasets_cenario)]
+    X_c = base_c[candidatas]
+    y_c = base_c['melhor_rota'].astype(int)
+
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(
+        X_c, y_c, test_size=0.2, random_state=RANDOM_STATE, stratify=y_c
+    )
+
+    modelo_c = RandomForestClassifier(n_estimators=200, random_state=RANDOM_STATE, n_jobs=-1)
+    modelo_c.fit(X_train_c, y_train_c)
+    acuracia_c = modelo_c.score(X_test_c, y_test_c)
+
+    resultado_perm_c = permutation_importance(
+        modelo_c, X_test_c, y_test_c,
+        n_repeats=5, random_state=RANDOM_STATE, n_jobs=1
+    )
+
+    importancias_por_cenario[nome_cenario] = pd.Series(
+        resultado_perm_c.importances_mean, index=candidatas
+    )
+    importancias_mdi_por_cenario[nome_cenario] = pd.Series(
+        modelo_c.feature_importances_, index=candidatas
+    )
+    acuracias_por_cenario[nome_cenario] = acuracia_c
+
+    print(f"{nome_cenario:26s} | registros: {len(X_c):6d} | acurácia: {acuracia_c:.4f}")
+"""),
+
+md(r"""
+### Comparação entre cenários e resultado geral
+
+Tabela com a importância por permutação de cada feature em cada cenário,
+lado a lado com a importância geral (todos os datasets combinados, calculada
+anteriormente), ordenada pela importância geral. Isso evidencia tanto
+features consistentemente importantes em todos os cenários quanto features
+cuja relevância é específica de um regime de tráfego.
+"""),
+
+code(r"""
+comparacao_cenarios = pd.DataFrame(importancias_por_cenario)
+comparacao_cenarios['geral (todos os datasets)'] = importancia_perm
+comparacao_cenarios = comparacao_cenarios.sort_values('geral (todos os datasets)', ascending=False)
+
+comparacao_cenarios
+"""),
+
+code(r"""
+fig, ax = plt.subplots(figsize=(11, 6))
+comparacao_cenarios.plot.barh(ax=ax, width=0.8)
+ax.set_xlabel('Importância por permutação (queda de acurácia)')
+ax.set_title('Importância por permutação — por cenário vs. geral')
+ax.invert_yaxis()
+ax.grid(axis='x', alpha=0.3)
+ax.legend(fontsize=8, loc='lower right')
+plt.tight_layout()
+plt.show()
+"""),
+
+md(r"""
+### MDI por cenário e resultado geral
+
+Mesma comparação anterior, agora usando a importância por impureza (MDI)
+em vez de permutação — permite ver se a divergência entre os dois métodos
+observada no resultado geral (Seção 8) também aparece dentro de cada
+cenário individualmente.
+"""),
+
+code(r"""
+comparacao_cenarios_mdi = pd.DataFrame(importancias_mdi_por_cenario)
+comparacao_cenarios_mdi['geral (todos os datasets)'] = importancia_mdi
+comparacao_cenarios_mdi = comparacao_cenarios_mdi.sort_values('geral (todos os datasets)', ascending=False)
+
+comparacao_cenarios_mdi
+"""),
+
+code(r"""
+fig, ax = plt.subplots(figsize=(11, 6))
+comparacao_cenarios_mdi.plot.barh(ax=ax, width=0.8)
+ax.set_xlabel('Importância por MDI (redução média de impureza)')
+ax.set_title('Importância por MDI — por cenário vs. geral')
+ax.invert_yaxis()
+ax.grid(axis='x', alpha=0.3)
+ax.legend(fontsize=8, loc='lower right')
+plt.tight_layout()
+plt.show()
+"""),
+
+md(r"""
+### Acurácia por cenário
+
+A acurácia de cada modelo por cenário, comparada com a acurácia geral obtida
+com todos os datasets combinados — indica se a tarefa fica mais fácil ou mais
+difícil quando restrita a um único regime de tráfego (menos variação nos
+dados, porém menos exemplos de treino).
+"""),
+
+code(r"""
+resumo_acuracia = pd.Series(acuracias_por_cenario)
+resumo_acuracia['geral (todos os datasets)'] = acuracia_fi
+resumo_acuracia.to_frame('acurácia no teste')
+"""),
+
+md(r"""
+### Análise complementar incluindo latência
+
+As análises anteriores excluem `latencia_*` e `bdp` deliberadamente, para
+evitar o vazamento trivial descrito na Seção 11. Esta subseção repete o
+treino **incluindo** essas features, tanto no conjunto geral (todos os
+datasets) quanto **separadamente por cenário** (mesmos pares `D1`/`D1b` a
+`D4`/`D4b` usados na análise sem latência), para quantificar diretamente o
+quanto elas dominam quando presentes, se essa dominância é uniforme entre
+cenários, e para confirmar que o exercício de exclusão não é apenas uma
+precaução teórica.
+"""),
+
+code(r"""
+candidatas_com_latencia = [c for c in base.columns if c not in COLUNAS_NAO_FEATURE]
+candidatas_com_latencia = [c for c in candidatas_com_latencia if base[c].notna().any()]
+
+X_cl = base[candidatas_com_latencia].fillna(base[candidatas_com_latencia].median(numeric_only=True))
+y_cl = base['melhor_rota'].astype(int)
+
+X_train_cl, X_test_cl, y_train_cl, y_test_cl = train_test_split(
+    X_cl, y_cl, test_size=0.2, random_state=RANDOM_STATE, stratify=y_cl
+)
+
+modelo_cl = RandomForestClassifier(n_estimators=300, random_state=RANDOM_STATE, n_jobs=-1)
+modelo_cl.fit(X_train_cl, y_train_cl)
+
+acuracia_cl = modelo_cl.score(X_test_cl, y_test_cl)
+print(f"features (com latência): {len(candidatas_com_latencia)}")
+print(f"acurácia no teste (geral): {acuracia_cl:.4f}")
+
+# Repete o treino separadamente por cenário, com o mesmo conjunto de features
+# (com latência), para verificar se a dominância da latência é uniforme entre
+# regimes de tráfego de fundo.
+importancias_por_cenario_cl = {}
+importancias_mdi_por_cenario_cl = {}
+acuracias_por_cenario_cl = {}
+
+print()
+for nome_cenario, datasets_cenario in CENARIOS.items():
+    base_c = base[base.dataset_id.isin(datasets_cenario)]
+    X_c_cl = base_c[candidatas_com_latencia].fillna(
+        base_c[candidatas_com_latencia].median(numeric_only=True)
+    )
+    y_c_cl = base_c['melhor_rota'].astype(int)
+
+    X_train_c_cl, X_test_c_cl, y_train_c_cl, y_test_c_cl = train_test_split(
+        X_c_cl, y_c_cl, test_size=0.2, random_state=RANDOM_STATE, stratify=y_c_cl
+    )
+
+    modelo_c_cl = RandomForestClassifier(n_estimators=200, random_state=RANDOM_STATE, n_jobs=-1)
+    modelo_c_cl.fit(X_train_c_cl, y_train_c_cl)
+    acuracia_c_cl = modelo_c_cl.score(X_test_c_cl, y_test_c_cl)
+
+    resultado_perm_c_cl = permutation_importance(
+        modelo_c_cl, X_test_c_cl, y_test_c_cl,
+        n_repeats=5, random_state=RANDOM_STATE, n_jobs=1
+    )
+
+    importancias_por_cenario_cl[nome_cenario] = pd.Series(
+        resultado_perm_c_cl.importances_mean, index=candidatas_com_latencia
+    )
+    importancias_mdi_por_cenario_cl[nome_cenario] = pd.Series(
+        modelo_c_cl.feature_importances_, index=candidatas_com_latencia
+    )
+    acuracias_por_cenario_cl[nome_cenario] = acuracia_c_cl
+
+    print(f"{nome_cenario:26s} | registros: {len(X_c_cl):6d} | acurácia: {acuracia_c_cl:.4f}")
+"""),
+
+code(r"""
+resultado_perm_cl = permutation_importance(
+    modelo_cl, X_test_cl, y_test_cl,
+    n_repeats=10, random_state=RANDOM_STATE, n_jobs=1
+)
+
+importancia_perm_cl = pd.Series(resultado_perm_cl.importances_mean, index=candidatas_com_latencia)
+desvio_perm_cl = pd.Series(resultado_perm_cl.importances_std, index=candidatas_com_latencia)
+ordem_perm_cl = importancia_perm_cl.sort_values(ascending=False)
+
+top_n = min(20, len(ordem_perm_cl))
+fig, ax = plt.subplots(figsize=(9, 0.35 * top_n + 1))
+cores = ['crimson' if c.startswith('latencia_') or c == 'bdp' else 'steelblue'
+         for c in ordem_perm_cl.head(top_n).index[::-1]]
+ax.barh(
+    ordem_perm_cl.head(top_n).index[::-1],
+    ordem_perm_cl.head(top_n).iloc[::-1],
+    xerr=desvio_perm_cl.reindex(ordem_perm_cl.head(top_n).index).iloc[::-1],
+    color=cores,
+)
+ax.set_xlabel('Queda de acurácia ao permutar (média ± desvio)')
+ax.set_title(f'Top {top_n} features — Importância por permutação (com latência, geral)')
+ax.grid(axis='x', alpha=0.3)
+plt.tight_layout()
+plt.show()
+
+print("vermelho = feature de latência/bdp | azul = feature de banda/gargalo")
+ordem_perm_cl.head(top_n)
+"""),
+
+md(r"""
+### Comparação entre cenários e resultado geral (com latência)
+
+Mesmo formato da comparação por cenário sem latência, agora com o conjunto
+de 25 features (banda/gargalo + latência/bdp), lado a lado com o resultado
+geral.
+"""),
+
+code(r"""
+comparacao_cenarios_cl = pd.DataFrame(importancias_por_cenario_cl)
+comparacao_cenarios_cl['geral (todos os datasets)'] = importancia_perm_cl
+comparacao_cenarios_cl = comparacao_cenarios_cl.sort_values('geral (todos os datasets)', ascending=False)
+
+comparacao_cenarios_cl
+"""),
+
+code(r"""
+fig, ax = plt.subplots(figsize=(11, 7))
+comparacao_cenarios_cl.plot.barh(ax=ax, width=0.8)
+ax.set_xlabel('Importância por permutação (queda de acurácia)')
+ax.set_title('Importância por permutação (com latência) — por cenário vs. geral')
+ax.invert_yaxis()
+ax.grid(axis='x', alpha=0.3)
+ax.legend(fontsize=8, loc='lower right')
+plt.tight_layout()
+plt.show()
+"""),
+
+md(r"""
+### MDI por cenário e resultado geral (com latência)
+
+Mesma comparação de MDI por cenário feita na análise sem latência, agora com
+o conjunto de 25 features. Espera-se que `latencia_ms` e demais features de
+latência dominem o MDI em todos os cenários, dado o vazamento de rótulo.
+"""),
+
+code(r"""
+importancia_mdi_cl = pd.Series(modelo_cl.feature_importances_, index=candidatas_com_latencia)
+
+comparacao_cenarios_mdi_cl = pd.DataFrame(importancias_mdi_por_cenario_cl)
+comparacao_cenarios_mdi_cl['geral (todos os datasets)'] = importancia_mdi_cl
+comparacao_cenarios_mdi_cl = comparacao_cenarios_mdi_cl.sort_values('geral (todos os datasets)', ascending=False)
+
+comparacao_cenarios_mdi_cl
+"""),
+
+code(r"""
+fig, ax = plt.subplots(figsize=(11, 7))
+comparacao_cenarios_mdi_cl.plot.barh(ax=ax, width=0.8)
+ax.set_xlabel('Importância por MDI (redução média de impureza)')
+ax.set_title('Importância por MDI (com latência) — por cenário vs. geral')
+ax.invert_yaxis()
+ax.grid(axis='x', alpha=0.3)
+ax.legend(fontsize=8, loc='lower right')
+plt.tight_layout()
+plt.show()
+"""),
+
+md(r"""
+### Acurácia por cenário (com latência)
+
+Mesma comparação feita sem latência, agora com as features de latência/bdp
+incluídas — permite ver, cenário a cenário, o ganho de acurácia trazido pela
+latência frente ao modelo apenas com banda/gargalo.
+"""),
+
+code(r"""
+resumo_acuracia_cl = pd.Series(acuracias_por_cenario_cl)
+resumo_acuracia_cl['geral (todos os datasets)'] = acuracia_cl
+
+comparacao_acuracia = pd.DataFrame({
+    'sem latência': resumo_acuracia,
+    'com latência': resumo_acuracia_cl,
+})
+comparacao_acuracia['ganho'] = comparacao_acuracia['com latência'] - comparacao_acuracia['sem latência']
+comparacao_acuracia
+"""),
+
+md(r"""
+### Onde as features de banda ficam no ranking combinado
+
+Isola, dentro do ranking completo (com latência), a posição das features de
+banda/gargalo — mostrando quanto do espaço de importância elas ainda ocupam
+mesmo competindo diretamente com a latência.
+"""),
+
+code(r"""
+ranking_completo = ordem_perm_cl.rank(ascending=False).astype(int)
+posicoes_banda = ranking_completo[[c for c in candidatas_com_latencia
+                                    if not c.startswith('latencia_') and c != 'bdp']]
+
+print(f"acurácia sem latência : {acuracia_fi:.4f}  ({len(candidatas)} features)")
+print(f"acurácia com latência : {acuracia_cl:.4f}  ({len(candidatas_com_latencia)} features)")
+print(f"ganho de acurácia      : {acuracia_cl - acuracia_fi:+.4f}")
+print()
+print("posição das features de banda no ranking combinado (1 = mais importante):")
+posicoes_banda.sort_values().to_frame('posição no ranking')
+"""),
+
+md(r"""
+## 10. Resumo e conclusões
+
+### O que foi feito
+
+A análise partiu do conjunto consolidado de todos os 8 datasets elegíveis
+(`completo`, Seção 7 — 117.718 registros, 4 rotas por dataset), com
+`melhor_rota` como alvo. Um `RandomForestClassifier` (300 árvores) foi
+treinado em split estratificado 80/20, e a importância de cada feature foi
+medida por dois métodos complementares: **MDI** (redução de impureza,
+calculada no treino) e **importância por permutação** (queda de acurácia ao
+embaralhar cada coluna no teste, 10 repetições). A análise foi repetida
+também separadamente por cenário de tráfego (`D1`/`D1b` a `D4`/`D4b`), tanto
+excluindo quanto incluindo as features de latência.
+
+### Features eliminadas e motivo
+
+| feature(s) removida(s) | motivo da exclusão |
+|---|---|
+| `latencia_*` (p95, jitter, média em todas as janelas) e `latencia_ms` | Definem `melhor_rota` por construção (`melhor_rota = argmin(latencia_ms)`), então dominariam a importância trivialmente sem agregar informação — ver "Vazamento no alvo" na Seção 11. |
+| `bdp` | Calculado como `gargalo_Mbps × latencia_ms`, herda o mesmo vazamento por incorporar `latencia_ms` diretamente na fórmula. |
+| `dataset_id`, `run_id`, `rota_id`, `ts_epoch`, `datetime_utc`, `tempo_relativo_s` | Identificadores e marcações temporais/de execução, não sinais de rede — mantê-los correlacionaria o modelo a artefatos da coleta (ex.: qual dataset ou run gerou a linha) em vez do comportamento da rede. |
+| Colunas de janela integralmente nulas no corte atual | Removidas dinamicamente (`base[c].notna().any()`) — nenhuma das 13 features de banda restantes caiu nessa condição no conjunto completo, mas o filtro protege reexecuções com subconjuntos menores de dados. |
+
+Restaram **13 features**, todas derivadas de banda/gargalo/utilização nas
+métricas instantâneas e nas três janelas (`micro`=5s, `curta`=15s,
+`longa`=30s).
+
+### Conclusão e interpretação dos resultados
+
+- **Acurácia de 84,6%** prevendo a rota de menor latência **sem usar
+  qualquer feature de latência**, apenas com sinais de banda/gargalo — indício
+  de que o gargalo de banda por si só carrega bastante informação sobre qual
+  caminho está mais congestionado, embora não seja perfeitamente equivalente à
+  latência (daí a diferença dos 100% obtidos ao incluir `latencia_ms`).
+- **`banda_media_Mbps` domina os dois rankings** (1º lugar em MDI e em
+  permutação, com folga): a banda média entre as interfaces do caminho é o
+  sinal instantâneo mais informativo, mais até que o próprio gargalo mínimo.
+- **MDI e permutação divergem na posição intermediária**: MDI privilegia
+  `gargalo_Mbps` e `util_max_pct` (2º-3º lugar), enquanto a permutação
+  privilegia as versões em janela do gargalo (`gargalo_min_longa/curta/micro`,
+  2º-4º lugar). Isso é consistente com o viés conhecido do MDI a favor de
+  features de alta cardinalidade/variância (as métricas instantâneas têm mais
+  valores distintos que os agregados de janela) — a permutação, medindo o
+  impacto real na acurácia, é a referência mais confiável aqui.
+- **Contexto temporal importa mais que o instante isolado para o gargalo**:
+  as três variantes de `gargalo_min_{janela}` aparecem entre as 4 mais
+  importantes por permutação, sugerindo que a *tendência recente* do gargalo
+  (não apenas seu valor pontual) ajuda o modelo a diferenciar rotas.
+- **A importância varia por cenário de tráfego**: repetindo a análise
+  separadamente por par de datasets (`D1`/`D1b` a `D4`/`D4b`), o padrão muda
+  substancialmente entre cenários. Em `D1` (baseline, sem tráfego de fundo) a
+  acurácia é de 99,4% mas as importâncias por permutação são praticamente
+  nulas para todas as features — a banda quase não varia nesse cenário
+  (valores próximos de 100 Mbps o tempo todo), então o RandomForest explora
+  diferenças residuais mínimas e consistentes entre rotas, não um sinal de
+  congestionamento real. Já em `D2` (tráfego constante), `banda_media_Mbps`
+  concentra a maior parte da importância (0,16, muito acima da média geral de
+  0,07); em `D3`/`D4` (fluxos iperf), a importância se distribui mais entre
+  `gargalo_min_{janela}`, coerente com a natureza intermitente desses
+  cenários. Isso confirma que a importância "geral" (todos os datasets
+  combinados) é uma média que mistura regimes bem diferentes.
+- **Interpretação com cautela**: como discutido na próxima seção, a
+  correlação contemporânea entre banda e latência (ambas reagem ao mesmo
+  congestionamento) significa que esta importância reflete associação, não
+  necessariamente uma relação preditiva utilizável antes do fato consumado.
+- **Incluir latência eleva a acurácia geral para 89,0%** (25 features, ante
+  84,6% com 13 features de banda apenas) — um ganho de 4,5 pontos percentuais,
+  não os 100% que uma dependência determinística perfeita sugeriria à
+  primeira vista. `latencia_ms` domina isoladamente a importância por
+  permutação nesse cenário combinado (0,062, cerca de 3× a segunda posição),
+  mas `banda_media_Mbps`, `gargalo_Mbps` e `util_max_pct` continuam entre as
+  10 mais importantes por MDI mesmo competindo diretamente com toda a família
+  de features de latência — evidência adicional de que carregam sinal
+  complementar, não apenas redundante.
+"""),
+
+md(r"""
+## 11. Limitações
 
 **Correção de unidade não aplicada aqui.** Diferente de `Feature_Store_Telemetria.ipynb`,
 que reprocessa a partir de `banda_raw_rota_*.csv` cru, os datasets/D* já foram
@@ -398,6 +973,14 @@ estimar variância entre execuções do mesmo cenário.
 **Vazamento no alvo.** A coluna `melhor_rota` permanece função determinística
 da latência em todos os datasets, pela mesma razão descrita no notebook de
 referência.
+
+**Feature importance com vazamento controlado, mas não eliminado.** Mesmo
+excluindo `latencia_*` e `bdp`, features de banda no mesmo instante (`gargalo_Mbps`,
+`banda_media_Mbps`) ainda podem carregar parte da mesma causalidade que gera a
+latência mais baixa (ex.: link congestionado eleva latência e reduz banda
+simultaneamente), então a importância observada reflete correlação
+contemporânea, não necessariamente uma relação causal ou preditiva
+"antecedente".
 """),
 ]
 
