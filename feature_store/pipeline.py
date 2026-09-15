@@ -558,17 +558,34 @@ COLUNAS_DATA = ['datetime_utc']
 COLUNAS_INTEIRO_NULAVEL = ['melhor_rota']
 
 
+# Colunas da view que sao chave/identificacao/tempo, nunca features de pivot
+COLUNAS_NAO_FEATURE_WIDE = {
+    'run_id', 'rota_id', 'ts_epoch', 'datetime_utc', 'tempo_relativo_s',
+    'melhor_rota',
+}
+
+
 def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
                  dim_rota=None, pasta_destino=DESTINO_PADRAO):
-    """Persiste a store em CSV, em dois layouts.
+    """Persiste a store em CSV, em tres layouts.
 
     Longo: um CSV por feature group, mais dim_rota.csv com os atributos fixos
     de cada caminho. Cada linha de um feature group e uma observacao no grao da
     tabela. E a camada canonica, lida de volta por get_features().
 
-    Largo: latencia_rotas_h1_h6.csv, banda_rotas_h1_h6.csv e rotulos_h1_h6.txt,
-    com uma coluna por rota e uma linha por instante - o mesmo layout de
-    datasets/D*, para que o notebook de ML leia sem adaptacao.
+    Largo (legado): latencia_rotas_h1_h6.csv, banda_rotas_h1_h6.csv e
+    rotulos_h1_h6.txt, com uma coluna por rota e uma linha por instante - o
+    mesmo layout de datasets/D*, para que o notebook de ML original leia sem
+    adaptacao. Cobre apenas latencia_ms e gargalo_Mbps.
+
+    Largo completo (csv_wide/features_wide.csv): todas as features numericas
+    da view, pivotadas via construir_wide - uma linha por timestamp, uma
+    coluna por combinacao (feature, rota_id). E o layout necessario para
+    comparar rotas entre si (em vez de avalia-las isoladamente); ver
+    construir_wide() para detalhes. Persistido como artefato derivado, nao
+    como camada canonica: get_features() continua sendo o caminho de leitura
+    recomendado para quem precisa filtrar rotas/metricas/janela antes de
+    pivotar.
 
     O CSV nao carrega tipos, entao datas saem em ISO 8601 e o ts_epoch e
     preservado como inteiro, o que permite releitura exata sem depender de
@@ -582,8 +599,10 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
     """
     pasta_longo = os.path.join(pasta_destino, 'csv')
     pasta_largo = os.path.join(pasta_destino, 'csv_ml')
+    pasta_largo_completo = os.path.join(pasta_destino, 'csv_wide')
     os.makedirs(pasta_longo, exist_ok=True)
     os.makedirs(pasta_largo, exist_ok=True)
+    os.makedirs(pasta_largo_completo, exist_ok=True)
 
     gerados = []
 
@@ -632,6 +651,15 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
             f'rotulos ({len(rotulos)}) e features ({len(latencia_larga)}) '
             'com contagens diferentes'
         )
+
+    # --- layout largo completo: todas as features, via construir_wide ---
+    colunas_numericas = view.select_dtypes(include='number').columns
+    colunas_feature = [c for c in colunas_numericas if c not in COLUNAS_NAO_FEATURE_WIDE]
+
+    largo_completo = construir_wide(view, colunas_feature, chave_tempo=('ts_epoch',))
+    caminho_wide = os.path.join(pasta_largo_completo, 'features_wide.csv')
+    largo_completo.to_csv(caminho_wide, index=False)
+    gerados.append(caminho_wide)
 
     return gerados
 
@@ -732,6 +760,57 @@ def _limite_para_epoch(valor):
     if isinstance(valor, (int, np.integer)):
         return int(valor)
     return int(para_epoch(pd.Series([pd.Timestamp(valor)])).iloc[0])
+
+
+def construir_wide(features_longas, colunas_feature, chave_tempo=('dataset_id', 'ts_epoch')):
+    """Pivota features no grao (..., rota_id, ts_epoch) para uma linha por
+    timestamp, com uma coluna por combinacao (feature, rota_id).
+
+    O alvo (`melhor_rota`, quando presente em `features_longas`) e o mesmo nas
+    N linhas (uma por rota) de cada timestamp, entao o pivot mantem um unico
+    valor por linha larga.
+
+    Existe para que qualquer notebook consumidor da feature store obtenha o
+    mesmo layout `X = [rota_1, rota_2, ..., rota_N]` usado em
+    `Análise_de_modelos_de_ML_para_previsão_de_caminhos.ipynb` - necessario
+    para que um modelo compare rotas entre si (ex.:
+    `banda_media_Mbps__h13_h63 > banda_media_Mbps__h11_h61`) em vez de avaliar
+    cada rota isoladamente, sem saber a qual rota pertence nem ver as demais
+    rotas do mesmo instante.
+
+    chave_tempo: por padrao inclui 'dataset_id' alem de 'ts_epoch', pois o
+    epoch nao e globalmente unico entre datasets distintos - sem isso,
+    timestamps coincidentes de datasets diferentes seriam indevidamente
+    fundidos em uma unica linha. Ao operar sobre um unico dataset (sem a
+    coluna 'dataset_id'), passe chave_tempo=('ts_epoch',).
+
+    Linhas em que alguma rota nao tinha valor para alguma feature (ex.: falha
+    de ping isolada) sao descartadas inteiras, ja que o formato largo exige
+    todas as rotas completas na mesma linha.
+    """
+    chave_tempo = [c for c in chave_tempo if c in features_longas.columns]
+
+    pivot = features_longas.pivot_table(
+        index=chave_tempo,
+        columns='rota_id',
+        values=list(colunas_feature),
+    )
+    # Achata o MultiIndex de colunas ('banda_media_Mbps', 'h11_h61') -> 'banda_media_Mbps__h11_h61'
+    pivot.columns = [f'{feature}__{rota}' for feature, rota in pivot.columns]
+
+    largo = pivot.reset_index()
+
+    if 'melhor_rota' in features_longas.columns:
+        alvo = features_longas.groupby(chave_tempo)['melhor_rota'].first()
+        largo = largo.merge(alvo, on=chave_tempo, how='left')
+
+    antes = len(largo)
+    largo = largo.dropna()
+    descartadas = antes - len(largo)
+    if descartadas:
+        print(f"construir_wide: descartando {descartadas}/{antes} timestamp(s) com alguma rota incompleta")
+
+    return largo
 
 
 ################################################################################
