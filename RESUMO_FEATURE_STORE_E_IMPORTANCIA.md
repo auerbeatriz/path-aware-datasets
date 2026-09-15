@@ -80,8 +80,30 @@ em tempo real (ver Seção 4).
 
 ### 3.1 Metodologia
 
-A análise treina um `RandomForestClassifier` para prever `melhor_rota` e
-mede a importância de cada feature por **dois métodos complementares**:
+O objetivo do modelo é prever **qual das 4 rotas é a melhor** em um dado
+instante — uma pergunta inerentemente **comparativa**. Por isso, os dados são
+reestruturados do formato longo (uma linha por rota × timestamp) para o
+formato **largo** (*wide*): cada timestamp vira uma única linha, com uma
+coluna por combinação `(feature, rota_id)` (`fs.construir_wide`, em
+`feature_store/pipeline.py`). Nesse formato, o `RandomForestClassifier` pode
+aprender splits do tipo `banda_media_Mbps__h13_h63 > banda_media_Mbps__h11_h61`
+— uma comparação genuína entre rotas — em vez de apenas memorizar a faixa de
+valores típica de cada rota isoladamente, como ocorria em uma formulação
+anterior desta análise que apresentava cada rota em uma linha separada, sem
+visibilidade das demais rotas do mesmo instante. Timestamps em que alguma
+rota tinha valor ausente em alguma feature são descartados no pivot, pois o
+formato largo exige as 4 rotas completas na mesma linha.
+
+`melhor_rota` é excluído do conjunto de features (é o alvo), assim como
+`latencia_*` e `bdp` — que definem `melhor_rota` por construção
+(`melhor_rota = argmin(latencia_ms)`) e dominariam a importância
+trivialmente sem agregar informação (ver Seção 4). Restam **13 features** de
+banda/gargalo/utilização, cada uma expandida em 4 colunas (uma por rota) no
+formato largo — 52 colunas ao todo.
+
+Um `RandomForestClassifier` foi treinado em split estratificado 80/20 (300
+árvores no conjunto geral, 200 por cenário), e a importância de cada feature
+foi medida por **dois métodos complementares**:
 
 - **MDI (Mean Decrease in Impurity / importância por impureza)**: calculada
   diretamente do `feature_importances_` do RandomForest durante o treino, a
@@ -96,163 +118,120 @@ mede a importância de cada feature por **dois métodos complementares**:
   diretamente o impacto real na métrica de interesse**, sendo a referência
   mais confiável quando os dois métodos divergem.
 
+Como cada métrica original aparece 4 vezes no formato largo (uma coluna por
+rota), a importância de cada uma delas é agregada somando as 4 colunas
+correspondentes, para reportar a importância por **métrica**, não por
+`(métrica, rota)`.
+
 Ambos os métodos foram aplicados tanto ao conjunto **geral** (todos os 8
 datasets combinados) quanto **separadamente por cenário** (`D1`/`D1b` a
 `D4`/`D4b`), permitindo verificar se a importância relativa das features é
 estável ou muda conforme o regime de tráfego de fundo.
 
-A análise foi feita em duas variantes:
-1. **Sem latência** — exclui `latencia_*` e `bdp`, para revelar a importância
-   relativa **dentro** do grupo de features de banda/gargalo (13 features).
-2. **Com latência** — inclui todas as 25 features, para quantificar o quanto
-   a latência domina quando presente e onde as features de banda se
-   posicionam mesmo competindo diretamente com ela.
+### 3.2 Acurácia
 
-### 3.2 Gráficos — sem latência
+| cenário | acurácia no teste |
+|---|---|
+| D1 (baseline) | 0,9937 |
+| D2 (tráfego constante) | 0,8617 |
+| D3 (iperf longo) | 0,8565 |
+| D4 (iperf concorrente) | 0,8569 |
+| **Geral (todos os datasets)** | **0,8747** |
 
-**MDI (geral)**
+O modelo prevê a rota de menor latência com ~87% de acurácia no conjunto
+geral, comparando as 4 rotas diretamente no mesmo instante, usando apenas
+sinais de banda/gargalo — sem qualquer feature de latência.
 
-![MDI geral](_/resultados_feature_importance/mdi_geral.png)
+### 3.3 Importância por permutação — geral vs. por cenário
 
-**Importância por permutação (geral)**
+| feature | D1 | D2 | D3 | D4 | geral |
+|---|---|---|---|---|---|
+| `gargalo_min_longa_30s` | -0,0003 | 0,0003 | 0,0194 | 0,0219 | **0,0266** |
+| `gargalo_min_curta_15s` | 0,0000 | -0,0025 | 0,0115 | 0,0341 | 0,0221 |
+| `banda_media_Mbps` | 0,0000 | 0,0259 | 0,0301 | 0,0225 | 0,0128 |
+| `util_max_pct` | 0,0000 | 0,0162 | 0,0200 | 0,0251 | 0,0098 |
+| `gargalo_Mbps` | 0,0000 | 0,0183 | 0,0164 | 0,0214 | 0,0095 |
+| `gargalo_min_micro_5s` | 0,0000 | 0,0040 | 0,0068 | 0,0093 | 0,0069 |
+| `banda_delta_micro_longa` | 0,0000 | 0,0037 | 0,0108 | 0,0113 | 0,0053 |
+| `banda_media_longa_30s` | -0,0007 | 0,0031 | 0,0130 | 0,0098 | 0,0050 |
+| `utilizacao_media_longa_30s` | 0,0000 | 0,0023 | 0,0118 | 0,0093 | 0,0039 |
+| `banda_media_curta_15s` | 0,0000 | -0,0011 | 0,0072 | 0,0139 | 0,0028 |
+| `utilizacao_media_curta_15s` | 0,0000 | 0,0011 | 0,0057 | 0,0109 | 0,0013 |
+| `utilizacao_media_micro_5s` | -0,0001 | 0,0026 | 0,0048 | 0,0084 | 0,0001 |
+| `banda_media_micro_5s` | 0,0000 | -0,0011 | 0,0111 | 0,0093 | -0,0002 |
 
-![Permutação geral](_/resultados_feature_importance/permutacao_geral.png)
+No conjunto geral, a importância por permutação concentra-se nas features de
+gargalo em janela (`gargalo_min_longa_30s`, `gargalo_min_curta_15s`) — mais
+que em `banda_media_Mbps`/`gargalo_Mbps` isolados — sugerindo que a
+*tendência recente* do gargalo, não apenas seu valor pontual, é o sinal mais
+discriminativo quando o modelo pode comparar rotas diretamente.
 
-**Importância por permutação — por cenário vs. geral**
-
-![Permutação por cenário](_/resultados_feature_importance/permutacao_por_cenario.png)
-
-**Importância por MDI — por cenário vs. geral**
-
-![MDI por cenário](_/resultados_feature_importance/mdi_por_cenario.png)
-
-### 3.3 Gráficos — com latência
-
-**Importância por permutação (com latência, geral)** — vermelho = feature de
-latência/bdp, azul = feature de banda/gargalo
-
-![Permutação com latência](_/resultados_feature_importance/permutacao_com_latencia.png)
-
-**Importância por permutação (com latência) — por cenário vs. geral**
-
-![Permutação por cenário com latência](_/resultados_feature_importance/permutacao_por_cenario_com_latencia.png)
-
-**Importância por MDI (com latência) — por cenário vs. geral**
-
-![MDI por cenário com latência](_/resultados_feature_importance/mdi_por_cenario_com_latencia.png)
-
-### 3.4 Por que o MDI parece atribuir mais importância que a permutação?
-
-Nos gráficos acima, é visível que os valores de MDI são, em geral, maiores e
-mais distribuídos entre as features do que os valores de permutação — mesmo
-para features fracas. Isso acontece porque os dois métodos medem coisas
-diferentes:
-
-- **MDI** soma a redução de impureza em *todos* os splits, de *todas* as
-  árvores, em que aquela feature foi usada. Como toda feature acaba sendo
-  usada em algum split (ainda que pouco informativo), o MDI raramente é
-  próximo de zero. Além disso, é calculado durante o **treino**, o que o
-  torna sensível a padrões espúrios/overfit e a features de alta
-  cardinalidade (métricas instantâneas têm mais valores distintos que
-  agregados de janela, gerando mais oportunidades de split).
-- **Permutação** mede o quanto a acurácia **no teste** cai ao embaralhar
-  apenas aquela coluna. Se a feature é redundante com outras (ex.:
-  `banda_media_Mbps` correlacionada com `banda_media_micro_5s`), o modelo
-  compensa usando as demais, e a queda de acurácia é pequena — por isso os
-  valores de permutação tendem a ser baixos e concentrados em poucas
-  features realmente insubstituíveis.
-
-Esse contraste explica, por exemplo, o cenário `D1`: mesmo sem sinal real de
-congestionamento, o MDI ainda atribui importância não-trivial a quase todas
-as features (capturando ruído do treino), enquanto a permutação cai perto de
-zero (refletindo a ausência de ganho real de acurácia no teste). Por isso a
-permutação é a referência mais confiável quando os dois métodos divergem.
-
-### 3.5 Comparação: latência vs. banda
-
-| | sem latência (13 features) | com latência (25 features) |
-|---|---|---|
-| Acurácia geral | **84,6%** | **89,0%** |
-| Ganho de acurácia | — | **+4,5 p.p.** |
-| Feature dominante (permutação) | `banda_media_Mbps` (0,069) | `latencia_ms` (0,062, ~3× a 2ª posição) |
-| Feature dominante (MDI) | `banda_media_Mbps` (0,154) | `banda_media_Mbps` continua entre as 3 primeiras, mesmo com todas as features de latência presentes |
-
-O ganho de acurácia relativamente modesto (+4,5 p.p., não os ~100% que uma
-dependência determinística perfeita sugeriria) indica que **a banda por si
-só já carrega grande parte da informação necessária** para prever a rota de
-menor latência — o gargalo de um caminho está correlacionado com sua
-latência, mas não é equivalente a ela.
-
-Por cenário, o padrão de acurácia com/sem latência é consistente:
-
-| cenário | sem latência | com latência | ganho |
-|---|---|---|---|
-| D1 (baseline) | 0,9937 | 0,9937 | 0,000 |
-| D2 (tráfego constante) | 0,8365 | 0,8812 | +0,045 |
-| D3 (iperf longo) | 0,8059 | 0,8404 | +0,035 |
-| D4 (iperf concorrente) | 0,8153 | 0,8639 | +0,049 |
-| **Geral** | **0,8455** | **0,8903** | **+0,045** |
-
-Em D1 não há ganho, pois a rede está ociosa e ambos os modelos já
-atingem ~99% de acurácia. Nos cenários com tráfego de fundo, incluir a
-latência agrega de 3,5 a 4,9 pontos percentuais.
-
-Mesmo com a latência dominando a importância por permutação no conjunto
-combinado, as features de banda mantêm posições relevantes no ranking de 25
-features: `banda_media_Mbps` na 7ª posição, `util_max_pct` na 10ª,
-`gargalo_Mbps` na 14ª — todas dentro do top-15, evidência de que carregam
-sinal complementar, não apenas redundante em relação à latência.
-
-### 3.6 Resultados gerais e features mais importantes
-
-**Sem latência**, os dois métodos concordam que `banda_media_Mbps` é a
-feature mais importante, com folga, tanto por MDI (0,154) quanto por
-permutação (0,069). Na posição intermediária os métodos divergem: MDI
-privilegia `gargalo_Mbps` e `util_max_pct` (2º-3º lugar), enquanto a
-permutação privilegia as versões em janela do gargalo
-(`gargalo_min_longa/curta/micro_*`, 2º-4º lugar) — consistente com o viés
-conhecido do MDI a favor de features de alta cardinalidade. As três variantes
-de `gargalo_min_{janela}` aparecem entre as 4 mais importantes por
-permutação, sugerindo que a *tendência recente* do gargalo (não apenas seu
-valor pontual) ajuda o modelo a diferenciar rotas.
-
-**Por cenário**, o padrão de importância muda substancialmente:
-
-- **D1 (baseline)**: apesar de a rede estar praticamente ociosa (~100 Mbps
-  constantes), diversas features ainda mantêm importância por permutação
-  comparável ou superior à dos demais cenários (ex.: `gargalo_min_micro_5s`
-  em 0,108, `banda_media_Mbps` em 0,109) — indício de diferenças residuais
-  sistemáticas entre rotas que o RandomForest consegue explorar mesmo sem
-  variação real de congestionamento.
-- **D2 (tráfego constante)**: `banda_media_Mbps` concentra a maior parte da
-  importância (0,190, acima da média geral de 0,154).
-- **D3/D4 (fluxos iperf)**: a importância se distribui mais entre
-  `gargalo_min_{janela}` e `util_max_pct`, coerente com a natureza
-  intermitente desses cenários; em D4, por exemplo, `gargalo_min_longa_30s`
-  (0,092) e `gargalo_min_curta_15s` (0,089) superam `banda_media_Mbps`
-  (0,065).
-
+**Achado mais notável: em D1 (baseline, sem tráfego de fundo), a importância
+por permutação de praticamente todas as features fica próxima de zero**,
+apesar de a acurácia já ser de 99,4%. Isso indica que, sem tráfego de fundo,
+pequenas diferenças estruturais entre rotas — não capturadas por nenhuma
+feature candidata — bastam para uma árvore de decisão memorizar a resposta
+com poucos splits quase determinísticos, sem depender de forma robusta de
+nenhuma feature isolada. Em D2 (tráfego constante) e D3 (iperf longo), a
+importância se concentra em `banda_media_Mbps`/`util_max_pct`/`gargalo_Mbps`;
+em D4 (iperf concorrente, o cenário mais dinâmico), a importância se desloca
+mais para `gargalo_min_{janela}`, coerente com sua natureza intermitente.
 Isso confirma que a importância "geral" (todos os datasets combinados) é uma
-média que mistura regimes de tráfego com padrões de importância distintos
-entre si — analisar por cenário revela nuances que a visão agregada esconde.
+média que mistura regimes com padrões distintos entre si.
 
-**Com latência**, `latencia_ms` domina isoladamente a importância por
-permutação no cenário combinado, mas as features de banda (`banda_media_Mbps`,
-`gargalo_Mbps`, `util_max_pct`) permanecem entre as mais importantes por MDI
-mesmo competindo com toda a família de features de latência — reforçando que
-carregam sinal útil e não apenas informação redundante com a latência.
+### 3.4 Importância por MDI — geral vs. por cenário
+
+| feature | D1 | D2 | D3 | D4 | geral |
+|---|---|---|---|---|---|
+| `banda_media_Mbps` | 0,0700 | 0,2431 | 0,1872 | 0,0722 | **0,2172** |
+| `util_max_pct` | 0,1182 | 0,1955 | 0,2034 | 0,1131 | 0,1842 |
+| `gargalo_Mbps` | 0,0739 | 0,1883 | 0,1898 | 0,0999 | 0,1524 |
+| `gargalo_min_longa_30s` | 0,0451 | 0,0407 | 0,0500 | 0,0903 | 0,0555 |
+| `gargalo_min_curta_15s` | 0,0549 | 0,0378 | 0,0418 | 0,0994 | 0,0511 |
+| `banda_media_micro_5s` | 0,0759 | 0,0384 | 0,0391 | 0,0563 | 0,0509 |
+| `gargalo_min_micro_5s` | 0,1330 | 0,0495 | 0,0457 | 0,0783 | 0,0501 |
+| `utilizacao_media_micro_5s` | 0,0944 | 0,0393 | 0,0393 | 0,0648 | 0,0491 |
+| `banda_media_longa_30s` | 0,0812 | 0,0294 | 0,0427 | 0,0704 | 0,0403 |
+| `banda_delta_micro_longa` | 0,0019 | 0,0493 | 0,0460 | 0,0723 | 0,0399 |
+| `utilizacao_media_longa_30s` | 0,0853 | 0,0295 | 0,0420 | 0,0615 | 0,0382 |
+| `banda_media_curta_15s` | 0,0906 | 0,0298 | 0,0364 | 0,0629 | 0,0363 |
+| `utilizacao_media_curta_15s` | 0,0756 | 0,0294 | 0,0366 | 0,0584 | 0,0346 |
+
+`banda_media_Mbps` é a feature dominante por MDI no conjunto geral, com
+`util_max_pct` e `gargalo_Mbps` logo atrás. **MDI e permutação divergem
+sistematicamente na posição intermediária**: por exemplo,
+`gargalo_min_longa_30s` é a feature mais importante por permutação (1º lugar,
+geral), mas fica apenas em 4º por MDI — o mesmo viés conhecido do MDI a favor
+de features de alta cardinalidade (métricas instantâneas como
+`banda_media_Mbps` têm mais valores distintos que agregados de janela,
+inflando sua importância aparente por impureza). A permutação, medindo o
+impacto real na acurácia, é a referência mais confiável quando os dois
+divergem.
+
+Nota-se ainda que, mesmo em D1 (onde a importância por permutação é ~zero
+para todas as features), o MDI continua atribuindo importância não-trivial a
+quase todas elas — evidência de que o MDI captura padrões de treino que não
+se traduzem em ganho real de acurácia no teste.
 
 ## 4. Limitações e ressalvas
 
 - **Vazamento no alvo**: `melhor_rota` é função determinística de
-  `latencia_ms` por construção, o que motivou a análise em duas variantes
-  (com/sem latência) para isolar o sinal de banda.
+  `latencia_ms` por construção, o que motivou excluir `latencia_*` e `bdp`
+  do conjunto de features.
 - **Vazamento parcial mesmo sem latência**: features de banda no mesmo
   instante (`gargalo_Mbps`, `banda_media_Mbps`) podem carregar parte da mesma
   causalidade que gera a latência mais baixa (ex.: link congestionado eleva
   latência e reduz banda simultaneamente) — a importância observada reflete
   correlação contemporânea, não necessariamente uma relação preditiva
   "antecedente" (isto é, banda medida *antes* de a latência mudar).
+- **Comparação entre rotas ainda é contemporânea, não preditiva**: o formato
+  largo permite ao modelo comparar as 4 rotas no mesmo instante, mas essa
+  comparação ainda usa métricas medidas *no momento presente* — o modelo não
+  antecipa qual rota será a melhor com base em informação passada, e sim
+  classifica, a posteriori, qual já era a melhor naquele segundo. Uma versão
+  preditiva exigiria deslocar o alvo para `melhor_rota(t+H)` (horizonte `H`),
+  mantendo `X` estritamente retrospectivo, além de usar um split
+  treino/teste temporal em vez de aleatório.
 - **Volume por cenário**: cada cenário corresponde a uma única execução de
   ~1 hora, sem repetições que permitam estimar variância entre execuções do
   mesmo regime de tráfego.
