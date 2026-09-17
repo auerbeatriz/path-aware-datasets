@@ -34,10 +34,14 @@ def parseBanda(rota, topologia, capacidade_por_interface):
     # Cria uma colula com a taxa total em Mbps
     data['taxa_total_Mbps'] = toMbps(data['bytes_total_s'])
 
+    # Rajadas curtas (burst do shaper) ou janelas de amostragem do bwm-ng
+    #   menores que 1s podem fazer a taxa medida ultrapassar momentaneamente
+    #   a capacidade nominal do link, gerando banda_disponivel negativa.
+    #   Como não existe banda "negativa" de fato, o valor é limitado em 0.
     data['banda_disponivel'] = (
         data['interface'].map(capacidade_por_interface) - data['taxa_total_Mbps']
-    )
-    
+    ).clip(lower=0)
+
     # Salva resultado em um TXT por tabulação (\t)
     colunas_desejadas = ['datetime', 'interface', 'taxa_total_Mbps', 'banda_disponivel']
     data.to_csv(f"relatorios/banda_tratada_{nomeRota}.csv", columns=colunas_desejadas, index=False)
@@ -143,9 +147,11 @@ def carregarBandaConsolidada(arquivo):
 def parseBandaCaminho(nome, interfaces, data, capacidade_por_interface, pasta_saida='relatorios'):
     dados_rota = data[data['interface'].isin(interfaces)].copy()
 
+    # Ver comentário equivalente em parseBanda: limita em 0 para não deixar
+    #   estouros momentâneos de capacidade virarem banda_disponivel negativa.
     dados_rota['banda_disponivel'] = (
         dados_rota['interface'].map(capacidade_por_interface) - dados_rota['taxa_total_Mbps']
-    )
+    ).clip(lower=0)
 
     # Salva resultado em um TXT por tabulação (\t)
     colunas_desejadas = ['datetime', 'interface', 'taxa_total_Mbps', 'banda_disponivel']
