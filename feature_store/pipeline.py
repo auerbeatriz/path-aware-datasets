@@ -813,6 +813,87 @@ def construir_wide(features_longas, colunas_feature, chave_tempo=('dataset_id', 
     return largo
 
 
+def deslocar_alvo(largo, horizonte_s, coluna_alvo='melhor_rota',
+                  chave_grupo='dataset_id', coluna_tempo='ts_epoch'):
+    """Converte a tarefa contemporanea em preditiva: y(t) passa a ser o alvo
+    observado em t + horizonte_s, mantendo X com informacao apenas ate t.
+
+    O deslocamento e feito por casamento explicito de timestamp (t + H), nao
+    por `shift(-H)` posicional: a serie tem lacunas (segundos sem medida, ou
+    descartados no pivot por rota incompleta), entao deslocar N linhas
+    apontaria para um instante arbitrario, nem sempre H segundos a frente.
+    Linhas cujo instante t + H nao existe na serie sao descartadas.
+
+    O deslocamento e feito dentro de cada grupo (`chave_grupo`, tipicamente o
+    dataset), para nao casar o fim de um dataset com o inicio de outro.
+
+    Devolve uma copia com `coluna_alvo` substituida pelo alvo futuro e uma
+    coluna adicional `alvo_atual` com o valor contemporaneo - necessaria para
+    calcular o baseline de persistencia (prever que a melhor rota daqui a H
+    segundos e a mesma de agora).
+    """
+    if horizonte_s <= 0:
+        raise ValueError('horizonte_s deve ser positivo')
+
+    quadro = largo.copy()
+    chaves = [c for c in ([chave_grupo] if chave_grupo else []) if c in quadro.columns]
+
+    futuro = quadro[chaves + [coluna_tempo, coluna_alvo]].copy()
+    futuro[coluna_tempo] = futuro[coluna_tempo] - horizonte_s
+    futuro = futuro.rename(columns={coluna_alvo: '_alvo_futuro'})
+
+    quadro = quadro.rename(columns={coluna_alvo: 'alvo_atual'})
+    quadro = quadro.merge(futuro, on=chaves + [coluna_tempo], how='left')
+
+    antes = len(quadro)
+    quadro = quadro.dropna(subset=['_alvo_futuro'])
+    descartadas = antes - len(quadro)
+    if descartadas:
+        print(f"deslocar_alvo(H={horizonte_s}s): descartando {descartadas}/{antes} "
+              f"linha(s) sem observacao em t+{horizonte_s}s")
+
+    quadro = quadro.rename(columns={'_alvo_futuro': coluna_alvo})
+    return quadro.reset_index(drop=True)
+
+
+def split_temporal(largo, fracao_treino=0.8, lacuna_s=0,
+                   chave_grupo='dataset_id', coluna_tempo='ts_epoch'):
+    """Corte cronologico treino/teste, com lacuna entre os dois blocos.
+
+    Substitui o `train_test_split(..., shuffle=True)`, que embaralha os
+    instantes e coloca vizinhos temporais (quase identicos, dada a
+    autocorrelacao da serie) simultaneamente em treino e teste - inflando a
+    acuracia por vazamento, nao por capacidade preditiva.
+
+    O corte e feito por grupo (dataset): cada dataset contribui com seus
+    primeiros `fracao_treino` instantes para o treino e os ultimos para o
+    teste. Cortar globalmente por epoch colocaria datasets inteiros de um
+    lado so, transformando o teste em generalizacao entre coletas.
+
+    lacuna_s: segundos descartados entre o fim do treino e o inicio do teste.
+    Deve ser >= o horizonte de previsao, para que nenhum alvo de treino
+    (observado em t + H) caia dentro da janela de teste.
+
+    Devolve (indice_treino, indice_teste) como mascaras booleanas alinhadas a
+    `largo`.
+    """
+    chaves = [c for c in ([chave_grupo] if chave_grupo else []) if c in largo.columns]
+
+    treino = pd.Series(False, index=largo.index)
+    teste = pd.Series(False, index=largo.index)
+
+    grupos = largo.groupby(chaves).indices if chaves else {None: largo.index.values}
+    for _, posicoes in grupos.items():
+        bloco = largo.iloc[posicoes] if chaves else largo
+        tempos = np.sort(bloco[coluna_tempo].unique())
+        corte = tempos[int(len(tempos) * fracao_treino)]
+        rotulos = bloco.index
+        treino.loc[rotulos[bloco[coluna_tempo] <= corte]] = True
+        teste.loc[rotulos[bloco[coluna_tempo] > corte + lacuna_s]] = True
+
+    return treino, teste
+
+
 ################################################################################
 # Orquestracao
 ################################################################################
