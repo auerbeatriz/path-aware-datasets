@@ -160,7 +160,16 @@ ambos os notebooks, era **contemporânea**, não preditiva.
 As duas pendências da seção anterior foram implementadas (Seção 9 do
 notebook). O notebook foi reexecutado por completo.
 
-### 5.1 Novos helpers em `feature_store/pipeline.py`
+### 5.1 Novos helpers em `protocolo_temporal.py`
+
+> Os dois helpers nasceram em `feature_store/pipeline.py` e foram movidos para
+> `protocolo_temporal.py`, na raiz do projeto, quando a análise de modelos
+> (`Análise_de_modelos_de_ML_para_previsão_de_caminhos.ipynb`) passou a usar o
+> mesmo protocolo sem passar pela feature store. `pipeline.py` os reexporta, de
+> modo que `fs.deslocar_alvo` e `fs.split_temporal` continuam válidos. O módulo
+> comum também traz `preparar_treino_teste` (a composição dos dois),
+> `largo_de_csv` (quadro largo a partir de um CSV consolidado por rota) e
+> `para_epoch`.
 
 - **`deslocar_alvo(largo, horizonte_s, ...)`** — converte a tarefa em
   preditiva: `y(t)` passa a ser `melhor_rota(t + H)`, preservando o valor
