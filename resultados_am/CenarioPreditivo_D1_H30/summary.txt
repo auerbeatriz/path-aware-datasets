@@ -77,7 +77,7 @@ weighted avg       1.00      1.00      1.00       683
 
 Matriz de Confusão:
 [[  0   0]
- [  1 682]]
+ [  0 683]]
 
 ────────────────────────────────────────────────────────────────────────────────
 Modelo: ExtraTrees
@@ -142,7 +142,7 @@ RELATÓRIO RESUMIDO - CONJUNTO DE TESTE
 LogisticRegression   | Acc: 1.0000
 KNeighbors           | Acc: 1.0000
 SVC                  | Acc: 1.0000
-DecisionTree         | Acc: 0.9985
+DecisionTree         | Acc: 1.0000
 ExtraTrees           | Acc: 1.0000
 RandomForest         | Acc: 1.0000
 GaussianNB           | Acc: 1.0000

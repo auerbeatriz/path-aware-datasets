@@ -33,21 +33,21 @@ Modelo: KNeighbors
 Relatório de Classificação:
               precision    recall  f1-score   support
 
-           1       0.17      0.02      0.04        85
+           1       0.00      0.00      0.00        85
            2       0.00      0.00      0.00         4
-           3       0.18      0.04      0.06       109
-           4       0.71      0.95      0.82       497
+           3       0.43      0.06      0.10       109
+           4       0.72      0.98      0.83       497
 
-    accuracy                           0.69       695
-   macro avg       0.27      0.25      0.23       695
-weighted avg       0.56      0.69      0.60       695
+    accuracy                           0.71       695
+   macro avg       0.29      0.26      0.23       695
+weighted avg       0.58      0.71      0.61       695
 
 
 Matriz de Confusão:
-[[  2   0   3  80]
+[[  0   0   1  84]
  [  0   0   0   4]
- [  0   0   4 105]
- [ 10   0  15 472]]
+ [  0   0   6 103]
+ [  4   0   7 486]]
 
 ────────────────────────────────────────────────────────────────────────────────
 Modelo: SVC
@@ -79,21 +79,21 @@ Modelo: DecisionTree
 Relatório de Classificação:
               precision    recall  f1-score   support
 
-           1       0.24      0.07      0.11        85
+           1       0.14      0.05      0.07        85
            2       0.00      0.00      0.00         4
-           3       0.09      0.06      0.07       109
-           4       0.72      0.87      0.79       497
+           3       0.17      0.07      0.10       109
+           4       0.72      0.90      0.80       497
 
-    accuracy                           0.64       695
+    accuracy                           0.66       695
    macro avg       0.26      0.25      0.24       695
-weighted avg       0.56      0.64      0.59       695
+weighted avg       0.56      0.66      0.60       695
 
 
 Matriz de Confusão:
-[[  6   0  11  68]
+[[  4   0   8  73]
  [  0   0   0   4]
- [  6   0   6  97]
- [ 13   0  51 433]]
+ [  5   0   8  96]
+ [ 19   1  30 447]]
 
 ────────────────────────────────────────────────────────────────────────────────
 Modelo: ExtraTrees
@@ -102,21 +102,21 @@ Modelo: ExtraTrees
 Relatório de Classificação:
               precision    recall  f1-score   support
 
-           1       0.20      0.02      0.04        85
+           1       0.14      0.04      0.06        85
            2       0.00      0.00      0.00         4
-           3       0.19      0.03      0.05       109
-           4       0.71      0.96      0.82       497
+           3       0.16      0.04      0.06       109
+           4       0.72      0.94      0.81       497
 
-    accuracy                           0.69       695
-   macro avg       0.28      0.25      0.23       695
-weighted avg       0.56      0.69      0.60       695
+    accuracy                           0.68       695
+   macro avg       0.26      0.25      0.23       695
+weighted avg       0.56      0.68      0.60       695
 
 
 Matriz de Confusão:
-[[  2   0   1  82]
+[[  3   0   4  78]
  [  0   0   0   4]
- [  0   0   3 106]
- [  8   0  12 477]]
+ [  5   0   4 100]
+ [ 13   1  17 466]]
 
 ────────────────────────────────────────────────────────────────────────────────
 Modelo: RandomForest
@@ -125,21 +125,21 @@ Modelo: RandomForest
 Relatório de Classificação:
               precision    recall  f1-score   support
 
-           1       0.20      0.01      0.02        85
+           1       0.09      0.01      0.02        85
            2       0.00      0.00      0.00         4
-           3       0.29      0.02      0.03       109
-           4       0.72      0.98      0.83       497
+           3       0.10      0.01      0.02       109
+           4       0.72      0.97      0.83       497
 
-    accuracy                           0.71       695
-   macro avg       0.30      0.25      0.22       695
-weighted avg       0.58      0.71      0.60       695
+    accuracy                           0.70       695
+   macro avg       0.23      0.25      0.22       695
+weighted avg       0.54      0.70      0.60       695
 
 
 Matriz de Confusão:
-[[  1   0   0  84]
+[[  1   0   2  82]
  [  0   0   0   4]
- [  1   0   2 106]
- [  3   0   5 489]]
+ [  4   0   1 104]
+ [  6   1   7 483]]
 
 ────────────────────────────────────────────────────────────────────────────────
 Modelo: GaussianNB
@@ -148,30 +148,30 @@ Modelo: GaussianNB
 Relatório de Classificação:
               precision    recall  f1-score   support
 
-           1       0.14      0.05      0.07        85
+           1       0.00      0.00      0.00        85
            2       0.00      0.00      0.00         4
-           3       0.06      0.01      0.02       109
-           4       0.71      0.92      0.80       497
+           3       0.00      0.00      0.00       109
+           4       0.72      1.00      0.83       497
 
-    accuracy                           0.67       695
-   macro avg       0.23      0.24      0.22       695
-weighted avg       0.53      0.67      0.58       695
+    accuracy                           0.72       695
+   macro avg       0.18      0.25      0.21       695
+weighted avg       0.51      0.72      0.60       695
 
 
 Matriz de Confusão:
-[[  4   0   1  80]
+[[  0   0   0  85]
  [  0   0   0   4]
- [  2   0   1 106]
- [ 23   0  16 458]]
+ [  0   0   0 109]
+ [  0   0   0 497]]
 
 ================================================================================
 RELATÓRIO RESUMIDO - CONJUNTO DE TESTE
 ================================================================================
 LogisticRegression   | Acc: 0.7151
-KNeighbors           | Acc: 0.6878
+KNeighbors           | Acc: 0.7079
 SVC                  | Acc: 0.7151
-DecisionTree         | Acc: 0.6403
-ExtraTrees           | Acc: 0.6935
-RandomForest         | Acc: 0.7079
-GaussianNB           | Acc: 0.6662
+DecisionTree         | Acc: 0.6604
+ExtraTrees           | Acc: 0.6806
+RandomForest         | Acc: 0.6978
+GaussianNB           | Acc: 0.7151
 ================================================================================
