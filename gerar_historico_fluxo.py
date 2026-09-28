@@ -1,6 +1,7 @@
 import csv
 import glob
 import os
+import sys
 
 from desempate_rotulos import (
     escolher_rota,
@@ -165,22 +166,55 @@ def criar_arquivo_rotulos_por_fluxo(diretorio, arquivo_entrada, arquivo_saida, f
 
     print(f"Arquivo de rotulos por fluxo criado: {caminho_saida} [{resumo_estatisticas(estatisticas)}]")
 
-def main():
-    arquivo_latencia = "latencia_rotas_h1_h6.csv"
-    arquivo_banda = "banda_rotas_h1_h6.csv"
-    arquivo_historico = "historico_telemetria_h1_h6.csv"
-    arquivo_rotulos = "rotulos_por_fluxo.txt"
+################################################################################
+# File names of a dataset, resolved from the suffix its consolidated CSVs carry.
+#   D1 to D4b use the plain names; D3a and D4a carry a '_12' suffix because they
+#   collect two routes instead of four. Returns None when the dataset has no
+#   consolidated latency CSV, or more than one.
+#
+def resolver_nomes(pasta):
+    caminhos = sorted(glob.glob(os.path.join(pasta, 'latencia_rotas_h1_h6*.csv')))
+    if len(caminhos) != 1:
+        return None
+
+    nome = os.path.basename(caminhos[0])
+    sufixo = nome[len('latencia_rotas_h1_h6'):-len('.csv')]
+
+    return {
+        'latencia': f'latencia_rotas_h1_h6{sufixo}.csv',
+        'banda': f'banda_rotas_h1_h6{sufixo}.csv',
+        'historico': f'historico_telemetria_h1_h6{sufixo}.csv',
+        'rotulos': f'rotulos_por_fluxo{sufixo}.txt',
+    }
+
+################################################################################
+# Generates the telemetry history and the per-flow labels of every dataset, or
+#   only of the ones named on the command line:
+#
+#     python3 gerar_historico_fluxo.py            # all of them
+#     python3 gerar_historico_fluxo.py D3a D4a    # only these
+#
+def main(datasets=None):
     categorias = list(CATEGORIAS_FLUXO.keys())
 
     for pasta in sorted(glob.glob(os.path.join(RAIZ, 'datasets', '*'))):
         if not os.path.isdir(pasta):
             continue
-
-        if consolidar_historico_telemetria(pasta, arquivo_latencia, arquivo_banda, arquivo_historico) is None:
+        if datasets and os.path.basename(pasta) not in datasets:
             continue
 
-        duplicar_dataset_por_categoria(pasta, arquivo_historico, categorias)
-        criar_arquivo_rotulos_por_fluxo(pasta, arquivo_historico, arquivo_rotulos, CATEGORIAS_FLUXO)
+        nomes = resolver_nomes(pasta)
+        if nomes is None:
+            print(f"Nenhum latencia_rotas_h1_h6*.csv em: {pasta}")
+            continue
+
+        if consolidar_historico_telemetria(
+            pasta, nomes['latencia'], nomes['banda'], nomes['historico']
+        ) is None:
+            continue
+
+        duplicar_dataset_por_categoria(pasta, nomes['historico'], categorias)
+        criar_arquivo_rotulos_por_fluxo(pasta, nomes['historico'], nomes['rotulos'], CATEGORIAS_FLUXO)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:] or None)
