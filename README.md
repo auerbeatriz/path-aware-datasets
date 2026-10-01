@@ -122,6 +122,7 @@ python3 gerar_relatorio_banda_rotas.py
 Para cada rota, são gerados dentro da própria pasta do cenário:
 - `banda_tratada_<rota>.csv`: taxa e banda disponível de cada interface do caminho, amostra a amostra.
 - `banda_<rota>.txt`: gargalo (menor banda disponível entre as interfaces do caminho) por segundo, no mesmo formato tabulado dos arquivos `latencia_rota_*.txt`.
+- `banda_rotas_h1_h6.csv`: consolidação das rotas em um único CSV (mesmo formato de `latencia_rotas_h1_h6.csv`), com exatamente uma leitura por segundo entre a primeira e a última coleta. Segundos sem leitura do `bwm-ng` em uma ou em todas as rotas são preenchidos por interpolação linear no tempo.
 
 Cenários sem `banda.bwm`, `config.json` ou `rotas.txt` (e.g. `D3a`, `D4a`) são ignorados pelo script.
 
@@ -134,7 +135,7 @@ Para analisar os modelos de ML:
 2. Execute as células para pré-processamento dos dados, treinamento dos modelos e plotagem de gráficos.
 
 Scripts auxiliares:
-- `main.py`: Consolida dados de latência.
+- `gerar_rotulos_latencia.py`: Consolida os dados de latência e de banda de cada cenário em CSVs na mesma grade de 1 s (ver `--help`).
 - `plot_latencias.py`: Plota latências nos caminhos.
 - `plot_matriz_confusao.py`: Gera matriz de confusão para modelos de classificação.
 - `gerar_relatorio_banda_rotas.py`: Extrai, a partir de `banda.bwm`, os relatórios de banda disponível por caminho de cada cenário em `datasets/` (ver seção [Relatórios de banda por caminho](#relatórios-de-banda-por-caminho)).
