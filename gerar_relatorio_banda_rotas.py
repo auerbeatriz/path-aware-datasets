@@ -39,7 +39,7 @@ def parseRotas(arquivo):
 ################################################################################
 # Consolida os arquivos de banda por caminho (banda_rota_h1<r>_h6<r>.txt) em
 #   um único CSV, no mesmo formato de 'latencia_rotas_h1_h6.csv' (ver
-#   consolidar_latencias em main.py), mas garantindo uma leitura por segundo.
+#   consolidar_latencias em gerar_relatorio_latencia.py), mas garantindo uma leitura por segundo.
 #
 #   A coleta do bwm-ng ocasionalmente perde um ciclo de amostragem, o que deixa
 #   segundos sem leitura em alguma rota (célula vazia) ou em todas as rotas

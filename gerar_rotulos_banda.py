@@ -6,7 +6,7 @@ RAIZ = os.path.dirname(os.path.abspath(__file__))
 ################################################################################
 # Gera um TXT com o ID da rota de maior banda disponível para cada timestamp,
 #   a partir do CSV consolidado banda_rotas_h1_h6.csv (mesmo formato usado por
-#   criar_arquivo_rotulos em main.py, porém buscando o máximo em vez do mínimo)
+#   criar_arquivo_rotulos em gerar_relatorio_latencia.py, porém buscando o máximo em vez do mínimo)
 #
 def criar_arquivo_rotulos_maior_banda(diretorio, nome_arquivo_entrada, nome_arquivo_saida):
     caminho_entrada = os.path.join(diretorio, nome_arquivo_entrada)

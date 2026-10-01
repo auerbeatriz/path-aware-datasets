@@ -135,7 +135,7 @@ Para analisar os modelos de ML:
 2. Execute as células para pré-processamento dos dados, treinamento dos modelos e plotagem de gráficos.
 
 Scripts auxiliares:
-- `main.py`: Consolida dados de latência.
+- `gerar_rotulos_latencia.py`: Consolida os dados de latência e de banda de cada cenário em CSVs na mesma grade de 1 s (ver `--help`).
 - `plot_latencias.py`: Plota latências nos caminhos.
 - `plot_matriz_confusao.py`: Gera matriz de confusão para modelos de classificação.
 - `gerar_relatorio_banda_rotas.py`: Extrai, a partir de `banda.bwm`, os relatórios de banda disponível por caminho de cada cenário em `datasets/` (ver seção [Relatórios de banda por caminho](#relatórios-de-banda-por-caminho)).

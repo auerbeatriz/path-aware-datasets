@@ -27,17 +27,17 @@ tenha segundos faltando nem células vazias.
 Exemplos:
 
     # Só latência, de todos os cenários, em datasets_gerados/<cenario>/
-    python3 main.py latencia
+    python3 gerar_rotulos_latencia.py latencia
 
     # As duas métricas alinhadas, apenas de D1 e D2
-    python3 main.py ambas --datasets D1 D2
+    python3 gerar_rotulos_latencia.py ambas --datasets D1 D2
 
     # Formato largo de D4, sobrescrevendo a saída anterior
-    python3 main.py wide --datasets D4 --sobrescrever
+    python3 gerar_rotulos_latencia.py wide --datasets D4 --sobrescrever
 
     # Regenera os relatórios por rota a partir de banda.bwm antes de consolidar
     #   (atenção: isso reescreve arquivos dentro da pasta do cenário)
-    python3 main.py banda --datasets D1 --regerar-banda
+    python3 gerar_rotulos_latencia.py banda --datasets D1 --regerar-banda
 """
 
 import argparse
