@@ -106,11 +106,69 @@ def objetivo_menor_latencia(latencias, bandas, medias_latencia, medias_banda, rn
 def objetivo_maior_banda(latencias, bandas, medias_latencia, medias_banda, rng, estatisticas):
     return escolher_rota(bandas, False, medias_banda, rng, estatisticas)
 
+################################################################################
+# Função objetivo multiobjetivo: combina latência e banda num único custo
+#   escalar por soma ponderada, após normalização min-max entre as rotas do
+#   próprio instante (as duas métricas têm escalas e sentidos diferentes):
+#
+#     custo_i = peso_latencia * lat_norm_i + (1 - peso_latencia) * (1 - banda_norm_i)
+#
+#   lat_norm = 0 na rota de menor latência, 1 na de maior; banda_norm = 1 na de
+#   maior banda. Vence a rota de MENOR custo. Rotas sem latência ou sem banda
+#   no instante ficam de fora (custo None). Quando todas as rotas têm o mesmo
+#   valor numa métrica, essa métrica não discrimina e contribui 0 para todas.
+#
+#   O desempate reaproveita escolher_rota: o mesmo custo é calculado sobre as
+#   médias da janela passada, e vence a rota de menor custo médio.
+#
+#   peso_latencia=1 reproduz 'mice' (só latência); peso_latencia=0 reproduz
+#   'elephant' (só banda), exceto em empates residuais.
+#
+def _normalizar(valores):
+    validos = [v for v in valores if v is not None]
+    if not validos:
+        return [None] * len(valores)
+    minimo, maximo = min(validos), max(validos)
+    amplitude = maximo - minimo
+    return [None if v is None else (0.0 if amplitude == 0 else (v - minimo) / amplitude)
+            for v in valores]
+
+def custo_ponderado(latencias, bandas, peso_latencia):
+    lat_norm = _normalizar(latencias)
+    banda_norm = _normalizar(bandas)
+    return [
+        None if l is None or b is None
+        else peso_latencia * l + (1 - peso_latencia) * (1 - b)
+        for l, b in zip(lat_norm, banda_norm)
+    ]
+
+def criar_objetivo_ponderado(peso_latencia):
+    if not 0 <= peso_latencia <= 1:
+        raise ValueError(f"peso_latencia deve estar em [0, 1], recebido {peso_latencia}")
+
+    def objetivo(latencias, bandas, medias_latencia, medias_banda, rng, estatisticas):
+        custos = custo_ponderado(latencias, bandas, peso_latencia)
+        custos_medios = custo_ponderado(medias_latencia, medias_banda, peso_latencia)
+        return escolher_rota(custos, True, custos_medios, rng, estatisticas)
+
+    objetivo.__name__ = f'objetivo_ponderado_{peso_latencia:g}'
+    return objetivo
+
 # Registro de categorias de fluxo -> função objetivo usada para escolher a
 #   melhor rota. Adicione novas entradas aqui para suportar novas categorias.
 CATEGORIAS_FLUXO = {
     'mice': objetivo_menor_latencia,
     'elephant': objetivo_maior_banda,
+}
+
+# Variante com uma terceira categoria multiobjetivo ('balanced'), que pondera
+#   latência e banda igualmente. Ativada com --multiobjetivo na linha de
+#   comando; o padrão continua com mice/elephant para não alterar os
+#   rótulos já consumidos pelos notebooks de análise.
+PESO_LATENCIA_BALANCED = 0.5
+CATEGORIAS_FLUXO_MULTIOBJETIVO = {
+    **CATEGORIAS_FLUXO,
+    'balanced': criar_objetivo_ponderado(PESO_LATENCIA_BALANCED),
 }
 
 ################################################################################
@@ -191,11 +249,17 @@ def resolver_nomes(pasta):
 # Generates the telemetry history and the per-flow labels of every dataset, or
 #   only of the ones named on the command line:
 #
-#     python3 gerar_historico_fluxo.py            # all of them
-#     python3 gerar_historico_fluxo.py D3a D4a    # only these
+#     python3 gerar_historico_fluxo.py                  # all of them
+#     python3 gerar_historico_fluxo.py D3a D4a          # only these
+#     python3 gerar_historico_fluxo.py --multiobjetivo  # + 'balanced' category
 #
-def main(datasets=None):
-    categorias = list(CATEGORIAS_FLUXO.keys())
+#   With --multiobjetivo, outputs get a '_multiobjetivo' suffix so the
+#   mice/elephant files consumed by the notebooks are left untouched.
+#
+def main(datasets=None, multiobjetivo=False):
+    funcoes = CATEGORIAS_FLUXO_MULTIOBJETIVO if multiobjetivo else CATEGORIAS_FLUXO
+    categorias = list(funcoes.keys())
+    sufixo_saida = '_multiobjetivo' if multiobjetivo else ''
 
     for pasta in sorted(glob.glob(os.path.join(RAIZ, 'datasets', '*'))):
         if not os.path.isdir(pasta):
@@ -208,13 +272,19 @@ def main(datasets=None):
             print(f"Nenhum latencia_rotas_h1_h6*.csv em: {pasta}")
             continue
 
+        historico = nomes['historico'].replace('.csv', f'{sufixo_saida}.csv')
+        rotulos = nomes['rotulos'].replace('.txt', f'{sufixo_saida}.txt')
+
         if consolidar_historico_telemetria(
-            pasta, nomes['latencia'], nomes['banda'], nomes['historico']
+            pasta, nomes['latencia'], nomes['banda'], historico
         ) is None:
             continue
 
-        duplicar_dataset_por_categoria(pasta, nomes['historico'], categorias)
-        criar_arquivo_rotulos_por_fluxo(pasta, nomes['historico'], nomes['rotulos'], CATEGORIAS_FLUXO)
+        duplicar_dataset_por_categoria(pasta, historico, categorias)
+        criar_arquivo_rotulos_por_fluxo(pasta, historico, rotulos, funcoes)
 
 if __name__ == "__main__":
-    main(sys.argv[1:] or None)
+    argumentos = sys.argv[1:]
+    multiobjetivo = '--multiobjetivo' in argumentos
+    datasets = [a for a in argumentos if not a.startswith('--')]
+    main(datasets or None, multiobjetivo=multiobjetivo)
