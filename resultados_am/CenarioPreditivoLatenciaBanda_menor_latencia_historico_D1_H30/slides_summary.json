@@ -1,0 +1,315 @@
+{
+ "dataset": "D1",
+ "target": "menor_latencia_historico",
+ "folder": "/home/beatrizam/Documents/beatriz/path-aware-datasets/resultados_am/CenarioPreditivoLatenciaBanda_menor_latencia_historico_D1_H30",
+ "n_instants": 3599,
+ "cv": [
+  {
+   "Model": "LogisticRegression",
+   "Acc_mean": "ERRO",
+   "Acc_std": "ERRO",
+   "Precision": "ERRO",
+   "Recall": "ERRO",
+   "F1-Score": "ERRO"
+  },
+  {
+   "Model": "KNeighbors",
+   "Acc_mean": "0.9992",
+   "Acc_std": "0.0017",
+   "Precision": "0.8996",
+   "Recall": "0.9000",
+   "F1-Score": "0.8998"
+  },
+  {
+   "Model": "SVC",
+   "Acc_mean": "ERRO",
+   "Acc_std": "ERRO",
+   "Precision": "ERRO",
+   "Recall": "ERRO",
+   "F1-Score": "ERRO"
+  },
+  {
+   "Model": "DecisionTree",
+   "Acc_mean": "0.9979",
+   "Acc_std": "0.0027",
+   "Precision": "0.7996",
+   "Recall": "0.7994",
+   "F1-Score": "0.7995"
+  },
+  {
+   "Model": "ExtraTrees",
+   "Acc_mean": "0.9992",
+   "Acc_std": "0.0017",
+   "Precision": "0.8996",
+   "Recall": "0.9000",
+   "F1-Score": "0.8998"
+  },
+  {
+   "Model": "RandomForest",
+   "Acc_mean": "0.9992",
+   "Acc_std": "0.0017",
+   "Precision": "0.8996",
+   "Recall": "0.9000",
+   "F1-Score": "0.8998"
+  },
+  {
+   "Model": "GaussianNB",
+   "Acc_mean": "0.9286",
+   "Acc_std": "0.1408",
+   "Precision": "0.7996",
+   "Recall": "0.7647",
+   "F1-Score": "0.7784"
+  }
+ ],
+ "test": [
+  {
+   "Model": "LogisticRegression",
+   "Accuracy": "1.0000",
+   "Precision": "1.0000",
+   "Recall": "1.0000",
+   "F1-Score": "1.0000"
+  },
+  {
+   "Model": "KNeighbors",
+   "Accuracy": "1.0000",
+   "Precision": "1.0000",
+   "Recall": "1.0000",
+   "F1-Score": "1.0000"
+  },
+  {
+   "Model": "SVC",
+   "Accuracy": "1.0000",
+   "Precision": "1.0000",
+   "Recall": "1.0000",
+   "F1-Score": "1.0000"
+  },
+  {
+   "Model": "DecisionTree",
+   "Accuracy": "0.9985",
+   "Precision": "0.5000",
+   "Recall": "0.4993",
+   "F1-Score": "0.4996"
+  },
+  {
+   "Model": "ExtraTrees",
+   "Accuracy": "1.0000",
+   "Precision": "1.0000",
+   "Recall": "1.0000",
+   "F1-Score": "1.0000"
+  },
+  {
+   "Model": "RandomForest",
+   "Accuracy": "1.0000",
+   "Precision": "1.0000",
+   "Recall": "1.0000",
+   "F1-Score": "1.0000"
+  },
+  {
+   "Model": "GaussianNB",
+   "Accuracy": "0.8785",
+   "Precision": "0.5000",
+   "Recall": "0.4392",
+   "F1-Score": "0.4677"
+  }
+ ],
+ "horizon_table": [
+  {
+   "index": "DecisionTree",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 0.9957924263674615,
+   "15": 1.0,
+   "30": 0.9985358711566618,
+   "60": 1.0,
+   "mean (H>0)": 0.9988656595048248,
+   "std (H>0)": 0.0018312364230319354
+  },
+  {
+   "index": "ExtraTrees",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 0.9985974754558204,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 0.9997194950911641,
+   "std (H>0)": 0.0006272280441794764
+  },
+  {
+   "index": "GaussianNB",
+   "0": 0.9958275382475661,
+   "1": 0.9986072423398329,
+   "5": 0.9761570827489481,
+   "15": 0.978601997146933,
+   "30": 0.8784773060029283,
+   "60": 0.990726429675425,
+   "mean (H>0)": 0.9645140115828135,
+   "std (H>0)": 0.04895351467511706
+  },
+  {
+   "index": "KNeighbors",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  },
+  {
+   "index": "LogisticRegression",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  },
+  {
+   "index": "RandomForest",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  },
+  {
+   "index": "SVC",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  },
+  {
+   "index": "baseline: persist\u00eancia",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  },
+  {
+   "index": "baseline: classe majorit\u00e1ria",
+   "0": 1.0,
+   "1": 1.0,
+   "5": 1.0,
+   "15": 1.0,
+   "30": 1.0,
+   "60": 1.0,
+   "mean (H>0)": 1.0,
+   "std (H>0)": 0.0
+  }
+ ],
+ "distribution": [
+  {
+   "route": "3",
+   "full_n": "2",
+   "full_%": "0.06",
+   "train_n": "2",
+   "train_%": "0.07",
+   "test_n": "0",
+   "test_%": "0.0"
+  },
+  {
+   "route": "4",
+   "full_n": "3567",
+   "full_%": "99.94",
+   "train_n": "2854",
+   "train_%": "99.93",
+   "test_n": "683",
+   "test_%": "100.0"
+  },
+  {
+   "route": "total",
+   "full_n": "3569",
+   "full_%": "100.0",
+   "train_n": "2856",
+   "train_%": "100.0",
+   "test_n": "683",
+   "test_%": "100.0"
+  }
+ ],
+ "recall_by_model": {
+  "LogisticRegression": {
+   "3": null,
+   "4": 1.0
+  },
+  "KNeighbors": {
+   "3": null,
+   "4": 1.0
+  },
+  "SVC": {
+   "3": null,
+   "4": 1.0
+  },
+  "DecisionTree": {
+   "3": null,
+   "4": 0.9985358711566618
+  },
+  "ExtraTrees": {
+   "3": null,
+   "4": 1.0
+  },
+  "RandomForest": {
+   "3": null,
+   "4": 1.0
+  },
+  "GaussianNB": {
+   "3": null,
+   "4": 0.8784773060029283
+  }
+ },
+ "f1_by_model": [
+  {
+   "Modelo": "LogisticRegression",
+   "Acuracia": 1.0,
+   "F1-macro": 1.0
+  },
+  {
+   "Modelo": "KNeighbors",
+   "Acuracia": 1.0,
+   "F1-macro": 1.0
+  },
+  {
+   "Modelo": "SVC",
+   "Acuracia": 1.0,
+   "F1-macro": 1.0
+  },
+  {
+   "Modelo": "DecisionTree",
+   "Acuracia": 0.9985358711566618,
+   "F1-macro": 0.49963369963369964
+  },
+  {
+   "Modelo": "ExtraTrees",
+   "Acuracia": 1.0,
+   "F1-macro": 1.0
+  },
+  {
+   "Modelo": "RandomForest",
+   "Acuracia": 1.0,
+   "F1-macro": 1.0
+  },
+  {
+   "Modelo": "GaussianNB",
+   "Acuracia": 0.8784773060029283,
+   "F1-macro": 0.4676539360872954
+  }
+ ],
+ "persistence": 1.0,
+ "majority": 1.0,
+ "majority_class": 4
+}

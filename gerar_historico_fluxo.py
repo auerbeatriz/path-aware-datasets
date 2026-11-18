@@ -1,6 +1,7 @@
 import csv
 import glob
 import os
+import shutil
 import sys
 
 from desempate_rotulos import (
@@ -184,6 +185,7 @@ def resolver_nomes(pasta):
         'latencia': f'latencia_rotas_h1_h6{sufixo}.csv',
         'banda': f'banda_rotas_h1_h6{sufixo}.csv',
         'historico': f'historico_telemetria_h1_h6{sufixo}.csv',
+        'historico_fluxo': f'historico_telemetria_flux_typeh1_h6{sufixo}.csv',
         'rotulos': f'rotulos_por_fluxo{sufixo}.txt',
     }
 
@@ -213,8 +215,17 @@ def main(datasets=None):
         ) is None:
             continue
 
-        duplicar_dataset_por_categoria(pasta, nomes['historico'], categorias)
-        criar_arquivo_rotulos_por_fluxo(pasta, nomes['historico'], nomes['rotulos'], CATEGORIAS_FLUXO)
+        # Two files out of the same consolidation:
+        #   historico_telemetria_h1_h6{suffix}.csv          one row per instant,
+        #                                                   no category column
+        #   historico_telemetria_flux_typeh1_h6{suffix}.csv one copy of every row
+        #                                                   per flow category, the
+        #                                                   file rotulos_por_fluxo
+        #                                                   is written from
+        shutil.copyfile(os.path.join(pasta, nomes['historico']),
+                        os.path.join(pasta, nomes['historico_fluxo']))
+        duplicar_dataset_por_categoria(pasta, nomes['historico_fluxo'], categorias)
+        criar_arquivo_rotulos_por_fluxo(pasta, nomes['historico_fluxo'], nomes['rotulos'], CATEGORIAS_FLUXO)
 
 if __name__ == "__main__":
     main(sys.argv[1:] or None)
