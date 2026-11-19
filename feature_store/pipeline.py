@@ -29,10 +29,14 @@ from helpers.parser_banda import BWM_NG_COLUNAS
 # O protocolo de avaliacao temporal (escala de tempo, deslocamento do alvo e
 # corte cronologico) e compartilhado com o notebook de analise de modelos, que
 # trabalha direto com os CSVs de datasets/ e nao passa pela feature store. Por
-# isso vive na raiz do projeto, em protocolo_temporal.py, e e reexportado aqui:
+# isso vive fora da feature store e e reexportado aqui:
 # quem chama fs.para_epoch, fs.deslocar_alvo ou fs.split_temporal continua
 # funcionando sem alteracao.
-sys.path.insert(0, _RAIZ)
+# The module now lives in scripts/evaluation/protocolo_temporal.py (it used to
+#   sit at the project root), so that folder is what goes on sys.path.
+_PASTA_PROTOCOLO = os.path.join(_RAIZ, 'scripts', 'evaluation')
+if _PASTA_PROTOCOLO not in sys.path:
+    sys.path.insert(0, _PASTA_PROTOCOLO)
 from protocolo_temporal import (  # noqa: F401
     COLUNA_ALVO_ATUAL,
     colunas_de_feature,
@@ -41,6 +45,18 @@ from protocolo_temporal import (  # noqa: F401
     para_epoch,
     preparar_treino_teste,
     split_temporal,
+)
+
+# Tie-break shared with the label generators of scripts/dataset_processing, so
+#   that the bandwidth target of the store follows the same rule as the label files
+_PASTA_ROTULOS = os.path.join(_RAIZ, 'scripts', 'dataset_processing')
+if _PASTA_ROTULOS not in sys.path:
+    sys.path.insert(0, _PASTA_ROTULOS)
+from desempate_rotulos import (  # noqa: E402
+    escolher_rota,
+    medias_janela_passado,
+    novas_estatisticas,
+    novo_gerador_aleatorio,
 )
 
 RELATORIOS_PADRAO = 'prototipo/relatorios'
@@ -554,6 +570,64 @@ def derivar_alvo(view):
     return view
 
 
+# Bandwidth target: the route with the largest available bandwidth (bottleneck)
+#   at the instant. Kept in its own column, next to melhor_rota, so that the
+#   latency target and everything that reads it stay exactly as they were.
+COLUNA_ALVO_BANDA = 'melhor_rota_banda'
+
+# Tie-break of the label generators in scripts/dataset_processing: window of
+#   past seconds whose mean breaks an exact tie, and the seed of the final draw
+JANELA_DESEMPATE_S = 10
+SEMENTE_DESEMPATE = 42
+
+
+def derivar_alvo_banda(view, janela_desempate_s=JANELA_DESEMPATE_S,
+                       semente=SEMENTE_DESEMPATE, estatisticas=None):
+    """Add melhor_rota_banda: index (base 1) of the route with the largest gargalo_Mbps.
+
+    Routes are numbered as in derivar_alvo (sorted rota_id), so both targets
+    name the same route with the same number.
+
+    Exact ties are frequent with bandwidth, unlike latency: routes that share
+    their bottleneck interface have the very same gargalo_Mbps, and idle routes
+    sit at link capacity together. A plain argmax would hand every tie to the
+    lowest route number. Ties are therefore broken by desempate_rotulos.escolher_rota,
+    the rule of the label files in datasets/: among the routes with exactly the
+    best value, the best mean over the `janela_desempate_s` seconds strictly
+    before the instant; if the means tie too (or there is no past), a draw from
+    a generator seeded with `semente`. Only the past enters the decision, so the
+    label stays causal.
+
+    Instants where some route has no bottleneck reading get no label.
+    `estatisticas`, when given a dict, receives the tie counts of
+    desempate_rotulos.novas_estatisticas.
+    """
+    view = view.copy()
+    rotas_ordenadas = sorted(view.rota_id.unique())
+
+    largo = (view.pivot_table(index='ts_epoch', columns='rota_id', values='gargalo_Mbps')
+             .reindex(columns=rotas_ordenadas)
+             .dropna()
+             .sort_index())
+
+    instantes = list(pd.to_datetime(largo.index, unit='s'))
+    valores = largo.to_numpy(dtype=float).tolist()
+    medias = medias_janela_passado(instantes, valores, janela_desempate_s)
+
+    contagem = novas_estatisticas()
+    gerador = novo_gerador_aleatorio(semente)
+    rotulos = [
+        escolher_rota(linha, minimizar=False, medias=media, rng=gerador, estatisticas=contagem)
+        for linha, media in zip(valores, medias)
+    ]
+    if estatisticas is not None:
+        estatisticas.update(contagem)
+
+    melhor = pd.Series(rotulos, index=largo.index)
+    view[COLUNA_ALVO_BANDA] = view.ts_epoch.map(melhor).astype('Int64')
+    return view
+
+
 ################################################################################
 # Persistencia (CSV)
 ################################################################################
@@ -561,13 +635,13 @@ def derivar_alvo(view):
 # Colunas da view que precisam de conversao explicita na releitura, ja que o CSV
 # nao carrega tipos
 COLUNAS_DATA = ['datetime_utc']
-COLUNAS_INTEIRO_NULAVEL = ['melhor_rota']
+COLUNAS_INTEIRO_NULAVEL = ['melhor_rota', COLUNA_ALVO_BANDA]
 
 
 # Colunas da view que sao chave/identificacao/tempo, nunca features de pivot
 COLUNAS_NAO_FEATURE_WIDE = {
     'run_id', 'rota_id', 'ts_epoch', 'datetime_utc', 'tempo_relativo_s',
-    'melhor_rota',
+    'melhor_rota', COLUNA_ALVO_BANDA,
 }
 
 
@@ -658,6 +732,19 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
             'com contagens diferentes'
         )
 
+    # Bandwidth target on the same instants as the two CSVs above, under the name
+    #   of the label files in datasets/. A latency label needs every route's
+    #   reading, and so does a bandwidth one, so every instant written above has both.
+    if COLUNA_ALVO_BANDA in com_rotulo.columns:
+        rotulos_banda = com_rotulo.groupby('datetime_utc')[COLUNA_ALVO_BANDA].first().sort_index()
+        if rotulos_banda.isna().any() or len(rotulos_banda) != len(latencia_larga):
+            raise ValueError('bandwidth target missing on instants that have a latency target')
+        caminho_rotulos_banda = os.path.join(pasta_largo, 'rotulos_maior_banda.txt')
+        with open(caminho_rotulos_banda, 'w') as arquivo:
+            for valor in rotulos_banda.astype(int):
+                arquivo.write(f'{valor}\n')
+        gerados.append(caminho_rotulos_banda)
+
     # --- layout largo completo: todas as features, via construir_wide ---
     colunas_numericas = view.select_dtypes(include='number').columns
     colunas_feature = [c for c in colunas_numericas if c not in COLUNAS_NAO_FEATURE_WIDE]
@@ -695,8 +782,14 @@ def ler_csv(caminho, **kwargs):
 ################################################################################
 
 def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=None,
-                 incluir_dim_rota=False, pasta_origem=DESTINO_PADRAO):
+                 incluir_dim_rota=False, pasta_origem=DESTINO_PADRAO,
+                 incluir_alvo_banda=False):
     """Recupera features da store, opcionalmente filtrando rotas e janela.
+
+    incluir_alvo_banda: also returns melhor_rota_banda (route with the largest
+        bottleneck bandwidth). Off by default because callers written before it
+        existed treat every column outside a fixed list as a feature, and would
+        silently train on the label.
 
     rotas: lista de rota_id, ou None para todas
     metricas: quais grupos incluir - 'latencia', 'banda' ou ambos
@@ -733,7 +826,8 @@ def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=No
 
     selecionadas = [c for c in chaves if c in view.columns]
     for coluna in view.columns:
-        if coluna in selecionadas or coluna in cruzadas or coluna == 'melhor_rota':
+        if (coluna in selecionadas or coluna in cruzadas
+                or coluna in ('melhor_rota', COLUNA_ALVO_BANDA)):
             continue
         if eh_de_latencia(coluna) and 'latencia' in metricas:
             selecionadas.append(coluna)
@@ -744,6 +838,12 @@ def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=No
         selecionadas += [c for c in cruzadas if c in view.columns]
     if 'melhor_rota' in view.columns:
         selecionadas.append('melhor_rota')
+    if incluir_alvo_banda:
+        if COLUNA_ALVO_BANDA not in view.columns:
+            raise KeyError(
+                f'{pasta_origem}: store built before {COLUNA_ALVO_BANDA} existed; rebuild it'
+            )
+        selecionadas.append(COLUNA_ALVO_BANDA)
 
     resultado = view[selecionadas]
 
@@ -856,6 +956,8 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
     view = calcular_features_janela(view)
     view = calcular_deltas_e_cross_features(view)
     view = derivar_alvo(view)
+    # Bandwidth target in its own column; melhor_rota (latency) is unchanged
+    view = derivar_alvo_banda(view)
 
     if persistir_em_disco:
         exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,

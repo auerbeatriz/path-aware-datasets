@@ -51,8 +51,8 @@ import pandas as pd
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, RAIZ)
 
-import gerar_relatorio_banda_rotas as relatorio_banda
-import gerar_relatorio_latencia as relatorio_latencia
+import scripts.dataset_processing.gerar_relatorio_banda_rotas as relatorio_banda
+import scripts.dataset_processing.gerar_relatorio_latencia as relatorio_latencia
 
 PASTA_DATASETS = os.path.join(RAIZ, 'datasets')
 DESTINO_PADRAO = os.path.join(RAIZ, 'datasets_gerados')

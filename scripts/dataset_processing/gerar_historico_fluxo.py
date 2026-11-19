@@ -4,7 +4,7 @@ import os
 import shutil
 import sys
 
-from desempate_rotulos import (
+from scripts.dataset_processing.desempate_rotulos import (
     escolher_rota,
     medias_janela_passado,
     novas_estatisticas,

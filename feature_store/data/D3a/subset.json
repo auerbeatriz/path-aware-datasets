@@ -1,0 +1,13 @@
+{
+  "source": "D3",
+  "routes": [
+    "h11_h61",
+    "h12_h62"
+  ],
+  "label_of_route": {
+    "h11_h61": 1,
+    "h12_h62": 2
+  },
+  "built_by": "feature_store/build_route_subset.py",
+  "alignment_offset_s": 10800
+}
