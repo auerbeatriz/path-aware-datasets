@@ -1,0 +1,1945 @@
+scope,horizon_s,window_s,model,accuracy,f1_macro
+D1 (baseline),0,5,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,5,persistence,1.0,1.0
+D1 (baseline),0,5,window_majority,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,10,persistence,1.0,1.0
+D1 (baseline),0,10,window_majority,1.0,1.0
+D1 (baseline),0,15,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,15,persistence,1.0,1.0
+D1 (baseline),0,15,window_majority,1.0,1.0
+D1 (baseline),0,30,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,30,persistence,1.0,1.0
+D1 (baseline),0,30,window_majority,1.0,1.0
+D1 (baseline),0,45,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,45,persistence,1.0,1.0
+D1 (baseline),0,45,window_majority,1.0,1.0
+D1 (baseline),0,60,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),0,60,persistence,1.0,1.0
+D1 (baseline),0,60,window_majority,1.0,1.0
+D1 (baseline),1,5,LogisticRegression,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,SVC,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,DecisionTree,1.0,1.0
+D1 (baseline),1,5,ExtraTrees,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,5,GaussianNB,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,5,window_majority,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,10,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,10,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,10,SVC,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,10,DecisionTree,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,10,ExtraTrees,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,10,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,10,GaussianNB,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,10,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,10,window_majority,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,15,SVC,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,DecisionTree,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,ExtraTrees,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,GaussianNB,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,15,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,15,window_majority,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,30,SVC,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,DecisionTree,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,ExtraTrees,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,GaussianNB,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,30,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,30,window_majority,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,45,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,45,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,45,SVC,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,45,DecisionTree,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,45,ExtraTrees,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,45,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,45,GaussianNB,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,45,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,45,window_majority,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,60,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,60,KNeighbors,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,60,SVC,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,60,DecisionTree,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,60,ExtraTrees,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,60,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),1,60,GaussianNB,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,60,persistence,0.9791666666666666,0.8814814814814814
+D1 (baseline),1,60,window_majority,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,5,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,5,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,5,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,5,DecisionTree,1.0,1.0
+D1 (baseline),5,5,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,5,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,5,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,5,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,5,window_majority,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,10,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,10,KNeighbors,1.0,1.0
+D1 (baseline),5,10,SVC,1.0,1.0
+D1 (baseline),5,10,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,10,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,10,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,10,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,10,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,10,window_majority,1.0,1.0
+D1 (baseline),5,15,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,15,KNeighbors,1.0,1.0
+D1 (baseline),5,15,SVC,1.0,1.0
+D1 (baseline),5,15,DecisionTree,0.9375,0.6444444444444445
+D1 (baseline),5,15,ExtraTrees,1.0,1.0
+D1 (baseline),5,15,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,15,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,15,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,15,window_majority,1.0,1.0
+D1 (baseline),5,30,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,30,KNeighbors,1.0,1.0
+D1 (baseline),5,30,SVC,1.0,1.0
+D1 (baseline),5,30,DecisionTree,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,30,ExtraTrees,1.0,1.0
+D1 (baseline),5,30,RandomForest,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,30,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,30,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,30,window_majority,1.0,1.0
+D1 (baseline),5,45,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,45,KNeighbors,1.0,1.0
+D1 (baseline),5,45,SVC,1.0,1.0
+D1 (baseline),5,45,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,45,ExtraTrees,1.0,1.0
+D1 (baseline),5,45,RandomForest,1.0,1.0
+D1 (baseline),5,45,GaussianNB,1.0,1.0
+D1 (baseline),5,45,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,45,window_majority,1.0,1.0
+D1 (baseline),5,60,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,60,KNeighbors,1.0,1.0
+D1 (baseline),5,60,SVC,1.0,1.0
+D1 (baseline),5,60,DecisionTree,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,60,ExtraTrees,1.0,1.0
+D1 (baseline),5,60,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),5,60,GaussianNB,1.0,1.0
+D1 (baseline),5,60,persistence,0.9583333333333334,0.6521739130434783
+D1 (baseline),5,60,window_majority,1.0,1.0
+D1 (baseline),15,5,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,DecisionTree,1.0,1.0
+D1 (baseline),15,5,ExtraTrees,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,GaussianNB,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,5,window_majority,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,10,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),15,10,KNeighbors,0.9583333333333334,0.6521739130434783
+D1 (baseline),15,10,SVC,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,10,DecisionTree,1.0,1.0
+D1 (baseline),15,10,ExtraTrees,1.0,1.0
+D1 (baseline),15,10,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,10,GaussianNB,1.0,1.0
+D1 (baseline),15,10,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,10,window_majority,1.0,1.0
+D1 (baseline),15,15,LogisticRegression,0.9583333333333334,0.6521739130434783
+D1 (baseline),15,15,KNeighbors,1.0,1.0
+D1 (baseline),15,15,SVC,1.0,1.0
+D1 (baseline),15,15,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,15,ExtraTrees,1.0,1.0
+D1 (baseline),15,15,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,15,GaussianNB,1.0,1.0
+D1 (baseline),15,15,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,15,window_majority,1.0,1.0
+D1 (baseline),15,30,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,30,KNeighbors,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,30,SVC,1.0,1.0
+D1 (baseline),15,30,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,30,ExtraTrees,1.0,1.0
+D1 (baseline),15,30,RandomForest,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,30,GaussianNB,1.0,1.0
+D1 (baseline),15,30,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,30,window_majority,1.0,1.0
+D1 (baseline),15,45,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,45,KNeighbors,1.0,1.0
+D1 (baseline),15,45,SVC,1.0,1.0
+D1 (baseline),15,45,DecisionTree,0.9375,0.6444444444444445
+D1 (baseline),15,45,ExtraTrees,1.0,1.0
+D1 (baseline),15,45,RandomForest,1.0,1.0
+D1 (baseline),15,45,GaussianNB,1.0,1.0
+D1 (baseline),15,45,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,45,window_majority,1.0,1.0
+D1 (baseline),15,60,LogisticRegression,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,60,KNeighbors,1.0,1.0
+D1 (baseline),15,60,SVC,1.0,1.0
+D1 (baseline),15,60,DecisionTree,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,60,ExtraTrees,1.0,1.0
+D1 (baseline),15,60,RandomForest,1.0,1.0
+D1 (baseline),15,60,GaussianNB,1.0,1.0
+D1 (baseline),15,60,persistence,0.9791666666666666,0.6595744680851063
+D1 (baseline),15,60,window_majority,1.0,1.0
+D1 (baseline),30,5,LogisticRegression,1.0,1.0
+D1 (baseline),30,5,KNeighbors,1.0,1.0
+D1 (baseline),30,5,SVC,1.0,1.0
+D1 (baseline),30,5,DecisionTree,1.0,1.0
+D1 (baseline),30,5,ExtraTrees,1.0,1.0
+D1 (baseline),30,5,RandomForest,1.0,1.0
+D1 (baseline),30,5,GaussianNB,1.0,1.0
+D1 (baseline),30,5,persistence,1.0,1.0
+D1 (baseline),30,5,window_majority,1.0,1.0
+D1 (baseline),30,10,LogisticRegression,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,10,KNeighbors,1.0,1.0
+D1 (baseline),30,10,SVC,1.0,1.0
+D1 (baseline),30,10,DecisionTree,1.0,1.0
+D1 (baseline),30,10,ExtraTrees,1.0,1.0
+D1 (baseline),30,10,RandomForest,1.0,1.0
+D1 (baseline),30,10,GaussianNB,1.0,1.0
+D1 (baseline),30,10,persistence,1.0,1.0
+D1 (baseline),30,10,window_majority,1.0,1.0
+D1 (baseline),30,15,LogisticRegression,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,15,KNeighbors,1.0,1.0
+D1 (baseline),30,15,SVC,1.0,1.0
+D1 (baseline),30,15,DecisionTree,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,15,ExtraTrees,1.0,1.0
+D1 (baseline),30,15,RandomForest,1.0,1.0
+D1 (baseline),30,15,GaussianNB,1.0,1.0
+D1 (baseline),30,15,persistence,1.0,1.0
+D1 (baseline),30,15,window_majority,1.0,1.0
+D1 (baseline),30,30,LogisticRegression,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,30,KNeighbors,1.0,1.0
+D1 (baseline),30,30,SVC,1.0,1.0
+D1 (baseline),30,30,DecisionTree,1.0,1.0
+D1 (baseline),30,30,ExtraTrees,1.0,1.0
+D1 (baseline),30,30,RandomForest,1.0,1.0
+D1 (baseline),30,30,GaussianNB,1.0,1.0
+D1 (baseline),30,30,persistence,1.0,1.0
+D1 (baseline),30,30,window_majority,1.0,1.0
+D1 (baseline),30,45,LogisticRegression,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,45,KNeighbors,1.0,1.0
+D1 (baseline),30,45,SVC,1.0,1.0
+D1 (baseline),30,45,DecisionTree,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,45,ExtraTrees,1.0,1.0
+D1 (baseline),30,45,RandomForest,1.0,1.0
+D1 (baseline),30,45,GaussianNB,1.0,1.0
+D1 (baseline),30,45,persistence,1.0,1.0
+D1 (baseline),30,45,window_majority,1.0,1.0
+D1 (baseline),30,60,LogisticRegression,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,60,KNeighbors,1.0,1.0
+D1 (baseline),30,60,SVC,1.0,1.0
+D1 (baseline),30,60,DecisionTree,0.9782608695652174,0.6592592592592593
+D1 (baseline),30,60,ExtraTrees,1.0,1.0
+D1 (baseline),30,60,RandomForest,1.0,1.0
+D1 (baseline),30,60,GaussianNB,1.0,1.0
+D1 (baseline),30,60,persistence,1.0,1.0
+D1 (baseline),30,60,window_majority,1.0,1.0
+D1 (baseline),60,5,LogisticRegression,1.0,1.0
+D1 (baseline),60,5,KNeighbors,1.0,1.0
+D1 (baseline),60,5,SVC,1.0,1.0
+D1 (baseline),60,5,DecisionTree,1.0,1.0
+D1 (baseline),60,5,ExtraTrees,1.0,1.0
+D1 (baseline),60,5,RandomForest,1.0,1.0
+D1 (baseline),60,5,GaussianNB,1.0,1.0
+D1 (baseline),60,5,persistence,1.0,1.0
+D1 (baseline),60,5,window_majority,1.0,1.0
+D1 (baseline),60,10,LogisticRegression,1.0,1.0
+D1 (baseline),60,10,KNeighbors,1.0,1.0
+D1 (baseline),60,10,SVC,1.0,1.0
+D1 (baseline),60,10,DecisionTree,1.0,1.0
+D1 (baseline),60,10,ExtraTrees,1.0,1.0
+D1 (baseline),60,10,RandomForest,1.0,1.0
+D1 (baseline),60,10,GaussianNB,1.0,1.0
+D1 (baseline),60,10,persistence,1.0,1.0
+D1 (baseline),60,10,window_majority,1.0,1.0
+D1 (baseline),60,15,LogisticRegression,1.0,1.0
+D1 (baseline),60,15,KNeighbors,1.0,1.0
+D1 (baseline),60,15,SVC,1.0,1.0
+D1 (baseline),60,15,DecisionTree,1.0,1.0
+D1 (baseline),60,15,ExtraTrees,1.0,1.0
+D1 (baseline),60,15,RandomForest,1.0,1.0
+D1 (baseline),60,15,GaussianNB,1.0,1.0
+D1 (baseline),60,15,persistence,1.0,1.0
+D1 (baseline),60,15,window_majority,1.0,1.0
+D1 (baseline),60,30,LogisticRegression,1.0,1.0
+D1 (baseline),60,30,KNeighbors,1.0,1.0
+D1 (baseline),60,30,SVC,1.0,1.0
+D1 (baseline),60,30,DecisionTree,0.9772727272727273,0.6589147286821705
+D1 (baseline),60,30,ExtraTrees,1.0,1.0
+D1 (baseline),60,30,RandomForest,1.0,1.0
+D1 (baseline),60,30,GaussianNB,1.0,1.0
+D1 (baseline),60,30,persistence,1.0,1.0
+D1 (baseline),60,30,window_majority,1.0,1.0
+D1 (baseline),60,45,LogisticRegression,0.9772727272727273,0.6589147286821705
+D1 (baseline),60,45,KNeighbors,1.0,1.0
+D1 (baseline),60,45,SVC,1.0,1.0
+D1 (baseline),60,45,DecisionTree,1.0,1.0
+D1 (baseline),60,45,ExtraTrees,1.0,1.0
+D1 (baseline),60,45,RandomForest,1.0,1.0
+D1 (baseline),60,45,GaussianNB,1.0,1.0
+D1 (baseline),60,45,persistence,1.0,1.0
+D1 (baseline),60,45,window_majority,1.0,1.0
+D1 (baseline),60,60,LogisticRegression,1.0,1.0
+D1 (baseline),60,60,KNeighbors,1.0,1.0
+D1 (baseline),60,60,SVC,1.0,1.0
+D1 (baseline),60,60,DecisionTree,0.9772727272727273,0.6589147286821705
+D1 (baseline),60,60,ExtraTrees,1.0,1.0
+D1 (baseline),60,60,RandomForest,1.0,1.0
+D1 (baseline),60,60,GaussianNB,1.0,1.0
+D1 (baseline),60,60,persistence,1.0,1.0
+D1 (baseline),60,60,window_majority,1.0,1.0
+D2 (constant background),0,5,LogisticRegression,0.72,0.6022556390977444
+D2 (constant background),0,5,KNeighbors,0.84,0.545420028476507
+D2 (constant background),0,5,SVC,0.8,0.5171312427409989
+D2 (constant background),0,5,DecisionTree,0.68,0.5737919737919738
+D2 (constant background),0,5,ExtraTrees,0.72,0.6022556390977444
+D2 (constant background),0,5,RandomForest,0.76,0.6376984126984127
+D2 (constant background),0,5,GaussianNB,0.78,0.5735930735930735
+D2 (constant background),0,5,persistence,1.0,1.0
+D2 (constant background),0,5,window_majority,0.84,0.545420028476507
+D2 (constant background),0,10,LogisticRegression,0.72,0.6277341643195302
+D2 (constant background),0,10,KNeighbors,0.78,0.5111788617886179
+D2 (constant background),0,10,SVC,0.78,0.42857142857142855
+D2 (constant background),0,10,DecisionTree,0.74,0.6388713388713388
+D2 (constant background),0,10,ExtraTrees,0.74,0.6136960600375234
+D2 (constant background),0,10,RandomForest,0.76,0.6472416472416472
+D2 (constant background),0,10,GaussianNB,0.72,0.6076839385284918
+D2 (constant background),0,10,persistence,1.0,1.0
+D2 (constant background),0,10,window_majority,0.8,0.42930232558139536
+D2 (constant background),0,15,LogisticRegression,0.76,0.6315379403794037
+D2 (constant background),0,15,KNeighbors,0.8,0.5336961900049481
+D2 (constant background),0,15,SVC,0.82,0.44542002847650686
+D2 (constant background),0,15,DecisionTree,0.84,0.7396198830409356
+D2 (constant background),0,15,ExtraTrees,0.78,0.6490514905149052
+D2 (constant background),0,15,RandomForest,0.78,0.6119214182175045
+D2 (constant background),0,15,GaussianNB,0.72,0.5613359201773835
+D2 (constant background),0,15,persistence,1.0,1.0
+D2 (constant background),0,15,window_majority,0.82,0.44039888682745826
+D2 (constant background),0,30,LogisticRegression,0.82,0.676923076923077
+D2 (constant background),0,30,KNeighbors,0.82,0.621654870239299
+D2 (constant background),0,30,SVC,0.82,0.5443344878772884
+D2 (constant background),0,30,DecisionTree,0.92,0.8308585265107005
+D2 (constant background),0,30,ExtraTrees,0.8,0.6835137085137085
+D2 (constant background),0,30,RandomForest,0.8,0.639069264069264
+D2 (constant background),0,30,GaussianNB,0.8,0.639855072463768
+D2 (constant background),0,30,persistence,1.0,1.0
+D2 (constant background),0,30,window_majority,0.82,0.44039888682745826
+D2 (constant background),0,45,LogisticRegression,0.88,0.7609810479375697
+D2 (constant background),0,45,KNeighbors,0.82,0.621654870239299
+D2 (constant background),0,45,SVC,0.84,0.5700757575757576
+D2 (constant background),0,45,DecisionTree,0.9,0.8032329988851727
+D2 (constant background),0,45,ExtraTrees,0.82,0.6872909698996656
+D2 (constant background),0,45,RandomForest,0.86,0.6979687152494625
+D2 (constant background),0,45,GaussianNB,0.76,0.6018760669790418
+D2 (constant background),0,45,persistence,1.0,1.0
+D2 (constant background),0,45,window_majority,0.82,0.44039888682745826
+D2 (constant background),0,60,LogisticRegression,0.9,0.7919939989088925
+D2 (constant background),0,60,KNeighbors,0.86,0.7580357142857143
+D2 (constant background),0,60,SVC,0.84,0.5700757575757576
+D2 (constant background),0,60,DecisionTree,0.92,0.8308585265107005
+D2 (constant background),0,60,ExtraTrees,0.86,0.7298913043478261
+D2 (constant background),0,60,RandomForest,0.84,0.6535714285714286
+D2 (constant background),0,60,GaussianNB,0.8,0.715943649373882
+D2 (constant background),0,60,persistence,1.0,1.0
+D2 (constant background),0,60,window_majority,0.82,0.44039888682745826
+D2 (constant background),1,5,LogisticRegression,0.72,0.5298303622771708
+D2 (constant background),1,5,KNeighbors,0.7,0.3853695324283559
+D2 (constant background),1,5,SVC,0.72,0.39338235294117646
+D2 (constant background),1,5,DecisionTree,0.72,0.47970085470085466
+D2 (constant background),1,5,ExtraTrees,0.72,0.538935574229692
+D2 (constant background),1,5,RandomForest,0.74,0.5502777777777778
+D2 (constant background),1,5,GaussianNB,0.72,0.40408163265306124
+D2 (constant background),1,5,persistence,0.76,0.5729763700351935
+D2 (constant background),1,5,window_majority,0.7,0.3853695324283559
+D2 (constant background),1,10,LogisticRegression,0.76,0.5740384615384615
+D2 (constant background),1,10,KNeighbors,0.76,0.4066604127579737
+D2 (constant background),1,10,SVC,0.78,0.4180672268907563
+D2 (constant background),1,10,DecisionTree,0.74,0.48931623931623935
+D2 (constant background),1,10,ExtraTrees,0.78,0.6030982905982906
+D2 (constant background),1,10,RandomForest,0.74,0.40215215215215216
+D2 (constant background),1,10,GaussianNB,0.74,0.3971734892787524
+D2 (constant background),1,10,persistence,0.76,0.5729763700351935
+D2 (constant background),1,10,window_majority,0.78,0.4180672268907563
+D2 (constant background),1,15,LogisticRegression,0.76,0.5740384615384615
+D2 (constant background),1,15,KNeighbors,0.72,0.39338235294117646
+D2 (constant background),1,15,SVC,0.76,0.4066604127579737
+D2 (constant background),1,15,DecisionTree,0.72,0.5339285714285715
+D2 (constant background),1,15,ExtraTrees,0.78,0.6078541479484876
+D2 (constant background),1,15,RandomForest,0.76,0.47883597883597884
+D2 (constant background),1,15,GaussianNB,0.74,0.49423076923076925
+D2 (constant background),1,15,persistence,0.76,0.5729763700351935
+D2 (constant background),1,15,window_majority,0.78,0.4180672268907563
+D2 (constant background),1,30,LogisticRegression,0.78,0.5865384615384616
+D2 (constant background),1,30,KNeighbors,0.72,0.39338235294117646
+D2 (constant background),1,30,SVC,0.76,0.41080822572931613
+D2 (constant background),1,30,DecisionTree,0.72,0.4781144781144781
+D2 (constant background),1,30,ExtraTrees,0.76,0.5774114774114774
+D2 (constant background),1,30,RandomForest,0.74,0.40491559086395235
+D2 (constant background),1,30,GaussianNB,0.68,0.43585164835164836
+D2 (constant background),1,30,persistence,0.76,0.5729763700351935
+D2 (constant background),1,30,window_majority,0.78,0.4180672268907563
+D2 (constant background),1,45,LogisticRegression,0.78,0.5884097035040432
+D2 (constant background),1,45,KNeighbors,0.74,0.39504716981132076
+D2 (constant background),1,45,SVC,0.76,0.4066604127579737
+D2 (constant background),1,45,DecisionTree,0.74,0.4787087912087912
+D2 (constant background),1,45,ExtraTrees,0.8,0.609545923632611
+D2 (constant background),1,45,RandomForest,0.78,0.5053981106612686
+D2 (constant background),1,45,GaussianNB,0.68,0.45322128851540616
+D2 (constant background),1,45,persistence,0.76,0.5729763700351935
+D2 (constant background),1,45,window_majority,0.78,0.4180672268907563
+D2 (constant background),1,60,LogisticRegression,0.82,0.6198412698412699
+D2 (constant background),1,60,KNeighbors,0.78,0.49901960784313726
+D2 (constant background),1,60,SVC,0.78,0.4180672268907563
+D2 (constant background),1,60,DecisionTree,0.68,0.4339492207139266
+D2 (constant background),1,60,ExtraTrees,0.82,0.6400134952766532
+D2 (constant background),1,60,RandomForest,0.8,0.5108407811982787
+D2 (constant background),1,60,GaussianNB,0.68,0.5352904040404041
+D2 (constant background),1,60,persistence,0.76,0.5729763700351935
+D2 (constant background),1,60,window_majority,0.78,0.4180672268907563
+D2 (constant background),5,5,LogisticRegression,0.58,0.38068863909200046
+D2 (constant background),5,5,KNeighbors,0.74,0.40064102564102566
+D2 (constant background),5,5,SVC,0.78,0.4169811320754717
+D2 (constant background),5,5,DecisionTree,0.5,0.2996289424860853
+D2 (constant background),5,5,ExtraTrees,0.64,0.4059995067209274
+D2 (constant background),5,5,RandomForest,0.74,0.3971734892787524
+D2 (constant background),5,5,GaussianNB,0.78,0.481759955444166
+D2 (constant background),5,5,persistence,0.64,0.4059995067209274
+D2 (constant background),5,5,window_majority,0.74,0.40064102564102566
+D2 (constant background),5,10,LogisticRegression,0.64,0.4304138321995465
+D2 (constant background),5,10,KNeighbors,0.74,0.4113987058237929
+D2 (constant background),5,10,SVC,0.78,0.41885553470919323
+D2 (constant background),5,10,DecisionTree,0.54,0.30952380952380953
+D2 (constant background),5,10,ExtraTrees,0.66,0.3658730158730159
+D2 (constant background),5,10,RandomForest,0.7,0.3814102564102564
+D2 (constant background),5,10,GaussianNB,0.68,0.3630952380952381
+D2 (constant background),5,10,persistence,0.64,0.4059995067209274
+D2 (constant background),5,10,window_majority,0.78,0.4180672268907563
+D2 (constant background),5,15,LogisticRegression,0.5,0.35208333333333336
+D2 (constant background),5,15,KNeighbors,0.74,0.40100430416068866
+D2 (constant background),5,15,SVC,0.8,0.42353479853479853
+D2 (constant background),5,15,DecisionTree,0.7,0.4620098039215686
+D2 (constant background),5,15,ExtraTrees,0.66,0.367983367983368
+D2 (constant background),5,15,RandomForest,0.72,0.39607843137254906
+D2 (constant background),5,15,GaussianNB,0.7,0.3875
+D2 (constant background),5,15,persistence,0.64,0.4059995067209274
+D2 (constant background),5,15,window_majority,0.8,0.42353479853479853
+D2 (constant background),5,30,LogisticRegression,0.66,0.43090659340659343
+D2 (constant background),5,30,KNeighbors,0.74,0.39903846153846156
+D2 (constant background),5,30,SVC,0.8,0.42353479853479853
+D2 (constant background),5,30,DecisionTree,0.62,0.36764705882352944
+D2 (constant background),5,30,ExtraTrees,0.74,0.40100430416068866
+D2 (constant background),5,30,RandomForest,0.8,0.42429820524620343
+D2 (constant background),5,30,GaussianNB,0.76,0.4052706552706553
+D2 (constant background),5,30,persistence,0.64,0.4059995067209274
+D2 (constant background),5,30,window_majority,0.8,0.42353479853479853
+D2 (constant background),5,45,LogisticRegression,0.62,0.34591194968553457
+D2 (constant background),5,45,KNeighbors,0.74,0.4051219512195122
+D2 (constant background),5,45,SVC,0.8,0.42353479853479853
+D2 (constant background),5,45,DecisionTree,0.56,0.31905594405594406
+D2 (constant background),5,45,ExtraTrees,0.74,0.40588235294117647
+D2 (constant background),5,45,RandomForest,0.78,0.4121030832949839
+D2 (constant background),5,45,GaussianNB,0.74,0.5183823529411764
+D2 (constant background),5,45,persistence,0.64,0.4059995067209274
+D2 (constant background),5,45,window_majority,0.8,0.42353479853479853
+D2 (constant background),5,60,LogisticRegression,0.58,0.3258101851851852
+D2 (constant background),5,60,KNeighbors,0.74,0.3998548621190131
+D2 (constant background),5,60,SVC,0.8,0.42353479853479853
+D2 (constant background),5,60,DecisionTree,0.64,0.41518159260094745
+D2 (constant background),5,60,ExtraTrees,0.8,0.42353479853479853
+D2 (constant background),5,60,RandomForest,0.78,0.4121030832949839
+D2 (constant background),5,60,GaussianNB,0.7,0.3832228454869965
+D2 (constant background),5,60,persistence,0.64,0.4059995067209274
+D2 (constant background),5,60,window_majority,0.8,0.42353479853479853
+D2 (constant background),15,5,LogisticRegression,0.5416666666666666,0.3713800236406619
+D2 (constant background),15,5,KNeighbors,0.7291666666666666,0.4748473748473748
+D2 (constant background),15,5,SVC,0.75,0.48985507246376814
+D2 (constant background),15,5,DecisionTree,0.6041666666666666,0.34464285714285714
+D2 (constant background),15,5,ExtraTrees,0.6875,0.3879598662207358
+D2 (constant background),15,5,RandomForest,0.7291666666666666,0.48333333333333334
+D2 (constant background),15,5,GaussianNB,0.6666666666666666,0.4312312312312312
+D2 (constant background),15,5,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,5,window_majority,0.7291666666666666,0.4748473748473748
+D2 (constant background),15,10,LogisticRegression,0.4583333333333333,0.3595238095238095
+D2 (constant background),15,10,KNeighbors,0.7083333333333334,0.3966175668303328
+D2 (constant background),15,10,SVC,0.75,0.40890269151138714
+D2 (constant background),15,10,DecisionTree,0.5208333333333334,0.37080564784053155
+D2 (constant background),15,10,ExtraTrees,0.7083333333333334,0.39124597207303974
+D2 (constant background),15,10,RandomForest,0.6875,0.38306674020959736
+D2 (constant background),15,10,GaussianNB,0.7291666666666666,0.3990057561486133
+D2 (constant background),15,10,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,10,window_majority,0.75,0.40890269151138714
+D2 (constant background),15,15,LogisticRegression,0.5625,0.4313131313131313
+D2 (constant background),15,15,KNeighbors,0.75,0.40944473274519977
+D2 (constant background),15,15,SVC,0.75,0.40890269151138714
+D2 (constant background),15,15,DecisionTree,0.625,0.43926038500506587
+D2 (constant background),15,15,ExtraTrees,0.7083333333333334,0.38618524332810045
+D2 (constant background),15,15,RandomForest,0.7291666666666666,0.3979166666666667
+D2 (constant background),15,15,GaussianNB,0.6666666666666666,0.3763888888888889
+D2 (constant background),15,15,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,15,window_majority,0.75,0.40890269151138714
+D2 (constant background),15,30,LogisticRegression,0.4375,0.2956349206349206
+D2 (constant background),15,30,KNeighbors,0.625,0.35505952380952377
+D2 (constant background),15,30,SVC,0.75,0.40890269151138714
+D2 (constant background),15,30,DecisionTree,0.5625,0.4935606060606061
+D2 (constant background),15,30,ExtraTrees,0.6666666666666666,0.42708333333333326
+D2 (constant background),15,30,RandomForest,0.6458333333333334,0.4185714285714286
+D2 (constant background),15,30,GaussianNB,0.625,0.4638480392156863
+D2 (constant background),15,30,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,30,window_majority,0.75,0.40890269151138714
+D2 (constant background),15,45,LogisticRegression,0.6041666666666666,0.4097222222222222
+D2 (constant background),15,45,KNeighbors,0.75,0.49058919803600654
+D2 (constant background),15,45,SVC,0.75,0.40890269151138714
+D2 (constant background),15,45,DecisionTree,0.5833333333333334,0.3487577639751553
+D2 (constant background),15,45,ExtraTrees,0.7291666666666666,0.4062330623306233
+D2 (constant background),15,45,RandomForest,0.7291666666666666,0.40212765957446805
+D2 (constant background),15,45,GaussianNB,0.7708333333333334,0.5066256065696155
+D2 (constant background),15,45,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,45,window_majority,0.75,0.40890269151138714
+D2 (constant background),15,60,LogisticRegression,0.6041666666666666,0.413510101010101
+D2 (constant background),15,60,KNeighbors,0.7083333333333334,0.5045918367346939
+D2 (constant background),15,60,SVC,0.75,0.40890269151138714
+D2 (constant background),15,60,DecisionTree,0.5833333333333334,0.34108527131782945
+D2 (constant background),15,60,ExtraTrees,0.6875,0.38315217391304346
+D2 (constant background),15,60,RandomForest,0.6875,0.3875
+D2 (constant background),15,60,GaussianNB,0.625,0.4149305555555556
+D2 (constant background),15,60,persistence,0.6458333333333334,0.41666666666666663
+D2 (constant background),15,60,window_majority,0.75,0.40890269151138714
+D2 (constant background),30,5,LogisticRegression,0.5208333333333334,0.3143939393939394
+D2 (constant background),30,5,KNeighbors,0.6875,0.41379716981132075
+D2 (constant background),30,5,SVC,0.6875,0.36931187569367374
+D2 (constant background),30,5,DecisionTree,0.5833333333333334,0.423076923076923
+D2 (constant background),30,5,ExtraTrees,0.5833333333333334,0.3362745098039216
+D2 (constant background),30,5,RandomForest,0.625,0.34019439679817043
+D2 (constant background),30,5,GaussianNB,0.7083333333333334,0.42942216981132075
+D2 (constant background),30,5,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,5,window_majority,0.6875,0.41379716981132075
+D2 (constant background),30,10,LogisticRegression,0.4791666666666667,0.34936720469552457
+D2 (constant background),30,10,KNeighbors,0.7291666666666666,0.40271493212669685
+D2 (constant background),30,10,SVC,0.7291666666666666,0.3913619501854796
+D2 (constant background),30,10,DecisionTree,0.5833333333333334,0.41721661490683226
+D2 (constant background),30,10,ExtraTrees,0.6666666666666666,0.4153061224489796
+D2 (constant background),30,10,RandomForest,0.75,0.46390056022408965
+D2 (constant background),30,10,GaussianNB,0.6875,0.4177188552188552
+D2 (constant background),30,10,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,10,window_majority,0.7291666666666666,0.3913619501854796
+D2 (constant background),30,15,LogisticRegression,0.5625,0.38489010989010985
+D2 (constant background),30,15,KNeighbors,0.7083333333333334,0.386437908496732
+D2 (constant background),30,15,SVC,0.7291666666666666,0.3872141372141372
+D2 (constant background),30,15,DecisionTree,0.6041666666666666,0.46524943310657596
+D2 (constant background),30,15,ExtraTrees,0.6666666666666666,0.3621621621621622
+D2 (constant background),30,15,RandomForest,0.7291666666666666,0.5523423423423424
+D2 (constant background),30,15,GaussianNB,0.6875,0.6052188552188552
+D2 (constant background),30,15,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,15,window_majority,0.7291666666666666,0.3872141372141372
+D2 (constant background),30,30,LogisticRegression,0.5208333333333334,0.3907514864961673
+D2 (constant background),30,30,KNeighbors,0.6666666666666666,0.36764705882352944
+D2 (constant background),30,30,SVC,0.75,0.3998968008255934
+D2 (constant background),30,30,DecisionTree,0.4791666666666667,0.3498563218390805
+D2 (constant background),30,30,ExtraTrees,0.6666666666666666,0.3627450980392157
+D2 (constant background),30,30,RandomForest,0.7083333333333334,0.3891891891891892
+D2 (constant background),30,30,GaussianNB,0.6666666666666666,0.35525606469002696
+D2 (constant background),30,30,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,30,window_majority,0.75,0.3998968008255934
+D2 (constant background),30,45,LogisticRegression,0.5416666666666666,0.3684377199155524
+D2 (constant background),30,45,KNeighbors,0.6041666666666666,0.34464285714285714
+D2 (constant background),30,45,SVC,0.75,0.3998968008255934
+D2 (constant background),30,45,DecisionTree,0.4791666666666667,0.3222222222222222
+D2 (constant background),30,45,ExtraTrees,0.6875,0.3756756756756757
+D2 (constant background),30,45,RandomForest,0.6875,0.3797573083287369
+D2 (constant background),30,45,GaussianNB,0.5625,0.3249837345478204
+D2 (constant background),30,45,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,45,window_majority,0.75,0.3998968008255934
+D2 (constant background),30,60,LogisticRegression,0.5625,0.3772796352583587
+D2 (constant background),30,60,KNeighbors,0.6041666666666666,0.35144927536231885
+D2 (constant background),30,60,SVC,0.75,0.3998968008255934
+D2 (constant background),30,60,DecisionTree,0.3958333333333333,0.24623655913978493
+D2 (constant background),30,60,ExtraTrees,0.7291666666666666,0.3872141372141372
+D2 (constant background),30,60,RandomForest,0.7083333333333334,0.3856756756756757
+D2 (constant background),30,60,GaussianNB,0.5833333333333334,0.3401360544217687
+D2 (constant background),30,60,persistence,0.5625,0.3101851851851852
+D2 (constant background),30,60,window_majority,0.75,0.3998968008255934
+D2 (constant background),60,5,LogisticRegression,0.5681818181818182,0.3238461538461539
+D2 (constant background),60,5,KNeighbors,0.6818181818181818,0.361875
+D2 (constant background),60,5,SVC,0.7045454545454546,0.3718181818181818
+D2 (constant background),60,5,DecisionTree,0.6136363636363636,0.33084045584045585
+D2 (constant background),60,5,ExtraTrees,0.7045454545454546,0.390625
+D2 (constant background),60,5,RandomForest,0.6590909090909091,0.3626692456479691
+D2 (constant background),60,5,GaussianNB,0.6818181818181818,0.361875
+D2 (constant background),60,5,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,5,window_majority,0.6818181818181818,0.361875
+D2 (constant background),60,10,LogisticRegression,0.5909090909090909,0.3360234776228907
+D2 (constant background),60,10,KNeighbors,0.7272727272727273,0.39583333333333337
+D2 (constant background),60,10,SVC,0.8409090909090909,0.4342857142857143
+D2 (constant background),60,10,DecisionTree,0.6363636363636364,0.35212765957446807
+D2 (constant background),60,10,ExtraTrees,0.7272727272727273,0.38181818181818183
+D2 (constant background),60,10,RandomForest,0.7727272727272727,0.40117647058823525
+D2 (constant background),60,10,GaussianNB,0.7954545454545454,0.4201680672268907
+D2 (constant background),60,10,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,10,window_majority,0.8409090909090909,0.4342857142857143
+D2 (constant background),60,15,LogisticRegression,0.6136363636363636,0.34438775510204084
+D2 (constant background),60,15,KNeighbors,0.7272727272727273,0.3874193548387097
+D2 (constant background),60,15,SVC,0.8181818181818182,0.4226190476190476
+D2 (constant background),60,15,DecisionTree,0.6363636363636364,0.34879032258064513
+D2 (constant background),60,15,ExtraTrees,0.6818181818181818,0.3605442176870748
+D2 (constant background),60,15,RandomForest,0.7045454545454546,0.3666666666666667
+D2 (constant background),60,15,GaussianNB,0.7045454545454546,0.3772036474164134
+D2 (constant background),60,15,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,15,window_majority,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,30,LogisticRegression,0.5681818181818182,0.32731554160125587
+D2 (constant background),60,30,KNeighbors,0.7727272727272727,0.40318627450980393
+D2 (constant background),60,30,SVC,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,30,DecisionTree,0.6136363636363636,0.3567503924646782
+D2 (constant background),60,30,ExtraTrees,0.7272727272727273,0.38363095238095235
+D2 (constant background),60,30,RandomForest,0.7727272727272727,0.40117647058823525
+D2 (constant background),60,30,GaussianNB,0.7045454545454546,0.38541666666666663
+D2 (constant background),60,30,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,30,window_majority,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,45,LogisticRegression,0.6363636363636364,0.3602150537634409
+D2 (constant background),60,45,KNeighbors,0.75,0.40379901960784315
+D2 (constant background),60,45,SVC,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,45,DecisionTree,0.5454545454545454,0.3030612244897959
+D2 (constant background),60,45,ExtraTrees,0.8181818181818182,0.4215686274509804
+D2 (constant background),60,45,RandomForest,0.8181818181818182,0.4226190476190476
+D2 (constant background),60,45,GaussianNB,0.7272727272727273,0.38585607940446653
+D2 (constant background),60,45,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,45,window_majority,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,60,LogisticRegression,0.7045454545454546,0.37564102564102564
+D2 (constant background),60,60,KNeighbors,0.8181818181818182,0.4258823529411765
+D2 (constant background),60,60,SVC,0.7954545454545454,0.41103603603603606
+D2 (constant background),60,60,DecisionTree,0.6590909090909091,0.42415463525835867
+D2 (constant background),60,60,ExtraTrees,0.8181818181818182,0.4226190476190476
+D2 (constant background),60,60,RandomForest,0.8181818181818182,0.4215686274509804
+D2 (constant background),60,60,GaussianNB,0.7272727272727273,0.383578431372549
+D2 (constant background),60,60,persistence,0.6590909090909091,0.3574193548387097
+D2 (constant background),60,60,window_majority,0.7954545454545454,0.41103603603603606
+D3 (long iperf flow),0,5,LogisticRegression,0.6,0.3879310344827586
+D3 (long iperf flow),0,5,KNeighbors,0.72,0.39653361344537813
+D3 (long iperf flow),0,5,SVC,0.7,0.3835725677830941
+D3 (long iperf flow),0,5,DecisionTree,0.74,0.569704433497537
+D3 (long iperf flow),0,5,ExtraTrees,0.72,0.4799242424242424
+D3 (long iperf flow),0,5,RandomForest,0.7,0.4554463294751864
+D3 (long iperf flow),0,5,GaussianNB,0.68,0.37362938596491224
+D3 (long iperf flow),0,5,persistence,1.0,1.0
+D3 (long iperf flow),0,5,window_majority,0.72,0.39653361344537813
+D3 (long iperf flow),0,10,LogisticRegression,0.72,0.47424242424242424
+D3 (long iperf flow),0,10,KNeighbors,0.74,0.46003668763102723
+D3 (long iperf flow),0,10,SVC,0.72,0.3859126984126984
+D3 (long iperf flow),0,10,DecisionTree,0.68,0.4652777777777778
+D3 (long iperf flow),0,10,ExtraTrees,0.72,0.47424242424242424
+D3 (long iperf flow),0,10,RandomForest,0.7,0.394880174291939
+D3 (long iperf flow),0,10,GaussianNB,0.7,0.3843915343915344
+D3 (long iperf flow),0,10,persistence,1.0,1.0
+D3 (long iperf flow),0,10,window_majority,0.72,0.3859126984126984
+D3 (long iperf flow),0,15,LogisticRegression,0.72,0.47619047619047616
+D3 (long iperf flow),0,15,KNeighbors,0.74,0.4627673796791444
+D3 (long iperf flow),0,15,SVC,0.7,0.367519305019305
+D3 (long iperf flow),0,15,DecisionTree,0.74,0.5623842592592593
+D3 (long iperf flow),0,15,ExtraTrees,0.7,0.4625070741369553
+D3 (long iperf flow),0,15,RandomForest,0.7,0.3871753246753247
+D3 (long iperf flow),0,15,GaussianNB,0.72,0.4839869281045751
+D3 (long iperf flow),0,15,persistence,1.0,1.0
+D3 (long iperf flow),0,15,window_majority,0.72,0.38014354066985645
+D3 (long iperf flow),0,30,LogisticRegression,0.76,0.5128466327108092
+D3 (long iperf flow),0,30,KNeighbors,0.74,0.4616161616161616
+D3 (long iperf flow),0,30,SVC,0.74,0.39108187134502925
+D3 (long iperf flow),0,30,DecisionTree,0.84,0.5375205254515599
+D3 (long iperf flow),0,30,ExtraTrees,0.7,0.38431590656284764
+D3 (long iperf flow),0,30,RandomForest,0.72,0.4002673796791444
+D3 (long iperf flow),0,30,GaussianNB,0.64,0.35964912280701755
+D3 (long iperf flow),0,30,persistence,1.0,1.0
+D3 (long iperf flow),0,30,window_majority,0.72,0.38014354066985645
+D3 (long iperf flow),0,45,LogisticRegression,0.78,0.5090245775729647
+D3 (long iperf flow),0,45,KNeighbors,0.76,0.4761513157894737
+D3 (long iperf flow),0,45,SVC,0.74,0.3980730223123732
+D3 (long iperf flow),0,45,DecisionTree,0.88,0.6037775891341256
+D3 (long iperf flow),0,45,ExtraTrees,0.76,0.4961799660441426
+D3 (long iperf flow),0,45,RandomForest,0.74,0.411864406779661
+D3 (long iperf flow),0,45,GaussianNB,0.68,0.38869047619047614
+D3 (long iperf flow),0,45,persistence,1.0,1.0
+D3 (long iperf flow),0,45,window_majority,0.74,0.3924501424501424
+D3 (long iperf flow),0,60,LogisticRegression,0.78,0.5666544477028348
+D3 (long iperf flow),0,60,KNeighbors,0.74,0.4616161616161616
+D3 (long iperf flow),0,60,SVC,0.7,0.3782249742002064
+D3 (long iperf flow),0,60,DecisionTree,0.9,0.7021825396825396
+D3 (long iperf flow),0,60,ExtraTrees,0.74,0.4090656284760845
+D3 (long iperf flow),0,60,RandomForest,0.8,0.4424731182795699
+D3 (long iperf flow),0,60,GaussianNB,0.7,0.45492424242424245
+D3 (long iperf flow),0,60,persistence,1.0,1.0
+D3 (long iperf flow),0,60,window_majority,0.76,0.4044811320754717
+D3 (long iperf flow),1,5,LogisticRegression,0.78,0.411864406779661
+D3 (long iperf flow),1,5,KNeighbors,0.76,0.3925790196976638
+D3 (long iperf flow),1,5,SVC,0.78,0.40426497277676954
+D3 (long iperf flow),1,5,DecisionTree,0.82,0.42304168575355017
+D3 (long iperf flow),1,5,ExtraTrees,0.76,0.3914956011730205
+D3 (long iperf flow),1,5,RandomForest,0.84,0.4277027027027027
+D3 (long iperf flow),1,5,GaussianNB,0.84,0.4308652988403211
+D3 (long iperf flow),1,5,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,5,window_majority,0.76,0.3925790196976638
+D3 (long iperf flow),1,10,LogisticRegression,0.72,0.36936475409836067
+D3 (long iperf flow),1,10,KNeighbors,0.74,0.37304147465437787
+D3 (long iperf flow),1,10,SVC,0.82,0.41264667535853977
+D3 (long iperf flow),1,10,DecisionTree,0.8,0.4089184060721063
+D3 (long iperf flow),1,10,ExtraTrees,0.82,0.41919191919191917
+D3 (long iperf flow),1,10,RandomForest,0.82,0.4193693693693694
+D3 (long iperf flow),1,10,GaussianNB,0.82,0.42304168575355017
+D3 (long iperf flow),1,10,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,10,window_majority,0.82,0.41929824561403506
+D3 (long iperf flow),1,15,LogisticRegression,0.76,0.3951612903225806
+D3 (long iperf flow),1,15,KNeighbors,0.74,0.37488328664799253
+D3 (long iperf flow),1,15,SVC,0.86,0.4353872486093282
+D3 (long iperf flow),1,15,DecisionTree,0.74,0.3833333333333333
+D3 (long iperf flow),1,15,ExtraTrees,0.84,0.43168880455407965
+D3 (long iperf flow),1,15,RandomForest,0.84,0.4277027027027027
+D3 (long iperf flow),1,15,GaussianNB,0.82,0.42500000000000004
+D3 (long iperf flow),1,15,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,15,window_majority,0.84,0.4241379310344828
+D3 (long iperf flow),1,30,LogisticRegression,0.84,0.4277027027027027
+D3 (long iperf flow),1,30,KNeighbors,0.74,0.38023088023088025
+D3 (long iperf flow),1,30,SVC,0.82,0.41264667535853977
+D3 (long iperf flow),1,30,DecisionTree,0.82,0.4264069264069264
+D3 (long iperf flow),1,30,ExtraTrees,0.86,0.4400921658986175
+D3 (long iperf flow),1,30,RandomForest,0.86,0.43933987511150757
+D3 (long iperf flow),1,30,GaussianNB,0.76,0.38454332552693204
+D3 (long iperf flow),1,30,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,30,window_majority,0.84,0.42559523809523814
+D3 (long iperf flow),1,45,LogisticRegression,0.82,0.41698292220113853
+D3 (long iperf flow),1,45,KNeighbors,0.7,0.36235119047619047
+D3 (long iperf flow),1,45,SVC,0.86,0.4353872486093282
+D3 (long iperf flow),1,45,DecisionTree,0.76,0.39384920634920634
+D3 (long iperf flow),1,45,ExtraTrees,0.84,0.4258064516129032
+D3 (long iperf flow),1,45,RandomForest,0.88,0.44572441293752774
+D3 (long iperf flow),1,45,GaussianNB,0.72,0.36441532258064513
+D3 (long iperf flow),1,45,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,45,window_majority,0.84,0.42559523809523814
+D3 (long iperf flow),1,60,LogisticRegression,0.74,0.3813886210221794
+D3 (long iperf flow),1,60,KNeighbors,0.78,0.39936247723132967
+D3 (long iperf flow),1,60,SVC,0.86,0.4366379310344828
+D3 (long iperf flow),1,60,DecisionTree,0.76,0.391025641025641
+D3 (long iperf flow),1,60,ExtraTrees,0.84,0.4258064516129032
+D3 (long iperf flow),1,60,RandomForest,0.86,0.43413978494623656
+D3 (long iperf flow),1,60,GaussianNB,0.7,0.37673343605546994
+D3 (long iperf flow),1,60,persistence,0.8,0.4089184060721063
+D3 (long iperf flow),1,60,window_majority,0.86,0.4365750528541226
+D3 (long iperf flow),5,5,LogisticRegression,0.58,0.2665671641791045
+D3 (long iperf flow),5,5,KNeighbors,0.7,0.35531309297912717
+D3 (long iperf flow),5,5,SVC,0.72,0.48023653906006847
+D3 (long iperf flow),5,5,DecisionTree,0.64,0.3333333333333333
+D3 (long iperf flow),5,5,ExtraTrees,0.68,0.3497983870967742
+D3 (long iperf flow),5,5,RandomForest,0.7,0.36338797814207646
+D3 (long iperf flow),5,5,GaussianNB,0.66,0.3268398268398268
+D3 (long iperf flow),5,5,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,5,window_majority,0.7,0.35531309297912717
+D3 (long iperf flow),5,10,LogisticRegression,0.6,0.32016129032258067
+D3 (long iperf flow),5,10,KNeighbors,0.72,0.36017740429505135
+D3 (long iperf flow),5,10,SVC,0.8,0.5364052577167331
+D3 (long iperf flow),5,10,DecisionTree,0.66,0.35892857142857143
+D3 (long iperf flow),5,10,ExtraTrees,0.7,0.3546626984126984
+D3 (long iperf flow),5,10,RandomForest,0.7,0.3546626984126984
+D3 (long iperf flow),5,10,GaussianNB,0.76,0.5081413210445468
+D3 (long iperf flow),5,10,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,10,window_majority,0.78,0.53003003003003
+D3 (long iperf flow),5,15,LogisticRegression,0.66,0.3431818181818182
+D3 (long iperf flow),5,15,KNeighbors,0.76,0.38547358834244083
+D3 (long iperf flow),5,15,SVC,0.82,0.552046783625731
+D3 (long iperf flow),5,15,DecisionTree,0.64,0.3111111111111111
+D3 (long iperf flow),5,15,ExtraTrees,0.72,0.36441532258064513
+D3 (long iperf flow),5,15,RandomForest,0.76,0.5127244340359094
+D3 (long iperf flow),5,15,GaussianNB,0.76,0.5037037037037037
+D3 (long iperf flow),5,15,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,15,window_majority,0.8,0.5364052577167331
+D3 (long iperf flow),5,30,LogisticRegression,0.68,0.3520581113801453
+D3 (long iperf flow),5,30,KNeighbors,0.76,0.5081413210445468
+D3 (long iperf flow),5,30,SVC,0.8,0.538896132116471
+D3 (long iperf flow),5,30,DecisionTree,0.64,0.3111111111111111
+D3 (long iperf flow),5,30,ExtraTrees,0.74,0.49738863287250384
+D3 (long iperf flow),5,30,RandomForest,0.74,0.48778103616813295
+D3 (long iperf flow),5,30,GaussianNB,0.74,0.4910394265232975
+D3 (long iperf flow),5,30,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,30,window_majority,0.76,0.5105026799942055
+D3 (long iperf flow),5,45,LogisticRegression,0.72,0.3676395289298515
+D3 (long iperf flow),5,45,KNeighbors,0.74,0.4954462659380692
+D3 (long iperf flow),5,45,SVC,0.8,0.538896132116471
+D3 (long iperf flow),5,45,DecisionTree,0.66,0.33174603174603173
+D3 (long iperf flow),5,45,ExtraTrees,0.76,0.5081413210445468
+D3 (long iperf flow),5,45,RandomForest,0.76,0.3888888888888889
+D3 (long iperf flow),5,45,GaussianNB,0.72,0.46627565982404695
+D3 (long iperf flow),5,45,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,45,window_majority,0.8,0.538896132116471
+D3 (long iperf flow),5,60,LogisticRegression,0.8,0.4054621848739496
+D3 (long iperf flow),5,60,KNeighbors,0.74,0.4910394265232975
+D3 (long iperf flow),5,60,SVC,0.8,0.538896132116471
+D3 (long iperf flow),5,60,DecisionTree,0.72,0.5318212030574941
+D3 (long iperf flow),5,60,ExtraTrees,0.78,0.3927556818181818
+D3 (long iperf flow),5,60,RandomForest,0.76,0.38547358834244083
+D3 (long iperf flow),5,60,GaussianNB,0.76,0.3861607142857143
+D3 (long iperf flow),5,60,persistence,0.74,0.49197684036393713
+D3 (long iperf flow),5,60,window_majority,0.78,0.5258620689655172
+D3 (long iperf flow),15,5,LogisticRegression,0.6458333333333334,0.35352564102564105
+D3 (long iperf flow),15,5,KNeighbors,0.625,0.3092142453363482
+D3 (long iperf flow),15,5,SVC,0.625,0.3051912568306011
+D3 (long iperf flow),15,5,DecisionTree,0.5625,0.2764817150063052
+D3 (long iperf flow),15,5,ExtraTrees,0.6458333333333334,0.33284628872004673
+D3 (long iperf flow),15,5,RandomForest,0.6041666666666666,0.2866300366300366
+D3 (long iperf flow),15,5,GaussianNB,0.6666666666666666,0.33005464480874314
+D3 (long iperf flow),15,5,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,5,window_majority,0.625,0.3092142453363482
+D3 (long iperf flow),15,10,LogisticRegression,0.5833333333333334,0.31048387096774194
+D3 (long iperf flow),15,10,KNeighbors,0.6875,0.33954393770856506
+D3 (long iperf flow),15,10,SVC,0.6458333333333334,0.314238042269188
+D3 (long iperf flow),15,10,DecisionTree,0.5833333333333334,0.35519125683060104
+D3 (long iperf flow),15,10,ExtraTrees,0.625,0.31235632183908046
+D3 (long iperf flow),15,10,RandomForest,0.6458333333333334,0.30952380952380953
+D3 (long iperf flow),15,10,GaussianNB,0.6666666666666666,0.3400765445598688
+D3 (long iperf flow),15,10,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,10,window_majority,0.6666666666666666,0.33333333333333337
+D3 (long iperf flow),15,15,LogisticRegression,0.6041666666666666,0.3857142857142857
+D3 (long iperf flow),15,15,KNeighbors,0.6875,0.3412698412698413
+D3 (long iperf flow),15,15,SVC,0.6458333333333334,0.3206989247311828
+D3 (long iperf flow),15,15,DecisionTree,0.5833333333333334,0.3669962335216572
+D3 (long iperf flow),15,15,ExtraTrees,0.6666666666666666,0.3395784543325527
+D3 (long iperf flow),15,15,RandomForest,0.625,0.3135245901639344
+D3 (long iperf flow),15,15,GaussianNB,0.6458333333333334,0.3295977011494253
+D3 (long iperf flow),15,15,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,15,window_majority,0.6458333333333334,0.32601880877742945
+D3 (long iperf flow),15,30,LogisticRegression,0.5833333333333334,0.39105571847507337
+D3 (long iperf flow),15,30,KNeighbors,0.7083333333333334,0.34769230769230774
+D3 (long iperf flow),15,30,SVC,0.6458333333333334,0.32601880877742945
+D3 (long iperf flow),15,30,DecisionTree,0.6041666666666666,0.3185483870967742
+D3 (long iperf flow),15,30,ExtraTrees,0.6666666666666666,0.3395784543325527
+D3 (long iperf flow),15,30,RandomForest,0.6875,0.35189372526851326
+D3 (long iperf flow),15,30,GaussianNB,0.625,0.3135245901639344
+D3 (long iperf flow),15,30,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,30,window_majority,0.6666666666666666,0.33682795698924733
+D3 (long iperf flow),15,45,LogisticRegression,0.6041666666666666,0.40713276836158196
+D3 (long iperf flow),15,45,KNeighbors,0.6458333333333334,0.3922663358147229
+D3 (long iperf flow),15,45,SVC,0.6666666666666666,0.3400412796697626
+D3 (long iperf flow),15,45,DecisionTree,0.6458333333333334,0.40647330811265237
+D3 (long iperf flow),15,45,ExtraTrees,0.6875,0.4666666666666667
+D3 (long iperf flow),15,45,RandomForest,0.6875,0.4650765445598688
+D3 (long iperf flow),15,45,GaussianNB,0.625,0.4099574984820886
+D3 (long iperf flow),15,45,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,45,window_majority,0.6666666666666666,0.3400412796697626
+D3 (long iperf flow),15,60,LogisticRegression,0.6458333333333334,0.3351648351648352
+D3 (long iperf flow),15,60,KNeighbors,0.7083333333333334,0.35127314814814814
+D3 (long iperf flow),15,60,SVC,0.6666666666666666,0.3400412796697626
+D3 (long iperf flow),15,60,DecisionTree,0.5416666666666666,0.2523719165085389
+D3 (long iperf flow),15,60,ExtraTrees,0.7708333333333334,0.510528547201809
+D3 (long iperf flow),15,60,RandomForest,0.7291666666666666,0.4873271889400922
+D3 (long iperf flow),15,60,GaussianNB,0.7083333333333334,0.48239056025941274
+D3 (long iperf flow),15,60,persistence,0.7083333333333334,0.45769230769230773
+D3 (long iperf flow),15,60,window_majority,0.6666666666666666,0.3400412796697626
+D3 (long iperf flow),30,5,LogisticRegression,0.625,0.2803030303030303
+D3 (long iperf flow),30,5,KNeighbors,0.6666666666666666,0.43010752688172044
+D3 (long iperf flow),30,5,SVC,0.6875,0.44556451612903225
+D3 (long iperf flow),30,5,DecisionTree,0.625,0.2939244663382594
+D3 (long iperf flow),30,5,ExtraTrees,0.6458333333333334,0.32172131147540983
+D3 (long iperf flow),30,5,RandomForest,0.6875,0.4423280423280423
+D3 (long iperf flow),30,5,GaussianNB,0.7083333333333334,0.4580986516470387
+D3 (long iperf flow),30,5,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,5,window_majority,0.6666666666666666,0.43010752688172044
+D3 (long iperf flow),30,10,LogisticRegression,0.5625,0.25
+D3 (long iperf flow),30,10,KNeighbors,0.6875,0.44751664106502814
+D3 (long iperf flow),30,10,SVC,0.7708333333333334,0.5188054882970138
+D3 (long iperf flow),30,10,DecisionTree,0.625,0.28787878787878785
+D3 (long iperf flow),30,10,ExtraTrees,0.7708333333333334,0.5518746789933231
+D3 (long iperf flow),30,10,RandomForest,0.7083333333333334,0.46941081517352706
+D3 (long iperf flow),30,10,GaussianNB,0.6875,0.34354838709677415
+D3 (long iperf flow),30,10,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,10,window_majority,0.75,0.5019607843137255
+D3 (long iperf flow),30,15,LogisticRegression,0.5208333333333334,0.2694915254237288
+D3 (long iperf flow),30,15,KNeighbors,0.7291666666666666,0.4708333333333334
+D3 (long iperf flow),30,15,SVC,0.7708333333333334,0.5188054882970138
+D3 (long iperf flow),30,15,DecisionTree,0.6666666666666666,0.35833333333333334
+D3 (long iperf flow),30,15,ExtraTrees,0.7291666666666666,0.4838709677419355
+D3 (long iperf flow),30,15,RandomForest,0.75,0.37679303278688525
+D3 (long iperf flow),30,15,GaussianNB,0.6875,0.45416666666666666
+D3 (long iperf flow),30,15,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,15,window_majority,0.7916666666666666,0.5351213282247765
+D3 (long iperf flow),30,30,LogisticRegression,0.7083333333333334,0.381906496660595
+D3 (long iperf flow),30,30,KNeighbors,0.8125,0.543778801843318
+D3 (long iperf flow),30,30,SVC,0.7708333333333334,0.5188054882970138
+D3 (long iperf flow),30,30,DecisionTree,0.625,0.3375
+D3 (long iperf flow),30,30,ExtraTrees,0.7708333333333334,0.5130718954248367
+D3 (long iperf flow),30,30,RandomForest,0.75,0.49798387096774194
+D3 (long iperf flow),30,30,GaussianNB,0.7291666666666666,0.4838709677419355
+D3 (long iperf flow),30,30,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,30,window_majority,0.7708333333333334,0.5212581002054687
+D3 (long iperf flow),30,45,LogisticRegression,0.6041666666666666,0.3318122555410691
+D3 (long iperf flow),30,45,KNeighbors,0.8125,0.5403225806451614
+D3 (long iperf flow),30,45,SVC,0.7916666666666666,0.5301049233252623
+D3 (long iperf flow),30,45,DecisionTree,0.6041666666666666,0.3008684863523573
+D3 (long iperf flow),30,45,ExtraTrees,0.7291666666666666,0.4838709677419355
+D3 (long iperf flow),30,45,RandomForest,0.7291666666666666,0.4708333333333334
+D3 (long iperf flow),30,45,GaussianNB,0.7916666666666666,0.5265772478887233
+D3 (long iperf flow),30,45,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,45,window_majority,0.75,0.5032400821874506
+D3 (long iperf flow),30,60,LogisticRegression,0.6041666666666666,0.31896551724137934
+D3 (long iperf flow),30,60,KNeighbors,0.7916666666666666,0.522273425499232
+D3 (long iperf flow),30,60,SVC,0.8125,0.5437908496732026
+D3 (long iperf flow),30,60,DecisionTree,0.625,0.33131720430107525
+D3 (long iperf flow),30,60,ExtraTrees,0.7291666666666666,0.4751322751322751
+D3 (long iperf flow),30,60,RandomForest,0.7708333333333334,0.508736559139785
+D3 (long iperf flow),30,60,GaussianNB,0.75,0.38494623655913973
+D3 (long iperf flow),30,60,persistence,0.6875,0.45089285714285715
+D3 (long iperf flow),30,60,window_majority,0.7708333333333334,0.519423558897243
+D3 (long iperf flow),60,5,LogisticRegression,0.7045454545454546,0.359403530127815
+D3 (long iperf flow),60,5,KNeighbors,0.75,0.5112179487179488
+D3 (long iperf flow),60,5,SVC,0.7272727272727273,0.49710504549214224
+D3 (long iperf flow),60,5,DecisionTree,0.7045454545454546,0.44217687074829926
+D3 (long iperf flow),60,5,ExtraTrees,0.7272727272727273,0.5057899090157155
+D3 (long iperf flow),60,5,RandomForest,0.7045454545454546,0.4767295597484276
+D3 (long iperf flow),60,5,GaussianNB,0.75,0.5169340463458111
+D3 (long iperf flow),60,5,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,5,window_majority,0.75,0.5112179487179488
+D3 (long iperf flow),60,10,LogisticRegression,0.6818181818181818,0.36
+D3 (long iperf flow),60,10,KNeighbors,0.6818181818181818,0.46720575022461813
+D3 (long iperf flow),60,10,SVC,0.7727272727272727,0.5294117647058824
+D3 (long iperf flow),60,10,DecisionTree,0.6363636363636364,0.3277428371767994
+D3 (long iperf flow),60,10,ExtraTrees,0.75,0.5112179487179488
+D3 (long iperf flow),60,10,RandomForest,0.75,0.5081640780565512
+D3 (long iperf flow),60,10,GaussianNB,0.7727272727272727,0.5267295597484277
+D3 (long iperf flow),60,10,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,10,window_majority,0.7954545454545454,0.5446775446775446
+D3 (long iperf flow),60,15,LogisticRegression,0.6363636363636364,0.3823376623376623
+D3 (long iperf flow),60,15,KNeighbors,0.7045454545454546,0.4785014899957429
+D3 (long iperf flow),60,15,SVC,0.8181818181818182,0.56
+D3 (long iperf flow),60,15,DecisionTree,0.7272727272727273,0.3933333333333333
+D3 (long iperf flow),60,15,ExtraTrees,0.7954545454545454,0.5502079619726679
+D3 (long iperf flow),60,15,RandomForest,0.7272727272727273,0.48888888888888893
+D3 (long iperf flow),60,15,GaussianNB,0.7727272727272727,0.40117647058823525
+D3 (long iperf flow),60,15,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,15,window_majority,0.7954545454545454,0.544973544973545
+D3 (long iperf flow),60,30,LogisticRegression,0.6363636363636364,0.336827393431167
+D3 (long iperf flow),60,30,KNeighbors,0.7272727272727273,0.4807060755336618
+D3 (long iperf flow),60,30,SVC,0.8181818181818182,0.561936936936937
+D3 (long iperf flow),60,30,DecisionTree,0.5909090909090909,0.30518518518518517
+D3 (long iperf flow),60,30,ExtraTrees,0.7272727272727273,0.49710504549214224
+D3 (long iperf flow),60,30,RandomForest,0.7727272727272727,0.5300059417706476
+D3 (long iperf flow),60,30,GaussianNB,0.7272727272727273,0.38363095238095235
+D3 (long iperf flow),60,30,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,30,window_majority,0.8636363636363636,0.5938438438438438
+D3 (long iperf flow),60,45,LogisticRegression,0.6590909090909091,0.34939353099730464
+D3 (long iperf flow),60,45,KNeighbors,0.7045454545454546,0.47160493827160493
+D3 (long iperf flow),60,45,SVC,0.8409090909090909,0.5785740948114968
+D3 (long iperf flow),60,45,DecisionTree,0.6590909090909091,0.3592069892473118
+D3 (long iperf flow),60,45,ExtraTrees,0.75,0.5058962264150944
+D3 (long iperf flow),60,45,RandomForest,0.7954545454545454,0.5424836601307189
+D3 (long iperf flow),60,45,GaussianNB,0.6818181818181818,0.36397058823529416
+D3 (long iperf flow),60,45,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,45,window_majority,0.8636363636363636,0.5949461166852471
+D3 (long iperf flow),60,60,LogisticRegression,0.7272727272727273,0.3814465408805031
+D3 (long iperf flow),60,60,KNeighbors,0.7272727272727273,0.3737980769230769
+D3 (long iperf flow),60,60,SVC,0.8409090909090909,0.5785740948114968
+D3 (long iperf flow),60,60,DecisionTree,0.6590909090909091,0.359375
+D3 (long iperf flow),60,60,ExtraTrees,0.8181818181818182,0.5634920634920635
+D3 (long iperf flow),60,60,RandomForest,0.8181818181818182,0.5620915032679739
+D3 (long iperf flow),60,60,GaussianNB,0.6818181818181818,0.36369386464263126
+D3 (long iperf flow),60,60,persistence,0.75,0.6154401154401155
+D3 (long iperf flow),60,60,window_majority,0.8636363636363636,0.5949461166852471
+D3a (2 routes),0,5,LogisticRegression,0.76,0.5535714285714286
+D3a (2 routes),0,5,KNeighbors,0.84,0.45652173913043476
+D3a (2 routes),0,5,SVC,0.8,0.4444444444444444
+D3a (2 routes),0,5,DecisionTree,0.84,0.7023809523809523
+D3a (2 routes),0,5,ExtraTrees,0.84,0.7023809523809523
+D3a (2 routes),0,5,RandomForest,0.88,0.7508305647840532
+D3a (2 routes),0,5,GaussianNB,0.88,0.6666666666666667
+D3a (2 routes),0,5,persistence,1.0,1.0
+D3a (2 routes),0,5,window_majority,0.84,0.45652173913043476
+D3a (2 routes),0,10,LogisticRegression,0.76,0.5535714285714286
+D3a (2 routes),0,10,KNeighbors,0.84,0.45652173913043476
+D3a (2 routes),0,10,SVC,0.84,0.45652173913043476
+D3a (2 routes),0,10,DecisionTree,0.76,0.5535714285714286
+D3a (2 routes),0,10,ExtraTrees,0.8,0.6612466124661247
+D3a (2 routes),0,10,RandomForest,0.8,0.584717607973422
+D3a (2 routes),0,10,GaussianNB,0.76,0.4318181818181818
+D3a (2 routes),0,10,persistence,1.0,1.0
+D3a (2 routes),0,10,window_majority,0.88,0.46808510638297873
+D3a (2 routes),0,15,LogisticRegression,0.84,0.7023809523809523
+D3a (2 routes),0,15,KNeighbors,0.8,0.4444444444444444
+D3a (2 routes),0,15,SVC,0.8,0.4444444444444444
+D3a (2 routes),0,15,DecisionTree,0.92,0.8511904761904762
+D3a (2 routes),0,15,ExtraTrees,0.84,0.7023809523809523
+D3a (2 routes),0,15,RandomForest,0.84,0.7023809523809523
+D3a (2 routes),0,15,GaussianNB,0.84,0.7023809523809523
+D3a (2 routes),0,15,persistence,1.0,1.0
+D3a (2 routes),0,15,window_majority,0.88,0.46808510638297873
+D3a (2 routes),0,30,LogisticRegression,0.92,0.8106060606060606
+D3a (2 routes),0,30,KNeighbors,0.88,0.46808510638297873
+D3a (2 routes),0,30,SVC,0.84,0.45652173913043476
+D3a (2 routes),0,30,DecisionTree,1.0,1.0
+D3a (2 routes),0,30,ExtraTrees,0.88,0.7508305647840532
+D3a (2 routes),0,30,RandomForest,0.88,0.7508305647840532
+D3a (2 routes),0,30,GaussianNB,0.8,0.6612466124661247
+D3a (2 routes),0,30,persistence,1.0,1.0
+D3a (2 routes),0,30,window_majority,0.88,0.46808510638297873
+D3a (2 routes),0,45,LogisticRegression,0.96,0.9169435215946844
+D3a (2 routes),0,45,KNeighbors,0.84,0.45652173913043476
+D3a (2 routes),0,45,SVC,0.88,0.46808510638297873
+D3a (2 routes),0,45,DecisionTree,1.0,1.0
+D3a (2 routes),0,45,ExtraTrees,0.96,0.9169435215946844
+D3a (2 routes),0,45,RandomForest,1.0,1.0
+D3a (2 routes),0,45,GaussianNB,0.88,0.7967479674796748
+D3a (2 routes),0,45,persistence,1.0,1.0
+D3a (2 routes),0,45,window_majority,0.88,0.46808510638297873
+D3a (2 routes),0,60,LogisticRegression,0.96,0.9169435215946844
+D3a (2 routes),0,60,KNeighbors,0.84,0.45652173913043476
+D3a (2 routes),0,60,SVC,0.92,0.7282608695652174
+D3a (2 routes),0,60,DecisionTree,1.0,1.0
+D3a (2 routes),0,60,ExtraTrees,0.96,0.9169435215946844
+D3a (2 routes),0,60,RandomForest,1.0,1.0
+D3a (2 routes),0,60,GaussianNB,0.88,0.7967479674796748
+D3a (2 routes),0,60,persistence,1.0,1.0
+D3a (2 routes),0,60,window_majority,0.88,0.46808510638297873
+D3a (2 routes),1,5,LogisticRegression,0.84,0.7023809523809523
+D3a (2 routes),1,5,KNeighbors,0.8,0.4444444444444444
+D3a (2 routes),1,5,SVC,0.8,0.4444444444444444
+D3a (2 routes),1,5,DecisionTree,0.88,0.7967479674796748
+D3a (2 routes),1,5,ExtraTrees,0.92,0.8511904761904762
+D3a (2 routes),1,5,RandomForest,0.84,0.6212121212121212
+D3a (2 routes),1,5,GaussianNB,0.84,0.6212121212121212
+D3a (2 routes),1,5,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,5,window_majority,0.8,0.4444444444444444
+D3a (2 routes),1,10,LogisticRegression,0.84,0.7023809523809523
+D3a (2 routes),1,10,KNeighbors,0.8,0.4444444444444444
+D3a (2 routes),1,10,SVC,0.8,0.4444444444444444
+D3a (2 routes),1,10,DecisionTree,0.8,0.7086247086247086
+D3a (2 routes),1,10,ExtraTrees,0.96,0.9322493224932249
+D3a (2 routes),1,10,RandomForest,0.88,0.7508305647840532
+D3a (2 routes),1,10,GaussianNB,0.88,0.7508305647840532
+D3a (2 routes),1,10,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,10,window_majority,0.8,0.4444444444444444
+D3a (2 routes),1,15,LogisticRegression,0.88,0.7508305647840532
+D3a (2 routes),1,15,KNeighbors,0.8,0.4444444444444444
+D3a (2 routes),1,15,SVC,0.8,0.4444444444444444
+D3a (2 routes),1,15,DecisionTree,0.72,0.6361746361746362
+D3a (2 routes),1,15,ExtraTrees,0.96,0.9322493224932249
+D3a (2 routes),1,15,RandomForest,0.88,0.8251748251748252
+D3a (2 routes),1,15,GaussianNB,0.88,0.7508305647840532
+D3a (2 routes),1,15,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,15,window_majority,0.76,0.4318181818181818
+D3a (2 routes),1,30,LogisticRegression,0.92,0.8511904761904762
+D3a (2 routes),1,30,KNeighbors,0.84,0.6212121212121212
+D3a (2 routes),1,30,SVC,0.8,0.4444444444444444
+D3a (2 routes),1,30,DecisionTree,0.8,0.7401247401247402
+D3a (2 routes),1,30,ExtraTrees,0.92,0.875
+D3a (2 routes),1,30,RandomForest,0.88,0.8251748251748252
+D3a (2 routes),1,30,GaussianNB,0.88,0.7967479674796748
+D3a (2 routes),1,30,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,30,window_majority,0.8,0.4444444444444444
+D3a (2 routes),1,45,LogisticRegression,0.88,0.7967479674796748
+D3a (2 routes),1,45,KNeighbors,0.8,0.4444444444444444
+D3a (2 routes),1,45,SVC,0.84,0.6212121212121212
+D3a (2 routes),1,45,DecisionTree,0.8,0.7086247086247086
+D3a (2 routes),1,45,ExtraTrees,0.96,0.9322493224932249
+D3a (2 routes),1,45,RandomForest,0.96,0.9322493224932249
+D3a (2 routes),1,45,GaussianNB,0.84,0.75
+D3a (2 routes),1,45,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,45,window_majority,0.8,0.4444444444444444
+D3a (2 routes),1,60,LogisticRegression,0.88,0.7967479674796748
+D3a (2 routes),1,60,KNeighbors,0.76,0.4318181818181818
+D3a (2 routes),1,60,SVC,0.84,0.6212121212121212
+D3a (2 routes),1,60,DecisionTree,0.8,0.7086247086247086
+D3a (2 routes),1,60,ExtraTrees,0.96,0.9322493224932249
+D3a (2 routes),1,60,RandomForest,0.92,0.8511904761904762
+D3a (2 routes),1,60,GaussianNB,0.84,0.7807017543859649
+D3a (2 routes),1,60,persistence,0.88,0.7967479674796748
+D3a (2 routes),1,60,window_majority,0.8,0.4444444444444444
+D3a (2 routes),5,5,LogisticRegression,0.4,0.2857142857142857
+D3a (2 routes),5,5,KNeighbors,0.72,0.4186046511627907
+D3a (2 routes),5,5,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,5,DecisionTree,0.64,0.3902439024390244
+D3a (2 routes),5,5,ExtraTrees,0.64,0.3902439024390244
+D3a (2 routes),5,5,RandomForest,0.68,0.40476190476190477
+D3a (2 routes),5,5,GaussianNB,0.68,0.40476190476190477
+D3a (2 routes),5,5,persistence,0.56,0.358974358974359
+D3a (2 routes),5,5,window_majority,0.72,0.4186046511627907
+D3a (2 routes),5,10,LogisticRegression,0.6,0.45175438596491224
+D3a (2 routes),5,10,KNeighbors,0.68,0.40476190476190477
+D3a (2 routes),5,10,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,10,DecisionTree,0.48,0.38095238095238093
+D3a (2 routes),5,10,ExtraTrees,0.6,0.45175438596491224
+D3a (2 routes),5,10,RandomForest,0.6,0.45175438596491224
+D3a (2 routes),5,10,GaussianNB,0.64,0.3902439024390244
+D3a (2 routes),5,10,persistence,0.56,0.358974358974359
+D3a (2 routes),5,10,window_majority,0.72,0.4186046511627907
+D3a (2 routes),5,15,LogisticRegression,0.6,0.45175438596491224
+D3a (2 routes),5,15,KNeighbors,0.72,0.4186046511627907
+D3a (2 routes),5,15,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,15,DecisionTree,0.44,0.3055555555555556
+D3a (2 routes),5,15,ExtraTrees,0.6,0.375
+D3a (2 routes),5,15,RandomForest,0.6,0.375
+D3a (2 routes),5,15,GaussianNB,0.6,0.375
+D3a (2 routes),5,15,persistence,0.56,0.358974358974359
+D3a (2 routes),5,15,window_majority,0.68,0.40476190476190477
+D3a (2 routes),5,30,LogisticRegression,0.56,0.358974358974359
+D3a (2 routes),5,30,KNeighbors,0.68,0.40476190476190477
+D3a (2 routes),5,30,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,30,DecisionTree,0.72,0.6361746361746362
+D3a (2 routes),5,30,ExtraTrees,0.68,0.40476190476190477
+D3a (2 routes),5,30,RandomForest,0.68,0.40476190476190477
+D3a (2 routes),5,30,GaussianNB,0.56,0.358974358974359
+D3a (2 routes),5,30,persistence,0.56,0.358974358974359
+D3a (2 routes),5,30,window_majority,0.72,0.4186046511627907
+D3a (2 routes),5,45,LogisticRegression,0.56,0.358974358974359
+D3a (2 routes),5,45,KNeighbors,0.68,0.40476190476190477
+D3a (2 routes),5,45,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,45,DecisionTree,0.68,0.6323529411764706
+D3a (2 routes),5,45,ExtraTrees,0.72,0.4186046511627907
+D3a (2 routes),5,45,RandomForest,0.72,0.5257452574525745
+D3a (2 routes),5,45,GaussianNB,0.44,0.3055555555555556
+D3a (2 routes),5,45,persistence,0.56,0.358974358974359
+D3a (2 routes),5,45,window_majority,0.72,0.4186046511627907
+D3a (2 routes),5,60,LogisticRegression,0.52,0.34210526315789475
+D3a (2 routes),5,60,KNeighbors,0.64,0.3902439024390244
+D3a (2 routes),5,60,SVC,0.72,0.4186046511627907
+D3a (2 routes),5,60,DecisionTree,0.76,0.6710526315789473
+D3a (2 routes),5,60,ExtraTrees,0.68,0.40476190476190477
+D3a (2 routes),5,60,RandomForest,0.72,0.4186046511627907
+D3a (2 routes),5,60,GaussianNB,0.4,0.3315508021390374
+D3a (2 routes),5,60,persistence,0.56,0.358974358974359
+D3a (2 routes),5,60,window_majority,0.72,0.4186046511627907
+D3a (2 routes),15,5,LogisticRegression,0.5,0.39495798319327735
+D3a (2 routes),15,5,KNeighbors,0.625,0.38461538461538464
+D3a (2 routes),15,5,SVC,0.625,0.38461538461538464
+D3a (2 routes),15,5,DecisionTree,0.5416666666666666,0.35135135135135137
+D3a (2 routes),15,5,ExtraTrees,0.6666666666666666,0.4
+D3a (2 routes),15,5,RandomForest,0.625,0.38461538461538464
+D3a (2 routes),15,5,GaussianNB,0.5416666666666666,0.35135135135135137
+D3a (2 routes),15,5,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,5,window_majority,0.625,0.38461538461538464
+D3a (2 routes),15,10,LogisticRegression,0.4583333333333333,0.3696969696969697
+D3a (2 routes),15,10,KNeighbors,0.625,0.38461538461538464
+D3a (2 routes),15,10,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,10,DecisionTree,0.5833333333333334,0.4444444444444444
+D3a (2 routes),15,10,ExtraTrees,0.6666666666666666,0.49473684210526314
+D3a (2 routes),15,10,RandomForest,0.6666666666666666,0.49473684210526314
+D3a (2 routes),15,10,GaussianNB,0.5416666666666666,0.35135135135135137
+D3a (2 routes),15,10,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,10,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,15,LogisticRegression,0.5833333333333334,0.4444444444444444
+D3a (2 routes),15,15,KNeighbors,0.625,0.38461538461538464
+D3a (2 routes),15,15,SVC,0.6666666666666666,0.4
+D3a (2 routes),15,15,DecisionTree,0.5,0.4375
+D3a (2 routes),15,15,ExtraTrees,0.75,0.55
+D3a (2 routes),15,15,RandomForest,0.5833333333333334,0.3684210526315789
+D3a (2 routes),15,15,GaussianNB,0.5,0.3333333333333333
+D3a (2 routes),15,15,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,15,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,30,LogisticRegression,0.5416666666666666,0.35135135135135137
+D3a (2 routes),15,30,KNeighbors,0.5416666666666666,0.35135135135135137
+D3a (2 routes),15,30,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,30,DecisionTree,0.4583333333333333,0.4079696394686907
+D3a (2 routes),15,30,ExtraTrees,0.625,0.38461538461538464
+D3a (2 routes),15,30,RandomForest,0.5833333333333334,0.3684210526315789
+D3a (2 routes),15,30,GaussianNB,0.4583333333333333,0.3142857142857143
+D3a (2 routes),15,30,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,30,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,45,LogisticRegression,0.6666666666666666,0.49473684210526314
+D3a (2 routes),15,45,KNeighbors,0.7083333333333334,0.5213675213675213
+D3a (2 routes),15,45,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,45,DecisionTree,0.4583333333333333,0.3696969696969697
+D3a (2 routes),15,45,ExtraTrees,0.8333333333333334,0.7473684210526316
+D3a (2 routes),15,45,RandomForest,0.6666666666666666,0.49473684210526314
+D3a (2 routes),15,45,GaussianNB,0.75,0.6974789915966386
+D3a (2 routes),15,45,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,45,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),15,60,LogisticRegression,0.625,0.46928746928746934
+D3a (2 routes),15,60,KNeighbors,0.6666666666666666,0.49473684210526314
+D3a (2 routes),15,60,SVC,0.6666666666666666,0.4
+D3a (2 routes),15,60,DecisionTree,0.5416666666666666,0.4666666666666667
+D3a (2 routes),15,60,ExtraTrees,0.6666666666666666,0.5555555555555556
+D3a (2 routes),15,60,RandomForest,0.6666666666666666,0.5555555555555556
+D3a (2 routes),15,60,GaussianNB,0.7916666666666666,0.7575757575757576
+D3a (2 routes),15,60,persistence,0.5416666666666666,0.4197802197802198
+D3a (2 routes),15,60,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,5,LogisticRegression,0.5833333333333334,0.53125
+D3a (2 routes),30,5,KNeighbors,0.5833333333333334,0.3684210526315789
+D3a (2 routes),30,5,SVC,0.5833333333333334,0.3684210526315789
+D3a (2 routes),30,5,DecisionTree,0.5416666666666666,0.4990512333965844
+D3a (2 routes),30,5,ExtraTrees,0.5,0.39495798319327735
+D3a (2 routes),30,5,RandomForest,0.5416666666666666,0.35135135135135137
+D3a (2 routes),30,5,GaussianNB,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,5,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,5,window_majority,0.5833333333333334,0.3684210526315789
+D3a (2 routes),30,10,LogisticRegression,0.375,0.31688804554079697
+D3a (2 routes),30,10,KNeighbors,0.5416666666666666,0.35135135135135137
+D3a (2 routes),30,10,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,10,DecisionTree,0.5,0.4857142857142857
+D3a (2 routes),30,10,ExtraTrees,0.625,0.46928746928746934
+D3a (2 routes),30,10,RandomForest,0.5833333333333334,0.4444444444444444
+D3a (2 routes),30,10,GaussianNB,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,10,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,10,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,15,LogisticRegression,0.3333333333333333,0.25
+D3a (2 routes),30,15,KNeighbors,0.6666666666666666,0.4
+D3a (2 routes),30,15,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,15,DecisionTree,0.5416666666666666,0.4666666666666667
+D3a (2 routes),30,15,ExtraTrees,0.75,0.55
+D3a (2 routes),30,15,RandomForest,0.7083333333333334,0.5213675213675213
+D3a (2 routes),30,15,GaussianNB,0.625,0.38461538461538464
+D3a (2 routes),30,15,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,15,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,30,LogisticRegression,0.3333333333333333,0.28888888888888886
+D3a (2 routes),30,30,KNeighbors,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,30,SVC,0.6666666666666666,0.4
+D3a (2 routes),30,30,DecisionTree,0.6666666666666666,0.625
+D3a (2 routes),30,30,ExtraTrees,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,30,RandomForest,0.5833333333333334,0.3684210526315789
+D3a (2 routes),30,30,GaussianNB,0.5833333333333334,0.3684210526315789
+D3a (2 routes),30,30,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,30,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,45,LogisticRegression,0.4583333333333333,0.4079696394686907
+D3a (2 routes),30,45,KNeighbors,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,45,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,45,DecisionTree,0.6666666666666666,0.5555555555555556
+D3a (2 routes),30,45,ExtraTrees,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,45,RandomForest,0.7083333333333334,0.5213675213675213
+D3a (2 routes),30,45,GaussianNB,0.625,0.5636363636363637
+D3a (2 routes),30,45,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,45,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,60,LogisticRegression,0.5833333333333334,0.53125
+D3a (2 routes),30,60,KNeighbors,0.6666666666666666,0.49473684210526314
+D3a (2 routes),30,60,SVC,0.7083333333333334,0.4146341463414634
+D3a (2 routes),30,60,DecisionTree,0.625,0.5901328273244781
+D3a (2 routes),30,60,ExtraTrees,0.75,0.55
+D3a (2 routes),30,60,RandomForest,0.75,0.55
+D3a (2 routes),30,60,GaussianNB,0.4166666666666667,0.34375
+D3a (2 routes),30,60,persistence,0.5,0.39495798319327735
+D3a (2 routes),30,60,window_majority,0.7083333333333334,0.4146341463414634
+D3a (2 routes),60,5,LogisticRegression,0.5909090909090909,0.4545454545454546
+D3a (2 routes),60,5,KNeighbors,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,5,SVC,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,5,DecisionTree,0.5,0.39950372208436724
+D3a (2 routes),60,5,ExtraTrees,0.45454545454545453,0.3125
+D3a (2 routes),60,5,RandomForest,0.6363636363636364,0.3888888888888889
+D3a (2 routes),60,5,GaussianNB,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,5,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,5,window_majority,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,10,LogisticRegression,0.45454545454545453,0.3125
+D3a (2 routes),60,10,KNeighbors,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,10,SVC,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,10,DecisionTree,0.5909090909090909,0.4545454545454546
+D3a (2 routes),60,10,ExtraTrees,0.5909090909090909,0.37142857142857144
+D3a (2 routes),60,10,RandomForest,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,10,GaussianNB,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,10,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,10,window_majority,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,15,LogisticRegression,0.4090909090909091,0.2903225806451613
+D3a (2 routes),60,15,KNeighbors,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,15,SVC,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,15,DecisionTree,0.6363636363636364,0.48235294117647054
+D3a (2 routes),60,15,ExtraTrees,0.6363636363636364,0.3888888888888889
+D3a (2 routes),60,15,RandomForest,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,15,GaussianNB,0.5909090909090909,0.37142857142857144
+D3a (2 routes),60,15,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,15,window_majority,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,30,LogisticRegression,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,30,KNeighbors,0.8181818181818182,0.6140350877192983
+D3a (2 routes),60,30,SVC,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,30,DecisionTree,0.5,0.3333333333333333
+D3a (2 routes),60,30,ExtraTrees,0.6363636363636364,0.3888888888888889
+D3a (2 routes),60,30,RandomForest,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,30,GaussianNB,0.5454545454545454,0.4270833333333333
+D3a (2 routes),60,30,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,30,window_majority,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,45,LogisticRegression,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,45,KNeighbors,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,45,SVC,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,45,DecisionTree,0.5909090909090909,0.37142857142857144
+D3a (2 routes),60,45,ExtraTrees,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,45,RandomForest,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,45,GaussianNB,0.5909090909090909,0.37142857142857144
+D3a (2 routes),60,45,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,45,window_majority,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,60,LogisticRegression,0.6363636363636364,0.3888888888888889
+D3a (2 routes),60,60,KNeighbors,0.7272727272727273,0.42105263157894735
+D3a (2 routes),60,60,SVC,0.7727272727272727,0.4358974358974359
+D3a (2 routes),60,60,DecisionTree,0.5909090909090909,0.4545454545454546
+D3a (2 routes),60,60,ExtraTrees,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,60,RandomForest,0.6818181818181818,0.40540540540540543
+D3a (2 routes),60,60,GaussianNB,0.45454545454545453,0.3125
+D3a (2 routes),60,60,persistence,0.5454545454545454,0.35294117647058826
+D3a (2 routes),60,60,window_majority,0.7727272727272727,0.4358974358974359
+D4 (concurrent iperf flows),0,5,LogisticRegression,0.8653846153846154,0.575314465408805
+D4 (concurrent iperf flows),0,5,KNeighbors,0.9423076923076923,0.4854215918045705
+D4 (concurrent iperf flows),0,5,SVC,0.9230769230769231,0.47127329192546585
+D4 (concurrent iperf flows),0,5,DecisionTree,0.7884615384615384,0.5478533094812165
+D4 (concurrent iperf flows),0,5,ExtraTrees,0.8653846153846154,0.5841304347826086
+D4 (concurrent iperf flows),0,5,RandomForest,0.8846153846153846,0.7102842809364549
+D4 (concurrent iperf flows),0,5,GaussianNB,0.9423076923076923,0.48104448742746614
+D4 (concurrent iperf flows),0,5,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,5,window_majority,0.9423076923076923,0.4854215918045705
+D4 (concurrent iperf flows),0,10,LogisticRegression,0.9038461538461539,0.7201710471422611
+D4 (concurrent iperf flows),0,10,KNeighbors,0.9230769230769231,0.47127329192546585
+D4 (concurrent iperf flows),0,10,SVC,0.8846153846153846,0.4565476190476191
+D4 (concurrent iperf flows),0,10,DecisionTree,0.9038461538461539,0.5948996655518395
+D4 (concurrent iperf flows),0,10,ExtraTrees,0.8461538461538461,0.5740196078431372
+D4 (concurrent iperf flows),0,10,RandomForest,0.9230769230769231,0.7254500818330606
+D4 (concurrent iperf flows),0,10,GaussianNB,0.9230769230769231,0.7206119162640903
+D4 (concurrent iperf flows),0,10,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,10,window_majority,0.9423076923076923,0.6346300533943555
+D4 (concurrent iperf flows),0,15,LogisticRegression,0.8269230769230769,0.5679590017825312
+D4 (concurrent iperf flows),0,15,KNeighbors,0.9038461538461539,0.4654761904761905
+D4 (concurrent iperf flows),0,15,SVC,0.8846153846153846,0.4565476190476191
+D4 (concurrent iperf flows),0,15,DecisionTree,0.8653846153846154,0.5786878216123499
+D4 (concurrent iperf flows),0,15,ExtraTrees,0.8461538461538461,0.5484265734265734
+D4 (concurrent iperf flows),0,15,RandomForest,0.9038461538461539,0.7155455291222313
+D4 (concurrent iperf flows),0,15,GaussianNB,0.9038461538461539,0.7106060606060607
+D4 (concurrent iperf flows),0,15,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,15,window_majority,0.9230769230769231,0.6214559386973181
+D4 (concurrent iperf flows),0,30,LogisticRegression,0.9423076923076923,0.7254323899371069
+D4 (concurrent iperf flows),0,30,KNeighbors,0.9423076923076923,0.4903846153846154
+D4 (concurrent iperf flows),0,30,SVC,0.9230769230769231,0.47127329192546585
+D4 (concurrent iperf flows),0,30,DecisionTree,0.9230769230769231,0.7203525641025641
+D4 (concurrent iperf flows),0,30,ExtraTrees,0.9038461538461539,0.7201710471422611
+D4 (concurrent iperf flows),0,30,RandomForest,0.9230769230769231,0.7248979591836735
+D4 (concurrent iperf flows),0,30,GaussianNB,0.9038461538461539,0.7155455291222313
+D4 (concurrent iperf flows),0,30,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,30,window_majority,0.9423076923076923,0.6346300533943555
+D4 (concurrent iperf flows),0,45,LogisticRegression,0.9230769230769231,0.7206119162640903
+D4 (concurrent iperf flows),0,45,KNeighbors,0.9423076923076923,0.4854215918045705
+D4 (concurrent iperf flows),0,45,SVC,0.9230769230769231,0.47127329192546585
+D4 (concurrent iperf flows),0,45,DecisionTree,0.9230769230769231,0.7203525641025641
+D4 (concurrent iperf flows),0,45,ExtraTrees,0.9230769230769231,0.73
+D4 (concurrent iperf flows),0,45,RandomForest,0.9615384615384616,0.7403846153846154
+D4 (concurrent iperf flows),0,45,GaussianNB,0.8653846153846154,0.6954545454545454
+D4 (concurrent iperf flows),0,45,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,45,window_majority,0.9423076923076923,0.6346300533943555
+D4 (concurrent iperf flows),0,60,LogisticRegression,0.9423076923076923,0.9602339181286549
+D4 (concurrent iperf flows),0,60,KNeighbors,0.9423076923076923,0.4854215918045705
+D4 (concurrent iperf flows),0,60,SVC,0.9615384615384616,0.6476697061803445
+D4 (concurrent iperf flows),0,60,DecisionTree,0.9423076923076923,0.7254323899371069
+D4 (concurrent iperf flows),0,60,ExtraTrees,0.9615384615384616,0.7354215918045705
+D4 (concurrent iperf flows),0,60,RandomForest,0.9807692307692307,0.7452830188679245
+D4 (concurrent iperf flows),0,60,GaussianNB,0.8076923076923077,0.6746339362618432
+D4 (concurrent iperf flows),0,60,persistence,1.0,1.0
+D4 (concurrent iperf flows),0,60,window_majority,0.9423076923076923,0.6346300533943555
+D4 (concurrent iperf flows),1,5,LogisticRegression,0.7450980392156863,0.47289972899729
+D4 (concurrent iperf flows),1,5,KNeighbors,0.7058823529411765,0.44579580566695154
+D4 (concurrent iperf flows),1,5,SVC,0.7254901960784313,0.6023142771110251
+D4 (concurrent iperf flows),1,5,DecisionTree,0.7647058823529411,0.5409703504043126
+D4 (concurrent iperf flows),1,5,ExtraTrees,0.7843137254901961,0.49435411020776876
+D4 (concurrent iperf flows),1,5,RandomForest,0.803921568627451,0.6684303350970017
+D4 (concurrent iperf flows),1,5,GaussianNB,0.7058823529411765,0.588200059898173
+D4 (concurrent iperf flows),1,5,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,5,window_majority,0.7058823529411765,0.44579580566695154
+D4 (concurrent iperf flows),1,10,LogisticRegression,0.803921568627451,0.7385038929754376
+D4 (concurrent iperf flows),1,10,KNeighbors,0.7058823529411765,0.4963924963924964
+D4 (concurrent iperf flows),1,10,SVC,0.7254901960784313,0.5101626016260162
+D4 (concurrent iperf flows),1,10,DecisionTree,0.7647058823529411,0.5455598455598456
+D4 (concurrent iperf flows),1,10,ExtraTrees,0.803921568627451,0.561712677566336
+D4 (concurrent iperf flows),1,10,RandomForest,0.8235294117647058,0.7529200359389039
+D4 (concurrent iperf flows),1,10,GaussianNB,0.7843137254901961,0.5523391812865497
+D4 (concurrent iperf flows),1,10,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,10,window_majority,0.7058823529411765,0.49561403508771934
+D4 (concurrent iperf flows),1,15,LogisticRegression,0.7843137254901961,0.5465608465608465
+D4 (concurrent iperf flows),1,15,KNeighbors,0.7058823529411765,0.4963924963924964
+D4 (concurrent iperf flows),1,15,SVC,0.7254901960784313,0.5092838196286472
+D4 (concurrent iperf flows),1,15,DecisionTree,0.803921568627451,0.5587406015037594
+D4 (concurrent iperf flows),1,15,ExtraTrees,0.7843137254901961,0.5520972929509514
+D4 (concurrent iperf flows),1,15,RandomForest,0.8235294117647058,0.7529200359389039
+D4 (concurrent iperf flows),1,15,GaussianNB,0.803921568627451,0.5664603595638078
+D4 (concurrent iperf flows),1,15,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,15,window_majority,0.7254901960784313,0.5101626016260162
+D4 (concurrent iperf flows),1,30,LogisticRegression,0.803921568627451,0.5049242424242424
+D4 (concurrent iperf flows),1,30,KNeighbors,0.7450980392156863,0.6258191672825819
+D4 (concurrent iperf flows),1,30,SVC,0.7647058823529411,0.5383275261324042
+D4 (concurrent iperf flows),1,30,DecisionTree,0.7843137254901961,0.5455827067669172
+D4 (concurrent iperf flows),1,30,ExtraTrees,0.8235294117647058,0.7525974025974026
+D4 (concurrent iperf flows),1,30,RandomForest,0.8235294117647058,0.5158084914182475
+D4 (concurrent iperf flows),1,30,GaussianNB,0.7450980392156863,0.6258191672825819
+D4 (concurrent iperf flows),1,30,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,30,window_majority,0.7254901960784313,0.5101626016260162
+D4 (concurrent iperf flows),1,45,LogisticRegression,0.8627450980392157,0.5372628726287263
+D4 (concurrent iperf flows),1,45,KNeighbors,0.7254901960784313,0.6119929453262786
+D4 (concurrent iperf flows),1,45,SVC,0.7450980392156863,0.5243867243867244
+D4 (concurrent iperf flows),1,45,DecisionTree,0.8235294117647058,0.5737688237688238
+D4 (concurrent iperf flows),1,45,ExtraTrees,0.8235294117647058,0.7525974025974026
+D4 (concurrent iperf flows),1,45,RandomForest,0.7843137254901961,0.654331821949198
+D4 (concurrent iperf flows),1,45,GaussianNB,0.7254901960784313,0.611111111111111
+D4 (concurrent iperf flows),1,45,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,45,window_majority,0.7254901960784313,0.5101626016260162
+D4 (concurrent iperf flows),1,60,LogisticRegression,0.8627450980392157,0.7813852813852814
+D4 (concurrent iperf flows),1,60,KNeighbors,0.803921568627451,0.789072039072039
+D4 (concurrent iperf flows),1,60,SVC,0.7647058823529411,0.5383275261324042
+D4 (concurrent iperf flows),1,60,DecisionTree,0.7647058823529411,0.7211640211640211
+D4 (concurrent iperf flows),1,60,ExtraTrees,0.8627450980392157,0.8319911029298973
+D4 (concurrent iperf flows),1,60,RandomForest,0.8823529411764706,0.7957155762033811
+D4 (concurrent iperf flows),1,60,GaussianNB,0.7843137254901961,0.8104472396925226
+D4 (concurrent iperf flows),1,60,persistence,0.8235294117647058,0.5194638694638695
+D4 (concurrent iperf flows),1,60,window_majority,0.7254901960784313,0.5101626016260162
+D4 (concurrent iperf flows),5,5,LogisticRegression,0.6470588235294118,0.34346642468239563
+D4 (concurrent iperf flows),5,5,KNeighbors,0.7843137254901961,0.6690058479532164
+D4 (concurrent iperf flows),5,5,SVC,0.7843137254901961,0.6690058479532164
+D4 (concurrent iperf flows),5,5,DecisionTree,0.5882352941176471,0.4884987893462469
+D4 (concurrent iperf flows),5,5,ExtraTrees,0.5882352941176471,0.4884987893462469
+D4 (concurrent iperf flows),5,5,RandomForest,0.6274509803921569,0.5217717717717717
+D4 (concurrent iperf flows),5,5,GaussianNB,0.7843137254901961,0.6690058479532164
+D4 (concurrent iperf flows),5,5,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,5,window_majority,0.7843137254901961,0.6690058479532164
+D4 (concurrent iperf flows),5,10,LogisticRegression,0.6078431372549019,0.3363899613899614
+D4 (concurrent iperf flows),5,10,KNeighbors,0.7450980392156863,0.5239766081871345
+D4 (concurrent iperf flows),5,10,SVC,0.7843137254901961,0.5454286121808586
+D4 (concurrent iperf flows),5,10,DecisionTree,0.7058823529411765,0.3806295399515739
+D4 (concurrent iperf flows),5,10,ExtraTrees,0.5882352941176471,0.4183929692404269
+D4 (concurrent iperf flows),5,10,RandomForest,0.6862745098039216,0.4806955496610669
+D4 (concurrent iperf flows),5,10,GaussianNB,0.7450980392156863,0.623250369013081
+D4 (concurrent iperf flows),5,10,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,10,window_majority,0.803921568627451,0.5591954022988506
+D4 (concurrent iperf flows),5,15,LogisticRegression,0.6470588235294118,0.35883204633204635
+D4 (concurrent iperf flows),5,15,KNeighbors,0.7647058823529411,0.6309201187249968
+D4 (concurrent iperf flows),5,15,SVC,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),5,15,DecisionTree,0.7058823529411765,0.5793611793611794
+D4 (concurrent iperf flows),5,15,ExtraTrees,0.7058823529411765,0.5008398228737212
+D4 (concurrent iperf flows),5,15,RandomForest,0.7058823529411765,0.5008398228737212
+D4 (concurrent iperf flows),5,15,GaussianNB,0.7450980392156863,0.623250369013081
+D4 (concurrent iperf flows),5,15,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,15,window_majority,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),5,30,LogisticRegression,0.5686274509803921,0.3169371196754564
+D4 (concurrent iperf flows),5,30,KNeighbors,0.803921568627451,0.6813813813813815
+D4 (concurrent iperf flows),5,30,SVC,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),5,30,DecisionTree,0.6666666666666666,0.4222842835130971
+D4 (concurrent iperf flows),5,30,ExtraTrees,0.6666666666666666,0.469008587041374
+D4 (concurrent iperf flows),5,30,RandomForest,0.7254901960784313,0.5148148148148148
+D4 (concurrent iperf flows),5,30,GaussianNB,0.7647058823529411,0.6396825396825397
+D4 (concurrent iperf flows),5,30,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,30,window_majority,0.803921568627451,0.5512820512820512
+D4 (concurrent iperf flows),5,45,LogisticRegression,0.6862745098039216,0.3786549707602339
+D4 (concurrent iperf flows),5,45,KNeighbors,0.7647058823529411,0.5298245614035088
+D4 (concurrent iperf flows),5,45,SVC,0.803921568627451,0.5512820512820512
+D4 (concurrent iperf flows),5,45,DecisionTree,0.6862745098039216,0.4343398376299673
+D4 (concurrent iperf flows),5,45,ExtraTrees,0.7450980392156863,0.5230449003865596
+D4 (concurrent iperf flows),5,45,RandomForest,0.7843137254901961,0.5434943139861174
+D4 (concurrent iperf flows),5,45,GaussianNB,0.7058823529411765,0.48926237161531283
+D4 (concurrent iperf flows),5,45,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,45,window_majority,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),5,60,LogisticRegression,0.6470588235294118,0.3544366899302094
+D4 (concurrent iperf flows),5,60,KNeighbors,0.6666666666666666,0.35364177737059094
+D4 (concurrent iperf flows),5,60,SVC,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),5,60,DecisionTree,0.6274509803921569,0.34234234234234234
+D4 (concurrent iperf flows),5,60,ExtraTrees,0.7647058823529411,0.5298245614035088
+D4 (concurrent iperf flows),5,60,RandomForest,0.803921568627451,0.557347670250896
+D4 (concurrent iperf flows),5,60,GaussianNB,0.6470588235294118,0.45224541429475024
+D4 (concurrent iperf flows),5,60,persistence,0.5882352941176471,0.49205784732100516
+D4 (concurrent iperf flows),5,60,window_majority,0.8235294117647058,0.5658192090395481
+D4 (concurrent iperf flows),15,5,LogisticRegression,0.68,0.36317567567567566
+D4 (concurrent iperf flows),15,5,KNeighbors,0.8,0.7561943476577623
+D4 (concurrent iperf flows),15,5,SVC,0.8,0.7561943476577623
+D4 (concurrent iperf flows),15,5,DecisionTree,0.7,0.46602870813397135
+D4 (concurrent iperf flows),15,5,ExtraTrees,0.84,0.736331569664903
+D4 (concurrent iperf flows),15,5,RandomForest,0.8,0.754494547597996
+D4 (concurrent iperf flows),15,5,GaussianNB,0.82,0.7218773096821877
+D4 (concurrent iperf flows),15,5,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,5,window_majority,0.8,0.7561943476577623
+D4 (concurrent iperf flows),15,10,LogisticRegression,0.64,0.4563492063492064
+D4 (concurrent iperf flows),15,10,KNeighbors,0.84,0.7830828175655761
+D4 (concurrent iperf flows),15,10,SVC,0.84,0.5706896551724138
+D4 (concurrent iperf flows),15,10,DecisionTree,0.66,0.4619883040935673
+D4 (concurrent iperf flows),15,10,ExtraTrees,0.82,0.7194228126431517
+D4 (concurrent iperf flows),15,10,RandomForest,0.8,0.5493663424697908
+D4 (concurrent iperf flows),15,10,GaussianNB,0.8,0.4164079822616408
+D4 (concurrent iperf flows),15,10,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,10,window_majority,0.86,0.797953216374269
+D4 (concurrent iperf flows),15,15,LogisticRegression,0.78,0.42748478701825554
+D4 (concurrent iperf flows),15,15,KNeighbors,0.86,0.7239766081871345
+D4 (concurrent iperf flows),15,15,SVC,0.86,0.5850805876479818
+D4 (concurrent iperf flows),15,15,DecisionTree,0.7,0.45488630865989355
+D4 (concurrent iperf flows),15,15,ExtraTrees,0.84,0.5567334575955265
+D4 (concurrent iperf flows),15,15,RandomForest,0.88,0.762962962962963
+D4 (concurrent iperf flows),15,15,GaussianNB,0.82,0.6947368421052631
+D4 (concurrent iperf flows),15,15,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,15,window_majority,0.9,0.6127770534550195
+D4 (concurrent iperf flows),15,30,LogisticRegression,0.76,0.4222222222222222
+D4 (concurrent iperf flows),15,30,KNeighbors,0.9,0.6127770534550195
+D4 (concurrent iperf flows),15,30,SVC,0.86,0.5843836013327538
+D4 (concurrent iperf flows),15,30,DecisionTree,0.72,0.45678210678210673
+D4 (concurrent iperf flows),15,30,ExtraTrees,0.9,0.6116402116402117
+D4 (concurrent iperf flows),15,30,RandomForest,0.84,0.5771771771771772
+D4 (concurrent iperf flows),15,30,GaussianNB,0.76,0.5275257108287962
+D4 (concurrent iperf flows),15,30,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,30,window_majority,0.88,0.5982456140350877
+D4 (concurrent iperf flows),15,45,LogisticRegression,0.76,0.5275257108287962
+D4 (concurrent iperf flows),15,45,KNeighbors,0.82,0.5631876300921795
+D4 (concurrent iperf flows),15,45,SVC,0.88,0.5982456140350877
+D4 (concurrent iperf flows),15,45,DecisionTree,0.72,0.44854766633565046
+D4 (concurrent iperf flows),15,45,ExtraTrees,0.86,0.592030924769551
+D4 (concurrent iperf flows),15,45,RandomForest,0.84,0.5771771771771772
+D4 (concurrent iperf flows),15,45,GaussianNB,0.76,0.525925925925926
+D4 (concurrent iperf flows),15,45,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,45,window_majority,0.86,0.5843836013327538
+D4 (concurrent iperf flows),15,60,LogisticRegression,0.7,0.3819444444444444
+D4 (concurrent iperf flows),15,60,KNeighbors,0.86,0.5843836013327538
+D4 (concurrent iperf flows),15,60,SVC,0.88,0.5982456140350877
+D4 (concurrent iperf flows),15,60,DecisionTree,0.56,0.3563519813519813
+D4 (concurrent iperf flows),15,60,ExtraTrees,0.9,0.7780577187356849
+D4 (concurrent iperf flows),15,60,RandomForest,0.88,0.5962009803921569
+D4 (concurrent iperf flows),15,60,GaussianNB,0.76,0.4033898305084746
+D4 (concurrent iperf flows),15,60,persistence,0.74,0.48063909774436087
+D4 (concurrent iperf flows),15,60,window_majority,0.86,0.5843836013327538
+D4 (concurrent iperf flows),30,5,LogisticRegression,0.5918367346938775,0.3254010695187166
+D4 (concurrent iperf flows),30,5,KNeighbors,0.7551020408163265,0.4027027027027027
+D4 (concurrent iperf flows),30,5,SVC,0.7959183673469388,0.5545112781954887
+D4 (concurrent iperf flows),30,5,DecisionTree,0.7142857142857143,0.5171838505171839
+D4 (concurrent iperf flows),30,5,ExtraTrees,0.7551020408163265,0.39272030651340994
+D4 (concurrent iperf flows),30,5,RandomForest,0.7959183673469388,0.5622032288698956
+D4 (concurrent iperf flows),30,5,GaussianNB,0.7551020408163265,0.5321750321750321
+D4 (concurrent iperf flows),30,5,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,5,window_majority,0.7551020408163265,0.4027027027027027
+D4 (concurrent iperf flows),30,10,LogisticRegression,0.6326530612244898,0.40160098522167487
+D4 (concurrent iperf flows),30,10,KNeighbors,0.7551020408163265,0.5327635327635328
+D4 (concurrent iperf flows),30,10,SVC,0.7755102040816326,0.5333333333333333
+D4 (concurrent iperf flows),30,10,DecisionTree,0.6530612244897959,0.3642557651991614
+D4 (concurrent iperf flows),30,10,ExtraTrees,0.7959183673469388,0.6784425451092119
+D4 (concurrent iperf flows),30,10,RandomForest,0.7551020408163265,0.525062656641604
+D4 (concurrent iperf flows),30,10,GaussianNB,0.673469387755102,0.36511511511511513
+D4 (concurrent iperf flows),30,10,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,10,window_majority,0.7959183673469388,0.5473137973137973
+D4 (concurrent iperf flows),30,15,LogisticRegression,0.5306122448979592,0.30454545454545456
+D4 (concurrent iperf flows),30,15,KNeighbors,0.7142857142857143,0.3735380116959064
+D4 (concurrent iperf flows),30,15,SVC,0.7959183673469388,0.5473137973137973
+D4 (concurrent iperf flows),30,15,DecisionTree,0.673469387755102,0.36843447220805714
+D4 (concurrent iperf flows),30,15,ExtraTrees,0.7551020408163265,0.6316723109175939
+D4 (concurrent iperf flows),30,15,RandomForest,0.7142857142857143,0.48710779745262506
+D4 (concurrent iperf flows),30,15,GaussianNB,0.7551020408163265,0.39379699248120303
+D4 (concurrent iperf flows),30,15,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,15,window_majority,0.7755102040816326,0.5333333333333333
+D4 (concurrent iperf flows),30,30,LogisticRegression,0.6938775510204082,0.4354946524064171
+D4 (concurrent iperf flows),30,30,KNeighbors,0.7755102040816326,0.40689655172413797
+D4 (concurrent iperf flows),30,30,SVC,0.7959183673469388,0.5473137973137973
+D4 (concurrent iperf flows),30,30,DecisionTree,0.5306122448979592,0.3447742733457019
+D4 (concurrent iperf flows),30,30,ExtraTrees,0.8163265306122449,0.7158192090395481
+D4 (concurrent iperf flows),30,30,RandomForest,0.7346938775510204,0.5075060532687652
+D4 (concurrent iperf flows),30,30,GaussianNB,0.6122448979591837,0.4113263785394932
+D4 (concurrent iperf flows),30,30,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,30,window_majority,0.7755102040816326,0.5321637426900585
+D4 (concurrent iperf flows),30,45,LogisticRegression,0.5918367346938775,0.3207792207792208
+D4 (concurrent iperf flows),30,45,KNeighbors,0.8367346938775511,0.5746031746031747
+D4 (concurrent iperf flows),30,45,SVC,0.7755102040816326,0.5321637426900585
+D4 (concurrent iperf flows),30,45,DecisionTree,0.6326530612244898,0.4238095238095238
+D4 (concurrent iperf flows),30,45,ExtraTrees,0.7551020408163265,0.525062656641604
+D4 (concurrent iperf flows),30,45,RandomForest,0.7551020408163265,0.5321750321750321
+D4 (concurrent iperf flows),30,45,GaussianNB,0.7346938775510204,0.5122950819672131
+D4 (concurrent iperf flows),30,45,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,45,window_majority,0.7755102040816326,0.5321637426900585
+D4 (concurrent iperf flows),30,60,LogisticRegression,0.5306122448979592,0.2998366013071896
+D4 (concurrent iperf flows),30,60,KNeighbors,0.7755102040816326,0.5378531073446328
+D4 (concurrent iperf flows),30,60,SVC,0.7959183673469388,0.5461323392357875
+D4 (concurrent iperf flows),30,60,DecisionTree,0.6326530612244898,0.3666666666666667
+D4 (concurrent iperf flows),30,60,ExtraTrees,0.7755102040816326,0.5401709401709401
+D4 (concurrent iperf flows),30,60,RandomForest,0.7551020408163265,0.6247676247676247
+D4 (concurrent iperf flows),30,60,GaussianNB,0.6938775510204082,0.49323308270676697
+D4 (concurrent iperf flows),30,60,persistence,0.6122448979591837,0.3284313725490196
+D4 (concurrent iperf flows),30,60,window_majority,0.7755102040816326,0.5321637426900585
+D4 (concurrent iperf flows),60,5,LogisticRegression,0.7446808510638298,0.3896551724137931
+D4 (concurrent iperf flows),60,5,KNeighbors,0.723404255319149,0.3724137931034483
+D4 (concurrent iperf flows),60,5,SVC,0.7446808510638298,0.37733182589033354
+D4 (concurrent iperf flows),60,5,DecisionTree,0.7021276595744681,0.34915865384615385
+D4 (concurrent iperf flows),60,5,ExtraTrees,0.723404255319149,0.35912698412698413
+D4 (concurrent iperf flows),60,5,RandomForest,0.7446808510638298,0.36979166666666663
+D4 (concurrent iperf flows),60,5,GaussianNB,0.6808510638297872,0.3675438596491228
+D4 (concurrent iperf flows),60,5,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,5,window_majority,0.723404255319149,0.3724137931034483
+D4 (concurrent iperf flows),60,10,LogisticRegression,0.6808510638297872,0.36363636363636365
+D4 (concurrent iperf flows),60,10,KNeighbors,0.7446808510638298,0.3995535714285714
+D4 (concurrent iperf flows),60,10,SVC,0.7872340425531915,0.5384883315917799
+D4 (concurrent iperf flows),60,10,DecisionTree,0.6808510638297872,0.36822660098522164
+D4 (concurrent iperf flows),60,10,ExtraTrees,0.7872340425531915,0.411864406779661
+D4 (concurrent iperf flows),60,10,RandomForest,0.7659574468085106,0.3979885057471264
+D4 (concurrent iperf flows),60,10,GaussianNB,0.7446808510638298,0.3833333333333333
+D4 (concurrent iperf flows),60,10,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,10,window_majority,0.7872340425531915,0.53584229390681
+D4 (concurrent iperf flows),60,15,LogisticRegression,0.6170212765957447,0.33093317972350234
+D4 (concurrent iperf flows),60,15,KNeighbors,0.8297872340425532,0.4263440860215054
+D4 (concurrent iperf flows),60,15,SVC,0.8297872340425532,0.5618661257606491
+D4 (concurrent iperf flows),60,15,DecisionTree,0.6808510638297872,0.3806390977443609
+D4 (concurrent iperf flows),60,15,ExtraTrees,0.8085106382978723,0.4141705069124424
+D4 (concurrent iperf flows),60,15,RandomForest,0.8085106382978723,0.414989406779661
+D4 (concurrent iperf flows),60,15,GaussianNB,0.7659574468085106,0.3849206349206349
+D4 (concurrent iperf flows),60,15,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,15,window_majority,0.8297872340425532,0.5618661257606491
+D4 (concurrent iperf flows),60,30,LogisticRegression,0.6808510638297872,0.3649193548387097
+D4 (concurrent iperf flows),60,30,KNeighbors,0.7446808510638298,0.503225806451613
+D4 (concurrent iperf flows),60,30,SVC,0.7659574468085106,0.5136106831022086
+D4 (concurrent iperf flows),60,30,DecisionTree,0.7021276595744681,0.5243855606758833
+D4 (concurrent iperf flows),60,30,ExtraTrees,0.7659574468085106,0.3840144230769231
+D4 (concurrent iperf flows),60,30,RandomForest,0.7446808510638298,0.3808091853471843
+D4 (concurrent iperf flows),60,30,GaussianNB,0.7659574468085106,0.38209121245828703
+D4 (concurrent iperf flows),60,30,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,30,window_majority,0.7659574468085106,0.5136106831022086
+D4 (concurrent iperf flows),60,45,LogisticRegression,0.6595744680851063,0.35960591133004927
+D4 (concurrent iperf flows),60,45,KNeighbors,0.7446808510638298,0.4910394265232975
+D4 (concurrent iperf flows),60,45,SVC,0.7659574468085106,0.516624895572264
+D4 (concurrent iperf flows),60,45,DecisionTree,0.5319148936170213,0.36675579322638147
+D4 (concurrent iperf flows),60,45,ExtraTrees,0.7659574468085106,0.3882513661202186
+D4 (concurrent iperf flows),60,45,RandomForest,0.7021276595744681,0.35833333333333334
+D4 (concurrent iperf flows),60,45,GaussianNB,0.7659574468085106,0.37760416666666663
+D4 (concurrent iperf flows),60,45,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,45,window_majority,0.7659574468085106,0.516624895572264
+D4 (concurrent iperf flows),60,60,LogisticRegression,0.6595744680851063,0.35219941348973605
+D4 (concurrent iperf flows),60,60,KNeighbors,0.7446808510638298,0.3670634920634921
+D4 (concurrent iperf flows),60,60,SVC,0.7659574468085106,0.5136106831022086
+D4 (concurrent iperf flows),60,60,DecisionTree,0.5957446808510638,0.3279569892473118
+D4 (concurrent iperf flows),60,60,ExtraTrees,0.7446808510638298,0.4910394265232975
+D4 (concurrent iperf flows),60,60,RandomForest,0.723404255319149,0.38048245614035087
+D4 (concurrent iperf flows),60,60,GaussianNB,0.7446808510638298,0.3670634920634921
+D4 (concurrent iperf flows),60,60,persistence,0.7021276595744681,0.36408045977011494
+D4 (concurrent iperf flows),60,60,window_majority,0.7446808510638298,0.4996619337390129
+D4a (2 routes),0,5,LogisticRegression,0.5,0.390990990990991
+D4a (2 routes),0,5,KNeighbors,0.6923076923076923,0.5047619047619047
+D4a (2 routes),0,5,SVC,0.6538461538461539,0.48115299334811534
+D4a (2 routes),0,5,DecisionTree,0.5384615384615384,0.4135338345864662
+D4a (2 routes),0,5,ExtraTrees,0.5384615384615384,0.4135338345864662
+D4a (2 routes),0,5,RandomForest,0.5769230769230769,0.4358974358974359
+D4a (2 routes),0,5,GaussianNB,0.6538461538461539,0.48115299334811534
+D4a (2 routes),0,5,persistence,1.0,1.0
+D4a (2 routes),0,5,window_majority,0.6923076923076923,0.5047619047619047
+D4a (2 routes),0,10,LogisticRegression,0.7307692307692307,0.641025641025641
+D4a (2 routes),0,10,KNeighbors,0.6923076923076923,0.5047619047619047
+D4a (2 routes),0,10,SVC,0.6923076923076923,0.5666666666666667
+D4a (2 routes),0,10,DecisionTree,0.6538461538461539,0.5384615384615385
+D4a (2 routes),0,10,ExtraTrees,0.6538461538461539,0.5384615384615385
+D4a (2 routes),0,10,RandomForest,0.7307692307692307,0.5297157622739018
+D4a (2 routes),0,10,GaussianNB,0.6538461538461539,0.5384615384615385
+D4a (2 routes),0,10,persistence,1.0,1.0
+D4a (2 routes),0,10,window_majority,0.7692307692307693,0.5568181818181819
+D4a (2 routes),0,15,LogisticRegression,0.6923076923076923,0.5666666666666667
+D4a (2 routes),0,15,KNeighbors,0.6923076923076923,0.5047619047619047
+D4a (2 routes),0,15,SVC,0.6538461538461539,0.48115299334811534
+D4a (2 routes),0,15,DecisionTree,0.8461538461538461,0.7045454545454546
+D4a (2 routes),0,15,ExtraTrees,0.7692307692307693,0.6285714285714286
+D4a (2 routes),0,15,RandomForest,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,15,GaussianNB,0.5769230769230769,0.48468468468468473
+D4a (2 routes),0,15,persistence,1.0,1.0
+D4a (2 routes),0,15,window_majority,0.7307692307692307,0.5297157622739018
+D4a (2 routes),0,30,LogisticRegression,0.8076923076923077,0.7117516629711751
+D4a (2 routes),0,30,KNeighbors,0.8461538461538461,0.7045454545454546
+D4a (2 routes),0,30,SVC,0.7692307692307693,0.6285714285714286
+D4a (2 routes),0,30,DecisionTree,0.8846153846153846,0.7984496124031008
+D4a (2 routes),0,30,ExtraTrees,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,30,RandomForest,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,30,GaussianNB,0.7692307692307693,0.6285714285714286
+D4a (2 routes),0,30,persistence,1.0,1.0
+D4a (2 routes),0,30,window_majority,0.6923076923076923,0.5047619047619047
+D4a (2 routes),0,45,LogisticRegression,0.8076923076923077,0.7117516629711751
+D4a (2 routes),0,45,KNeighbors,0.8461538461538461,0.7045454545454546
+D4a (2 routes),0,45,SVC,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,45,DecisionTree,0.8461538461538461,0.7045454545454546
+D4a (2 routes),0,45,ExtraTrees,0.8846153846153846,0.7984496124031008
+D4a (2 routes),0,45,RandomForest,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,45,GaussianNB,0.8846153846153846,0.7984496124031008
+D4a (2 routes),0,45,persistence,1.0,1.0
+D4a (2 routes),0,45,window_majority,0.7307692307692307,0.5297157622739018
+D4a (2 routes),0,60,LogisticRegression,0.8461538461538461,0.7523809523809524
+D4a (2 routes),0,60,KNeighbors,0.7692307692307693,0.6285714285714286
+D4a (2 routes),0,60,SVC,0.8076923076923077,0.6640826873385013
+D4a (2 routes),0,60,DecisionTree,0.8846153846153846,0.6680851063829787
+D4a (2 routes),0,60,ExtraTrees,0.8846153846153846,0.7984496124031008
+D4a (2 routes),0,60,RandomForest,0.8461538461538461,0.7523809523809524
+D4a (2 routes),0,60,GaussianNB,0.8846153846153846,0.7984496124031008
+D4a (2 routes),0,60,persistence,1.0,1.0
+D4a (2 routes),0,60,window_majority,0.7307692307692307,0.5297157622739018
+D4a (2 routes),1,5,LogisticRegression,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,5,KNeighbors,0.6923076923076923,0.5666666666666667
+D4a (2 routes),1,5,SVC,0.7307692307692307,0.5964523281596452
+D4a (2 routes),1,5,DecisionTree,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,5,ExtraTrees,0.8461538461538461,0.7833333333333333
+D4a (2 routes),1,5,RandomForest,0.8846153846153846,0.8270509977827052
+D4a (2 routes),1,5,GaussianNB,0.7692307692307693,0.675
+D4a (2 routes),1,5,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,5,window_majority,0.6923076923076923,0.5666666666666667
+D4a (2 routes),1,10,LogisticRegression,0.6923076923076923,0.5666666666666667
+D4a (2 routes),1,10,KNeighbors,0.6153846153846154,0.4583333333333333
+D4a (2 routes),1,10,SVC,0.6923076923076923,0.5047619047619047
+D4a (2 routes),1,10,DecisionTree,0.7307692307692307,0.6941176470588235
+D4a (2 routes),1,10,ExtraTrees,0.8461538461538461,0.7833333333333333
+D4a (2 routes),1,10,RandomForest,0.8461538461538461,0.7833333333333333
+D4a (2 routes),1,10,GaussianNB,0.7307692307692307,0.641025641025641
+D4a (2 routes),1,10,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,10,window_majority,0.6923076923076923,0.4090909090909091
+D4a (2 routes),1,15,LogisticRegression,0.8076923076923077,0.7117516629711751
+D4a (2 routes),1,15,KNeighbors,0.6538461538461539,0.3953488372093023
+D4a (2 routes),1,15,SVC,0.7307692307692307,0.5297157622739018
+D4a (2 routes),1,15,DecisionTree,0.6538461538461539,0.5384615384615385
+D4a (2 routes),1,15,ExtraTrees,0.8076923076923077,0.7117516629711751
+D4a (2 routes),1,15,RandomForest,0.8076923076923077,0.7117516629711751
+D4a (2 routes),1,15,GaussianNB,0.8461538461538461,0.7833333333333333
+D4a (2 routes),1,15,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,15,window_majority,0.6153846153846154,0.38095238095238093
+D4a (2 routes),1,30,LogisticRegression,0.8076923076923077,0.7117516629711751
+D4a (2 routes),1,30,KNeighbors,0.6153846153846154,0.4583333333333333
+D4a (2 routes),1,30,SVC,0.7307692307692307,0.5297157622739018
+D4a (2 routes),1,30,DecisionTree,0.6923076923076923,0.5666666666666667
+D4a (2 routes),1,30,ExtraTrees,0.8461538461538461,0.7833333333333333
+D4a (2 routes),1,30,RandomForest,0.7692307692307693,0.6285714285714286
+D4a (2 routes),1,30,GaussianNB,0.8846153846153846,0.8270509977827052
+D4a (2 routes),1,30,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,30,window_majority,0.5769230769230769,0.36585365853658536
+D4a (2 routes),1,45,LogisticRegression,0.7692307692307693,0.706766917293233
+D4a (2 routes),1,45,KNeighbors,0.6153846153846154,0.38095238095238093
+D4a (2 routes),1,45,SVC,0.6923076923076923,0.4090909090909091
+D4a (2 routes),1,45,DecisionTree,0.7307692307692307,0.6720720720720721
+D4a (2 routes),1,45,ExtraTrees,0.8461538461538461,0.7523809523809524
+D4a (2 routes),1,45,RandomForest,0.7692307692307693,0.6285714285714286
+D4a (2 routes),1,45,GaussianNB,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,45,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,45,window_majority,0.5769230769230769,0.36585365853658536
+D4a (2 routes),1,60,LogisticRegression,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,60,KNeighbors,0.6153846153846154,0.38095238095238093
+D4a (2 routes),1,60,SVC,0.6923076923076923,0.4090909090909091
+D4a (2 routes),1,60,DecisionTree,0.7692307692307693,0.706766917293233
+D4a (2 routes),1,60,ExtraTrees,0.8846153846153846,0.8270509977827052
+D4a (2 routes),1,60,RandomForest,0.8076923076923077,0.7117516629711751
+D4a (2 routes),1,60,GaussianNB,0.7692307692307693,0.7291666666666667
+D4a (2 routes),1,60,persistence,0.8076923076923077,0.7435897435897436
+D4a (2 routes),1,60,window_majority,0.5769230769230769,0.36585365853658536
+D4a (2 routes),5,5,LogisticRegression,0.6538461538461539,0.5783783783783785
+D4a (2 routes),5,5,KNeighbors,0.7307692307692307,0.5964523281596452
+D4a (2 routes),5,5,SVC,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,5,DecisionTree,0.6923076923076923,0.675
+D4a (2 routes),5,5,ExtraTrees,0.6538461538461539,0.6067226890756303
+D4a (2 routes),5,5,RandomForest,0.7307692307692307,0.6720720720720721
+D4a (2 routes),5,5,GaussianNB,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,5,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,5,window_majority,0.7307692307692307,0.5964523281596452
+D4a (2 routes),5,10,LogisticRegression,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,10,KNeighbors,0.7692307692307693,0.6285714285714286
+D4a (2 routes),5,10,SVC,0.8076923076923077,0.7117516629711751
+D4a (2 routes),5,10,DecisionTree,0.7307692307692307,0.6941176470588235
+D4a (2 routes),5,10,ExtraTrees,0.7692307692307693,0.706766917293233
+D4a (2 routes),5,10,RandomForest,0.8461538461538461,0.7833333333333333
+D4a (2 routes),5,10,GaussianNB,0.7692307692307693,0.7450980392156863
+D4a (2 routes),5,10,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,10,window_majority,0.8076923076923077,0.7117516629711751
+D4a (2 routes),5,15,LogisticRegression,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,15,KNeighbors,0.7692307692307693,0.6285714285714286
+D4a (2 routes),5,15,SVC,0.7692307692307693,0.6285714285714286
+D4a (2 routes),5,15,DecisionTree,0.7307692307692307,0.6720720720720721
+D4a (2 routes),5,15,ExtraTrees,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,15,RandomForest,0.8076923076923077,0.7117516629711751
+D4a (2 routes),5,15,GaussianNB,0.7307692307692307,0.6941176470588235
+D4a (2 routes),5,15,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,15,window_majority,0.8076923076923077,0.7117516629711751
+D4a (2 routes),5,30,LogisticRegression,0.7692307692307693,0.75625
+D4a (2 routes),5,30,KNeighbors,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,30,SVC,0.7307692307692307,0.5964523281596452
+D4a (2 routes),5,30,DecisionTree,0.6538461538461539,0.6067226890756303
+D4a (2 routes),5,30,ExtraTrees,0.8846153846153846,0.8461538461538463
+D4a (2 routes),5,30,RandomForest,0.8846153846153846,0.8461538461538463
+D4a (2 routes),5,30,GaussianNB,0.6153846153846154,0.5112781954887218
+D4a (2 routes),5,30,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,30,window_majority,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,45,LogisticRegression,0.7692307692307693,0.7291666666666667
+D4a (2 routes),5,45,KNeighbors,0.7692307692307693,0.675
+D4a (2 routes),5,45,SVC,0.8461538461538461,0.7833333333333333
+D4a (2 routes),5,45,DecisionTree,0.5384615384615384,0.4901960784313726
+D4a (2 routes),5,45,ExtraTrees,0.8461538461538461,0.8045112781954887
+D4a (2 routes),5,45,RandomForest,0.8461538461538461,0.7833333333333333
+D4a (2 routes),5,45,GaussianNB,0.6153846153846154,0.5751633986928104
+D4a (2 routes),5,45,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,45,window_majority,0.8076923076923077,0.7435897435897436
+D4a (2 routes),5,60,LogisticRegression,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,60,KNeighbors,0.6538461538461539,0.5384615384615385
+D4a (2 routes),5,60,SVC,0.8461538461538461,0.7833333333333333
+D4a (2 routes),5,60,DecisionTree,0.5769230769230769,0.519327731092437
+D4a (2 routes),5,60,ExtraTrees,0.7307692307692307,0.6720720720720721
+D4a (2 routes),5,60,RandomForest,0.7692307692307693,0.675
+D4a (2 routes),5,60,GaussianNB,0.5769230769230769,0.519327731092437
+D4a (2 routes),5,60,persistence,0.6923076923076923,0.6090225563909775
+D4a (2 routes),5,60,window_majority,0.8076923076923077,0.7435897435897436
+D4a (2 routes),15,5,LogisticRegression,0.48,0.38095238095238093
+D4a (2 routes),15,5,KNeighbors,0.68,0.40476190476190477
+D4a (2 routes),15,5,SVC,0.68,0.40476190476190477
+D4a (2 routes),15,5,DecisionTree,0.48,0.38095238095238093
+D4a (2 routes),15,5,ExtraTrees,0.6,0.45175438596491224
+D4a (2 routes),15,5,RandomForest,0.56,0.358974358974359
+D4a (2 routes),15,5,GaussianNB,0.72,0.4186046511627907
+D4a (2 routes),15,5,persistence,0.6,0.375
+D4a (2 routes),15,5,window_majority,0.68,0.40476190476190477
+D4a (2 routes),15,10,LogisticRegression,0.48,0.32432432432432434
+D4a (2 routes),15,10,KNeighbors,0.6,0.375
+D4a (2 routes),15,10,SVC,0.72,0.5257452574525745
+D4a (2 routes),15,10,DecisionTree,0.6,0.45175438596491224
+D4a (2 routes),15,10,ExtraTrees,0.68,0.5614035087719298
+D4a (2 routes),15,10,RandomForest,0.6,0.375
+D4a (2 routes),15,10,GaussianNB,0.68,0.5
+D4a (2 routes),15,10,persistence,0.6,0.375
+D4a (2 routes),15,10,window_majority,0.72,0.5257452574525745
+D4a (2 routes),15,15,LogisticRegression,0.6,0.5404411764705883
+D4a (2 routes),15,15,KNeighbors,0.72,0.5257452574525745
+D4a (2 routes),15,15,SVC,0.84,0.7023809523809523
+D4a (2 routes),15,15,DecisionTree,0.64,0.4755244755244755
+D4a (2 routes),15,15,ExtraTrees,0.76,0.6710526315789473
+D4a (2 routes),15,15,RandomForest,0.68,0.5
+D4a (2 routes),15,15,GaussianNB,0.72,0.592074592074592
+D4a (2 routes),15,15,persistence,0.6,0.375
+D4a (2 routes),15,15,window_majority,0.84,0.7023809523809523
+D4a (2 routes),15,30,LogisticRegression,0.64,0.5714285714285714
+D4a (2 routes),15,30,KNeighbors,0.76,0.7023809523809523
+D4a (2 routes),15,30,SVC,0.88,0.8251748251748252
+D4a (2 routes),15,30,DecisionTree,0.64,0.5714285714285714
+D4a (2 routes),15,30,ExtraTrees,0.8,0.7401247401247402
+D4a (2 routes),15,30,RandomForest,0.76,0.6710526315789473
+D4a (2 routes),15,30,GaussianNB,0.6,0.5404411764705883
+D4a (2 routes),15,30,persistence,0.6,0.375
+D4a (2 routes),15,30,window_majority,0.88,0.8251748251748252
+D4a (2 routes),15,45,LogisticRegression,0.52,0.47916666666666663
+D4a (2 routes),15,45,KNeighbors,0.72,0.6361746361746362
+D4a (2 routes),15,45,SVC,0.84,0.7807017543859649
+D4a (2 routes),15,45,DecisionTree,0.72,0.6666666666666667
+D4a (2 routes),15,45,ExtraTrees,0.76,0.7023809523809523
+D4a (2 routes),15,45,RandomForest,0.72,0.6361746361746362
+D4a (2 routes),15,45,GaussianNB,0.52,0.4485294117647059
+D4a (2 routes),15,45,persistence,0.6,0.375
+D4a (2 routes),15,45,window_majority,0.88,0.8251748251748252
+D4a (2 routes),15,60,LogisticRegression,0.64,0.5714285714285714
+D4a (2 routes),15,60,KNeighbors,0.84,0.7807017543859649
+D4a (2 routes),15,60,SVC,0.84,0.75
+D4a (2 routes),15,60,DecisionTree,0.84,0.7807017543859649
+D4a (2 routes),15,60,ExtraTrees,0.68,0.6031746031746031
+D4a (2 routes),15,60,RandomForest,0.76,0.6710526315789473
+D4a (2 routes),15,60,GaussianNB,0.6,0.503968253968254
+D4a (2 routes),15,60,persistence,0.6,0.375
+D4a (2 routes),15,60,window_majority,0.84,0.75
+D4a (2 routes),30,5,LogisticRegression,0.68,0.5614035087719298
+D4a (2 routes),30,5,KNeighbors,0.64,0.3902439024390244
+D4a (2 routes),30,5,SVC,0.68,0.40476190476190477
+D4a (2 routes),30,5,DecisionTree,0.72,0.5257452574525745
+D4a (2 routes),30,5,ExtraTrees,0.64,0.3902439024390244
+D4a (2 routes),30,5,RandomForest,0.68,0.5
+D4a (2 routes),30,5,GaussianNB,0.56,0.358974358974359
+D4a (2 routes),30,5,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,5,window_majority,0.64,0.3902439024390244
+D4a (2 routes),30,10,LogisticRegression,0.6,0.5404411764705883
+D4a (2 routes),30,10,KNeighbors,0.76,0.625
+D4a (2 routes),30,10,SVC,0.72,0.5257452574525745
+D4a (2 routes),30,10,DecisionTree,0.72,0.6666666666666667
+D4a (2 routes),30,10,ExtraTrees,0.64,0.5322245322245323
+D4a (2 routes),30,10,RandomForest,0.72,0.592074592074592
+D4a (2 routes),30,10,GaussianNB,0.68,0.5614035087719298
+D4a (2 routes),30,10,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,10,window_majority,0.64,0.3902439024390244
+D4a (2 routes),30,15,LogisticRegression,0.6,0.5404411764705883
+D4a (2 routes),30,15,KNeighbors,0.76,0.625
+D4a (2 routes),30,15,SVC,0.8,0.6612466124661247
+D4a (2 routes),30,15,DecisionTree,0.84,0.8015873015873016
+D4a (2 routes),30,15,ExtraTrees,0.72,0.592074592074592
+D4a (2 routes),30,15,RandomForest,0.72,0.592074592074592
+D4a (2 routes),30,15,GaussianNB,0.8,0.7086247086247086
+D4a (2 routes),30,15,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,15,window_majority,0.72,0.592074592074592
+D4a (2 routes),30,30,LogisticRegression,0.76,0.7023809523809523
+D4a (2 routes),30,30,KNeighbors,0.8,0.7401247401247402
+D4a (2 routes),30,30,SVC,0.88,0.8251748251748252
+D4a (2 routes),30,30,DecisionTree,0.84,0.8015873015873016
+D4a (2 routes),30,30,ExtraTrees,0.68,0.6031746031746031
+D4a (2 routes),30,30,RandomForest,0.8,0.7401247401247402
+D4a (2 routes),30,30,GaussianNB,0.64,0.5989304812834224
+D4a (2 routes),30,30,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,30,window_majority,0.84,0.75
+D4a (2 routes),30,45,LogisticRegression,0.72,0.6666666666666667
+D4a (2 routes),30,45,KNeighbors,0.72,0.592074592074592
+D4a (2 routes),30,45,SVC,0.84,0.75
+D4a (2 routes),30,45,DecisionTree,0.72,0.6361746361746362
+D4a (2 routes),30,45,ExtraTrees,0.72,0.592074592074592
+D4a (2 routes),30,45,RandomForest,0.8,0.7401247401247402
+D4a (2 routes),30,45,GaussianNB,0.68,0.6323529411764706
+D4a (2 routes),30,45,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,45,window_majority,0.88,0.8251748251748252
+D4a (2 routes),30,60,LogisticRegression,0.72,0.6666666666666667
+D4a (2 routes),30,60,KNeighbors,0.76,0.625
+D4a (2 routes),30,60,SVC,0.8,0.7086247086247086
+D4a (2 routes),30,60,DecisionTree,0.68,0.6031746031746031
+D4a (2 routes),30,60,ExtraTrees,0.76,0.6710526315789473
+D4a (2 routes),30,60,RandomForest,0.76,0.7023809523809523
+D4a (2 routes),30,60,GaussianNB,0.72,0.6361746361746362
+D4a (2 routes),30,60,persistence,0.68,0.6031746031746031
+D4a (2 routes),30,60,window_majority,0.84,0.75
+D4a (2 routes),60,5,LogisticRegression,0.7083333333333334,0.6812144212523719
+D4a (2 routes),60,5,KNeighbors,0.75,0.7333333333333334
+D4a (2 routes),60,5,SVC,0.75,0.7333333333333334
+D4a (2 routes),60,5,DecisionTree,0.7083333333333334,0.6950998185117967
+D4a (2 routes),60,5,ExtraTrees,0.6666666666666666,0.6571428571428571
+D4a (2 routes),60,5,RandomForest,0.5833333333333334,0.5555555555555556
+D4a (2 routes),60,5,GaussianNB,0.5833333333333334,0.5555555555555556
+D4a (2 routes),60,5,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,5,window_majority,0.75,0.7333333333333334
+D4a (2 routes),60,10,LogisticRegression,0.7083333333333334,0.6307692307692307
+D4a (2 routes),60,10,KNeighbors,0.7083333333333334,0.6606060606060606
+D4a (2 routes),60,10,SVC,0.7083333333333334,0.6812144212523719
+D4a (2 routes),60,10,DecisionTree,0.5833333333333334,0.4957983193277311
+D4a (2 routes),60,10,ExtraTrees,0.5416666666666666,0.4666666666666667
+D4a (2 routes),60,10,RandomForest,0.75,0.71875
+D4a (2 routes),60,10,GaussianNB,0.625,0.5636363636363637
+D4a (2 routes),60,10,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,10,window_majority,0.8333333333333334,0.8125
+D4a (2 routes),60,15,LogisticRegression,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,15,KNeighbors,0.6666666666666666,0.625
+D4a (2 routes),60,15,SVC,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,15,DecisionTree,0.625,0.5252747252747253
+D4a (2 routes),60,15,ExtraTrees,0.5416666666666666,0.4666666666666667
+D4a (2 routes),60,15,RandomForest,0.625,0.5252747252747253
+D4a (2 routes),60,15,GaussianNB,0.5416666666666666,0.4990512333965844
+D4a (2 routes),60,15,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,15,window_majority,0.75,0.6974789915966386
+D4a (2 routes),60,30,LogisticRegression,0.625,0.5901328273244781
+D4a (2 routes),60,30,KNeighbors,0.625,0.5636363636363637
+D4a (2 routes),60,30,SVC,0.7083333333333334,0.6606060606060606
+D4a (2 routes),60,30,DecisionTree,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,30,ExtraTrees,0.5833333333333334,0.4957983193277311
+D4a (2 routes),60,30,RandomForest,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,30,GaussianNB,0.625,0.5636363636363637
+D4a (2 routes),60,30,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,30,window_majority,0.7916666666666666,0.7362637362637363
+D4a (2 routes),60,45,LogisticRegression,0.625,0.5901328273244781
+D4a (2 routes),60,45,KNeighbors,0.6666666666666666,0.625
+D4a (2 routes),60,45,SVC,0.7083333333333334,0.6307692307692307
+D4a (2 routes),60,45,DecisionTree,0.5,0.4857142857142857
+D4a (2 routes),60,45,ExtraTrees,0.5833333333333334,0.53125
+D4a (2 routes),60,45,RandomForest,0.5833333333333334,0.53125
+D4a (2 routes),60,45,GaussianNB,0.625,0.6079854809437386
+D4a (2 routes),60,45,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,45,window_majority,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,60,LogisticRegression,0.75,0.7333333333333334
+D4a (2 routes),60,60,KNeighbors,0.6666666666666666,0.625
+D4a (2 routes),60,60,SVC,0.7083333333333334,0.6307692307692307
+D4a (2 routes),60,60,DecisionTree,0.6666666666666666,0.625
+D4a (2 routes),60,60,ExtraTrees,0.5416666666666666,0.4990512333965844
+D4a (2 routes),60,60,RandomForest,0.6666666666666666,0.5966386554621849
+D4a (2 routes),60,60,GaussianNB,0.5833333333333334,0.5555555555555556
+D4a (2 routes),60,60,persistence,0.5,0.4666666666666667
+D4a (2 routes),60,60,window_majority,0.6666666666666666,0.5966386554621849

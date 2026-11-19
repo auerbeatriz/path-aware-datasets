@@ -1,0 +1,37 @@
+scope,feature_set,horizon_s,persistence,majority,n_train,n_test
+D1 (baseline),store: all features,0,1.0,0.5,5751,1436
+D1 (baseline),store: all features,1,0.9916201117318436,0.5,5742,1432
+D1 (baseline),store: all features,5,0.9859353023909986,0.5,5736,1422
+D1 (baseline),store: all features,15,0.9856938483547926,0.5,5720,1398
+D1 (baseline),store: all features,30,0.986784140969163,0.5,5696,1362
+D1 (baseline),store: all features,60,0.9868217054263566,0.5,5648,1290
+D2 (constant background),store: all features,0,1.0,0.4996572995202193,5840,1459
+D2 (constant background),store: all features,1,0.7450171821305842,0.49965635738831615,5832,1455
+D2 (constant background),store: all features,5,0.6380622837370242,0.501038062283737,5826,1445
+D2 (constant background),store: all features,15,0.6448663853727145,0.5,5810,1422
+D2 (constant background),store: all features,30,0.6305916305916306,0.5007215007215007,5786,1386
+D2 (constant background),store: all features,60,0.6491628614916286,0.5053272450532724,5738,1314
+D3 (long iperf flow),store: all features,0,1.0,0.6098562628336756,5851,1461
+D3 (long iperf flow),store: all features,1,0.7831159917638985,0.6087851750171586,5844,1457
+D3 (long iperf flow),store: all features,5,0.6726519337016574,0.6077348066298343,5837,1448
+D3 (long iperf flow),store: all features,15,0.6713483146067416,0.6081460674157303,5821,1424
+D3 (long iperf flow),store: all features,30,0.6685878962536023,0.6066282420749279,5797,1388
+D3 (long iperf flow),store: all features,60,0.7173252279635258,0.6117021276595744,5749,1316
+D4 (concurrent iperf flows),store: all features,0,1.0,0.5476660092044707,6090,1521
+D4 (concurrent iperf flows),store: all features,1,0.7897165458141068,0.5477916941331575,6084,1517
+D4 (concurrent iperf flows),store: all features,5,0.6974120769741208,0.5474452554744526,6078,1507
+D4 (concurrent iperf flows),store: all features,15,0.6871207012811867,0.5475387727579232,6062,1483
+D4 (concurrent iperf flows),store: all features,30,0.6814098134070491,0.5507947477539737,6038,1447
+D4 (concurrent iperf flows),store: all features,60,0.6923636363636364,0.5527272727272727,5990,1375
+D3a (2 routes),store: all features,0,1.0,0.7660738714090287,2928,731
+D3a (2 routes),store: all features,1,0.6666666666666666,0.766803840877915,2925,729
+D3a (2 routes),store: all features,5,0.6537931034482759,0.7682758620689655,2921,725
+D3a (2 routes),store: all features,15,0.6521739130434783,0.7741935483870968,2913,713
+D3a (2 routes),store: all features,30,0.60431654676259,0.7784172661870503,2901,695
+D3a (2 routes),store: all features,60,0.6904400606980273,0.7784522003034902,2877,659
+D4a (2 routes),store: all features,0,1.0,0.2795838751625488,3078,769
+D4a (2 routes),store: all features,1,0.7926988265971316,0.2803129074315515,3076,767
+D4a (2 routes),store: all features,5,0.7034120734908137,0.2795275590551181,3073,762
+D4a (2 routes),store: all features,15,0.6946666666666667,0.2773333333333333,3065,750
+D4a (2 routes),store: all features,30,0.680327868852459,0.27595628415300544,3053,732
+D4a (2 routes),store: all features,60,0.6810344827586207,0.2801724137931034,3029,696

@@ -1,0 +1,253 @@
+scope,feature_set,horizon_s,model,accuracy,f1_macro
+D1 (baseline),store: all features,0,LogisticRegression,0.9930362116991643,0.7198813982521847
+D1 (baseline),store: all features,0,KNeighbors,0.9923398328690808,0.664093567251462
+D1 (baseline),store: all features,0,SVC,0.9923398328690808,0.664093567251462
+D1 (baseline),store: all features,0,DecisionTree,0.9937325905292479,0.839988114251755
+D1 (baseline),store: all features,0,ExtraTrees,0.9930362116991643,0.7198813982521847
+D1 (baseline),store: all features,0,RandomForest,0.9930362116991643,0.7198813982521847
+D1 (baseline),store: all features,0,GaussianNB,0.9686629526462396,0.7259646578374871
+D1 (baseline),store: all features,1,LogisticRegression,0.9916201117318436,0.6638497652582159
+D1 (baseline),store: all features,1,KNeighbors,0.99231843575419,0.6640863241848464
+D1 (baseline),store: all features,1,SVC,0.99231843575419,0.6640863241848464
+D1 (baseline),store: all features,1,DecisionTree,0.9832402234636871,0.6609848484848485
+D1 (baseline),store: all features,1,ExtraTrees,0.99231843575419,0.6640863241848464
+D1 (baseline),store: all features,1,RandomForest,0.9916201117318436,0.6638497652582159
+D1 (baseline),store: all features,1,GaussianNB,0.9629888268156425,0.7066719228881392
+D1 (baseline),store: all features,5,LogisticRegression,0.9922644163150492,0.6640680368532955
+D1 (baseline),store: all features,5,KNeighbors,0.9922644163150492,0.6640680368532955
+D1 (baseline),store: all features,5,SVC,0.9922644163150492,0.6640680368532955
+D1 (baseline),store: all features,5,DecisionTree,0.9859353023909986,0.6619115549215406
+D1 (baseline),store: all features,5,ExtraTrees,0.9922644163150492,0.6640680368532955
+D1 (baseline),store: all features,5,RandomForest,0.9922644163150492,0.6640680368532955
+D1 (baseline),store: all features,5,GaussianNB,0.9212376933895922,0.6701625329290719
+D1 (baseline),store: all features,15,LogisticRegression,0.9921316165951359,0.6640230713770728
+D1 (baseline),store: all features,15,KNeighbors,0.9914163090128756,0.6637806637806638
+D1 (baseline),store: all features,15,SVC,0.9921316165951359,0.6640230713770728
+D1 (baseline),store: all features,15,DecisionTree,0.9871244635193133,0.6623188405797101
+D1 (baseline),store: all features,15,ExtraTrees,0.9921316165951359,0.6640230713770728
+D1 (baseline),store: all features,15,RandomForest,0.9921316165951359,0.6640230713770728
+D1 (baseline),store: all features,15,GaussianNB,0.7103004291845494,0.5411568206517114
+D1 (baseline),store: all features,30,LogisticRegression,0.9919236417033774,0.6639526276831976
+D1 (baseline),store: all features,30,KNeighbors,0.9919236417033774,0.6639526276831976
+D1 (baseline),store: all features,30,SVC,0.9919236417033774,0.6639526276831976
+D1 (baseline),store: all features,30,DecisionTree,0.9698972099853157,0.6563209689629069
+D1 (baseline),store: all features,30,ExtraTrees,0.9919236417033774,0.6639526276831976
+D1 (baseline),store: all features,30,RandomForest,0.9919236417033774,0.6639526276831976
+D1 (baseline),store: all features,30,GaussianNB,0.7019089574155654,0.5328744627361933
+D1 (baseline),store: all features,60,LogisticRegression,0.9914728682170543,0.6637998436278343
+D1 (baseline),store: all features,60,KNeighbors,0.9914728682170543,0.6637998436278343
+D1 (baseline),store: all features,60,SVC,0.9914728682170543,0.6637998436278343
+D1 (baseline),store: all features,60,DecisionTree,0.9891472868217054,0.6630094043887147
+D1 (baseline),store: all features,60,ExtraTrees,0.9914728682170543,0.6637998436278343
+D1 (baseline),store: all features,60,RandomForest,0.9914728682170543,0.6637998436278343
+D1 (baseline),store: all features,60,GaussianNB,0.9806201550387597,0.6600790513833993
+D2 (constant background),store: all features,0,LogisticRegression,0.9746401644962303,0.9475123116693005
+D2 (constant background),store: all features,0,KNeighbors,0.886223440712817,0.7760014141368105
+D2 (constant background),store: all features,0,SVC,0.9355723098012337,0.8672822473958448
+D2 (constant background),store: all features,0,DecisionTree,0.971898560657985,0.9570473670883892
+D2 (constant background),store: all features,0,ExtraTrees,0.9307745030843043,0.847155033481849
+D2 (constant background),store: all features,0,RandomForest,0.9581905414667581,0.9037152284162012
+D2 (constant background),store: all features,0,GaussianNB,0.7511994516792323,0.6611020908791134
+D2 (constant background),store: all features,1,LogisticRegression,0.7649484536082474,0.5137129133541378
+D2 (constant background),store: all features,1,KNeighbors,0.7697594501718213,0.4892865569721029
+D2 (constant background),store: all features,1,SVC,0.7786941580756014,0.4540490944459917
+D2 (constant background),store: all features,1,DecisionTree,0.6831615120274914,0.4944576492247573
+D2 (constant background),store: all features,1,ExtraTrees,0.786254295532646,0.48925708870586415
+D2 (constant background),store: all features,1,RandomForest,0.7951890034364261,0.5378489585041686
+D2 (constant background),store: all features,1,GaussianNB,0.6068728522336769,0.4785410912482534
+D2 (constant background),store: all features,5,LogisticRegression,0.7667820069204152,0.4303909942275486
+D2 (constant background),store: all features,5,KNeighbors,0.7460207612456747,0.42508101032066387
+D2 (constant background),store: all features,5,SVC,0.7778546712802769,0.4182206000853202
+D2 (constant background),store: all features,5,DecisionTree,0.6173010380622838,0.424274199363777
+D2 (constant background),store: all features,5,ExtraTrees,0.7778546712802769,0.4182206000853202
+D2 (constant background),store: all features,5,RandomForest,0.7778546712802769,0.4182206000853202
+D2 (constant background),store: all features,5,GaussianNB,0.43321799307958475,0.37580720933072354
+D2 (constant background),store: all features,15,LogisticRegression,0.7721518987341772,0.4209978881374323
+D2 (constant background),store: all features,15,KNeighbors,0.7524613220815752,0.42042462334208064
+D2 (constant background),store: all features,15,SVC,0.7812939521800282,0.4197829836159816
+D2 (constant background),store: all features,15,DecisionTree,0.5942334739803095,0.4223118856833536
+D2 (constant background),store: all features,15,ExtraTrees,0.7812939521800282,0.4197829836159816
+D2 (constant background),store: all features,15,RandomForest,0.779887482419128,0.41897774484638384
+D2 (constant background),store: all features,15,GaussianNB,0.4613220815752461,0.3934477475924614
+D2 (constant background),store: all features,30,LogisticRegression,0.7698412698412699,0.42875868873976297
+D2 (constant background),store: all features,30,KNeighbors,0.7568542568542569,0.41910717866586156
+D2 (constant background),store: all features,30,SVC,0.7806637806637806,0.4193152888388997
+D2 (constant background),store: all features,30,DecisionTree,0.5670995670995671,0.3829989486850277
+D2 (constant background),store: all features,30,ExtraTrees,0.7806637806637806,0.4193152888388997
+D2 (constant background),store: all features,30,RandomForest,0.7777777777777778,0.41772601049058933
+D2 (constant background),store: all features,30,GaussianNB,0.4660894660894661,0.39028585864127774
+D2 (constant background),store: all features,60,LogisticRegression,0.756468797564688,0.42080443177669635
+D2 (constant background),store: all features,60,KNeighbors,0.7656012176560122,0.42829465557519897
+D2 (constant background),store: all features,60,SVC,0.7853881278538812,0.42076259721332954
+D2 (constant background),store: all features,60,DecisionTree,0.604261796042618,0.38755308209021544
+D2 (constant background),store: all features,60,ExtraTrees,0.7853881278538812,0.42076259721332954
+D2 (constant background),store: all features,60,RandomForest,0.7853881278538812,0.42076259721332954
+D2 (constant background),store: all features,60,GaussianNB,0.3668188736681887,0.33884034609270264
+D3 (long iperf flow),store: all features,0,LogisticRegression,0.9603011635865846,0.8899567101157657
+D3 (long iperf flow),store: all features,0,KNeighbors,0.8514715947980835,0.7104842051518916
+D3 (long iperf flow),store: all features,0,SVC,0.9267624914442163,0.7943886184261096
+D3 (long iperf flow),store: all features,0,DecisionTree,0.9787816563997263,0.9296744254930517
+D3 (long iperf flow),store: all features,0,ExtraTrees,0.9568788501026694,0.869160447597735
+D3 (long iperf flow),store: all features,0,RandomForest,0.9815195071868583,0.9449969995516125
+D3 (long iperf flow),store: all features,0,GaussianNB,0.07118412046543464,0.07059734080688261
+D3 (long iperf flow),store: all features,1,LogisticRegression,0.8050789293067948,0.4907996261384878
+D3 (long iperf flow),store: all features,1,KNeighbors,0.7789979409746054,0.5371983946047589
+D3 (long iperf flow),store: all features,1,SVC,0.8085106382978723,0.560061391117917
+D3 (long iperf flow),store: all features,1,DecisionTree,0.6870281400137268,0.47135229448509386
+D3 (long iperf flow),store: all features,1,ExtraTrees,0.8345916266300618,0.6017116687025154
+D3 (long iperf flow),store: all features,1,RandomForest,0.8400823610157858,0.6152882347225845
+D3 (long iperf flow),store: all features,1,GaussianNB,0.07069320521619767,0.06499724293351873
+D3 (long iperf flow),store: all features,5,LogisticRegression,0.768646408839779,0.3976394600422205
+D3 (long iperf flow),store: all features,5,KNeighbors,0.7030386740331491,0.40050230998212716
+D3 (long iperf flow),store: all features,5,SVC,0.7803867403314917,0.40383282413850097
+D3 (long iperf flow),store: all features,5,DecisionTree,0.6374309392265194,0.37868933121481907
+D3 (long iperf flow),store: all features,5,ExtraTrees,0.7790055248618785,0.4027843873661826
+D3 (long iperf flow),store: all features,5,RandomForest,0.7776243093922652,0.4080049907904333
+D3 (long iperf flow),store: all features,5,GaussianNB,0.06767955801104972,0.06232050359479031
+D3 (long iperf flow),store: all features,15,LogisticRegression,0.7801966292134831,0.4037230966002693
+D3 (long iperf flow),store: all features,15,KNeighbors,0.7205056179775281,0.41442530504416686
+D3 (long iperf flow),store: all features,15,SVC,0.7823033707865169,0.40455214498344255
+D3 (long iperf flow),store: all features,15,DecisionTree,0.6060393258426966,0.3823482407601951
+D3 (long iperf flow),store: all features,15,ExtraTrees,0.7844101123595506,0.40539651910205743
+D3 (long iperf flow),store: all features,15,RandomForest,0.7745786516853933,0.406303820845592
+D3 (long iperf flow),store: all features,15,GaussianNB,0.06811797752808989,0.06481735322089886
+D3 (long iperf flow),store: all features,30,LogisticRegression,0.7723342939481268,0.39846159005505166
+D3 (long iperf flow),store: all features,30,KNeighbors,0.7110951008645533,0.4068195698865924
+D3 (long iperf flow),store: all features,30,SVC,0.781700288184438,0.4045675119865646
+D3 (long iperf flow),store: all features,30,DecisionTree,0.6174351585014409,0.37747065276376474
+D3 (long iperf flow),store: all features,30,ExtraTrees,0.776657060518732,0.40143521357844136
+D3 (long iperf flow),store: all features,30,RandomForest,0.7744956772334294,0.40003369064952643
+D3 (long iperf flow),store: all features,30,GaussianNB,0.061239193083573486,0.05974058006761168
+D3 (long iperf flow),store: all features,60,LogisticRegression,0.7788753799392097,0.4012019632305347
+D3 (long iperf flow),store: all features,60,KNeighbors,0.7211246200607903,0.4003468979046111
+D3 (long iperf flow),store: all features,60,SVC,0.7834346504559271,0.40446050655489396
+D3 (long iperf flow),store: all features,60,DecisionTree,0.6580547112462006,0.39043755541448333
+D3 (long iperf flow),store: all features,60,ExtraTrees,0.7819148936170213,0.4032849071832123
+D3 (long iperf flow),store: all features,60,RandomForest,0.7826747720364742,0.41022124708572166
+D3 (long iperf flow),store: all features,60,GaussianNB,0.04179331306990881,0.05102487189101362
+D4 (concurrent iperf flows),store: all features,0,LogisticRegression,0.928336620644313,0.7598050664344008
+D4 (concurrent iperf flows),store: all features,0,KNeighbors,0.8395792241946088,0.6105036002812733
+D4 (concurrent iperf flows),store: all features,0,SVC,0.8665351742274819,0.6220573977042828
+D4 (concurrent iperf flows),store: all features,0,DecisionTree,0.9644970414201184,0.892682972999193
+D4 (concurrent iperf flows),store: all features,0,ExtraTrees,0.9191321499013807,0.6746148411343059
+D4 (concurrent iperf flows),store: all features,0,RandomForest,0.9467455621301775,0.7276280833498215
+D4 (concurrent iperf flows),store: all features,0,GaussianNB,0.5233399079552926,0.38027228987413764
+D4 (concurrent iperf flows),store: all features,1,LogisticRegression,0.7936717205009888,0.49562113297950805
+D4 (concurrent iperf flows),store: all features,1,KNeighbors,0.7178642056690837,0.4260560021783184
+D4 (concurrent iperf flows),store: all features,1,SVC,0.8160843770599868,0.4325707256761041
+D4 (concurrent iperf flows),store: all features,1,DecisionTree,0.5550428477257745,0.3650001797188541
+D4 (concurrent iperf flows),store: all features,1,ExtraTrees,0.7633487145682267,0.442635485851426
+D4 (concurrent iperf flows),store: all features,1,RandomForest,0.6605141727092947,0.40357308716468376
+D4 (concurrent iperf flows),store: all features,1,GaussianNB,0.5234014502307185,0.38566468253968256
+D4 (concurrent iperf flows),store: all features,5,LogisticRegression,0.7730590577305906,0.4474781907875201
+D4 (concurrent iperf flows),store: all features,5,KNeighbors,0.6509621765096217,0.38978710747941514
+D4 (concurrent iperf flows),store: all features,5,SVC,0.6894492368944923,0.3532013685239491
+D4 (concurrent iperf flows),store: all features,5,DecisionTree,0.5009953550099535,0.30614426827475966
+D4 (concurrent iperf flows),store: all features,5,ExtraTrees,0.6794956867949569,0.3465790234617866
+D4 (concurrent iperf flows),store: all features,5,RandomForest,0.6695421366954214,0.34586156597026163
+D4 (concurrent iperf flows),store: all features,5,GaussianNB,0.5189117451891174,0.37928764672353665
+D4 (concurrent iperf flows),store: all features,15,LogisticRegression,0.7626432906271072,0.41645932376735595
+D4 (concurrent iperf flows),store: all features,15,KNeighbors,0.7565745111260958,0.43880457787125127
+D4 (concurrent iperf flows),store: all features,15,SVC,0.7977073499662846,0.41715087589439925
+D4 (concurrent iperf flows),store: all features,15,DecisionTree,0.5118004045853001,0.33534752123939465
+D4 (concurrent iperf flows),store: all features,15,ExtraTrees,0.6945380984490896,0.3560659110283756
+D4 (concurrent iperf flows),store: all features,15,RandomForest,0.6621712744436952,0.3483061950215235
+D4 (concurrent iperf flows),store: all features,15,GaussianNB,0.5576534052596089,0.3692827686743182
+D4 (concurrent iperf flows),store: all features,30,LogisticRegression,0.7698686938493434,0.41383248722353566
+D4 (concurrent iperf flows),store: all features,30,KNeighbors,0.7325501036627505,0.4194438978635595
+D4 (concurrent iperf flows),store: all features,30,SVC,0.7912923289564616,0.41293436631048774
+D4 (concurrent iperf flows),store: all features,30,DecisionTree,0.695922598479613,0.40695654854990404
+D4 (concurrent iperf flows),store: all features,30,ExtraTrees,0.6993780234968902,0.36335081544889464
+D4 (concurrent iperf flows),store: all features,30,RandomForest,0.7373876986869385,0.3886829122872001
+D4 (concurrent iperf flows),store: all features,30,GaussianNB,0.4961990324809952,0.3357002873218474
+D4 (concurrent iperf flows),store: all features,60,LogisticRegression,0.7243636363636363,0.3729099439861183
+D4 (concurrent iperf flows),store: all features,60,KNeighbors,0.6996363636363636,0.4173655131498578
+D4 (concurrent iperf flows),store: all features,60,SVC,0.7512727272727273,0.39048048545535985
+D4 (concurrent iperf flows),store: all features,60,DecisionTree,0.5883636363636363,0.3566107356410336
+D4 (concurrent iperf flows),store: all features,60,ExtraTrees,0.7578181818181818,0.3925328742851488
+D4 (concurrent iperf flows),store: all features,60,RandomForest,0.722909090909091,0.3712857393774628
+D4 (concurrent iperf flows),store: all features,60,GaussianNB,0.5323636363636364,0.3427505173731781
+D3a (2 routes),store: all features,0,LogisticRegression,0.8768809849521204,0.7882059800664452
+D3a (2 routes),store: all features,0,KNeighbors,0.811217510259918,0.7134408235614944
+D3a (2 routes),store: all features,0,SVC,0.8057455540355677,0.5887400950871632
+D3a (2 routes),store: all features,0,DecisionTree,0.987688098495212,0.9827892460910216
+D3a (2 routes),store: all features,0,ExtraTrees,0.9863201094391245,0.9807587020152035
+D3a (2 routes),store: all features,0,RandomForest,0.9917920656634747,0.9885494987468672
+D3a (2 routes),store: all features,0,GaussianNB,0.7660738714090287,0.4337722695584818
+D3a (2 routes),store: all features,1,LogisticRegression,0.7750342935528121,0.512446169907347
+D3a (2 routes),store: all features,1,KNeighbors,0.7722908093278463,0.6227272727272728
+D3a (2 routes),store: all features,1,SVC,0.766803840877915,0.4340062111801242
+D3a (2 routes),store: all features,1,DecisionTree,0.7338820301783264,0.6535714285714286
+D3a (2 routes),store: all features,1,ExtraTrees,0.8353909465020576,0.7139456405158657
+D3a (2 routes),store: all features,1,RandomForest,0.8518518518518519,0.7502284148012792
+D3a (2 routes),store: all features,1,GaussianNB,0.766803840877915,0.4340062111801242
+D3a (2 routes),store: all features,5,LogisticRegression,0.7682758620689655,0.4344773790951638
+D3a (2 routes),store: all features,5,KNeighbors,0.7282758620689656,0.4818140589569161
+D3a (2 routes),store: all features,5,SVC,0.7682758620689655,0.4344773790951638
+D3a (2 routes),store: all features,5,DecisionTree,0.6344827586206897,0.5166192406298983
+D3a (2 routes),store: all features,5,ExtraTrees,0.766896551724138,0.4340359094457455
+D3a (2 routes),store: all features,5,RandomForest,0.766896551724138,0.4397807131850998
+D3a (2 routes),store: all features,5,GaussianNB,0.7682758620689655,0.4344773790951638
+D3a (2 routes),store: all features,15,LogisticRegression,0.7741935483870968,0.43636363636363634
+D3a (2 routes),store: all features,15,KNeighbors,0.7517531556802244,0.4874565945781298
+D3a (2 routes),store: all features,15,SVC,0.7741935483870968,0.43636363636363634
+D3a (2 routes),store: all features,15,DecisionTree,0.6044880785413744,0.49414813323940826
+D3a (2 routes),store: all features,15,ExtraTrees,0.7741935483870968,0.43636363636363634
+D3a (2 routes),store: all features,15,RandomForest,0.7741935483870968,0.4482829884891741
+D3a (2 routes),store: all features,15,GaussianNB,0.7741935483870968,0.43636363636363634
+D3a (2 routes),store: all features,30,LogisticRegression,0.7784172661870503,0.4377022653721683
+D3a (2 routes),store: all features,30,KNeighbors,0.7510791366906475,0.49690153103280904
+D3a (2 routes),store: all features,30,SVC,0.7784172661870503,0.4377022653721683
+D3a (2 routes),store: all features,30,DecisionTree,0.6086330935251798,0.4990990990990991
+D3a (2 routes),store: all features,30,ExtraTrees,0.7769784172661871,0.4435146011230441
+D3a (2 routes),store: all features,30,RandomForest,0.7726618705035971,0.43587662337662336
+D3a (2 routes),store: all features,30,GaussianNB,0.7784172661870503,0.4377022653721683
+D3a (2 routes),store: all features,60,LogisticRegression,0.7784522003034902,0.4377133105802048
+D3a (2 routes),store: all features,60,KNeighbors,0.7268588770864947,0.4560112998495799
+D3a (2 routes),store: all features,60,SVC,0.7784522003034902,0.4377133105802048
+D3a (2 routes),store: all features,60,DecisionTree,0.6555386949924128,0.5158254171184439
+D3a (2 routes),store: all features,60,ExtraTrees,0.7784522003034902,0.44436359436359435
+D3a (2 routes),store: all features,60,RandomForest,0.7769347496206374,0.4626078273652678
+D3a (2 routes),store: all features,60,GaussianNB,0.7784522003034902,0.4377133105802048
+D4a (2 routes),store: all features,0,LogisticRegression,0.9453836150845254,0.9278611632270168
+D4a (2 routes),store: all features,0,KNeighbors,0.8452535760728218,0.7846278039148311
+D4a (2 routes),store: all features,0,SVC,0.8283485045513654,0.7280588953899569
+D4a (2 routes),store: all features,0,DecisionTree,0.9856957087126138,0.9821172242481899
+D4a (2 routes),store: all features,0,ExtraTrees,0.94148244473342,0.9241013561084097
+D4a (2 routes),store: all features,0,RandomForest,0.9713914174252276,0.9637537707390649
+D4a (2 routes),store: all features,0,GaussianNB,0.7893368010403121,0.6991741524195885
+D4a (2 routes),store: all features,1,LogisticRegression,0.8096479791395046,0.7019916544250708
+D4a (2 routes),store: all features,1,KNeighbors,0.757496740547588,0.6455849034104459
+D4a (2 routes),store: all features,1,SVC,0.7992177314211213,0.67430459047493
+D4a (2 routes),store: all features,1,DecisionTree,0.7783572359843546,0.6972462152874523
+D4a (2 routes),store: all features,1,ExtraTrees,0.7835723598435462,0.6927557915057915
+D4a (2 routes),store: all features,1,RandomForest,0.7913950456323338,0.7002149697088138
+D4a (2 routes),store: all features,1,GaussianNB,0.7835723598435462,0.6915111162799713
+D4a (2 routes),store: all features,5,LogisticRegression,0.7519685039370079,0.6287459109153105
+D4a (2 routes),store: all features,5,KNeighbors,0.7047244094488189,0.5767534060920848
+D4a (2 routes),store: all features,5,SVC,0.7598425196850394,0.6468675531739781
+D4a (2 routes),store: all features,5,DecisionTree,0.6968503937007874,0.5869918699186992
+D4a (2 routes),store: all features,5,ExtraTrees,0.7454068241469817,0.6180589287006129
+D4a (2 routes),store: all features,5,RandomForest,0.5249343832020997,0.45077691321349783
+D4a (2 routes),store: all features,5,GaussianNB,0.7690288713910761,0.6709618536365153
+D4a (2 routes),store: all features,15,LogisticRegression,0.7573333333333333,0.6581380671401809
+D4a (2 routes),store: all features,15,KNeighbors,0.7253333333333334,0.6220978583099336
+D4a (2 routes),store: all features,15,SVC,0.768,0.6744791666666667
+D4a (2 routes),store: all features,15,DecisionTree,0.5053333333333333,0.46013957792907023
+D4a (2 routes),store: all features,15,ExtraTrees,0.7626666666666667,0.6656515162140231
+D4a (2 routes),store: all features,15,RandomForest,0.7106666666666667,0.6246705056743362
+D4a (2 routes),store: all features,15,GaussianNB,0.7666666666666667,0.6706192358366272
+D4a (2 routes),store: all features,30,LogisticRegression,0.7527322404371585,0.6269921931086517
+D4a (2 routes),store: all features,30,KNeighbors,0.6557377049180327,0.5731383347989077
+D4a (2 routes),store: all features,30,SVC,0.7663934426229508,0.6618572296886608
+D4a (2 routes),store: all features,30,DecisionTree,0.6666666666666666,0.5938179403443979
+D4a (2 routes),store: all features,30,ExtraTrees,0.7199453551912568,0.6259114761863214
+D4a (2 routes),store: all features,30,RandomForest,0.7021857923497268,0.6071723974949782
+D4a (2 routes),store: all features,30,GaussianNB,0.7636612021857924,0.6679488692232055
+D4a (2 routes),store: all features,60,LogisticRegression,0.6508620689655172,0.5916666465471244
+D4a (2 routes),store: all features,60,KNeighbors,0.42528735632183906,0.4155140704910186
+D4a (2 routes),store: all features,60,SVC,0.6436781609195402,0.5805557985594728
+D4a (2 routes),store: all features,60,DecisionTree,0.41522988505747127,0.40637606325349807
+D4a (2 routes),store: all features,60,ExtraTrees,0.5804597701149425,0.563804945054945
+D4a (2 routes),store: all features,60,RandomForest,0.5962643678160919,0.5669792208654836
+D4a (2 routes),store: all features,60,GaussianNB,0.7155172413793104,0.6100200355432801

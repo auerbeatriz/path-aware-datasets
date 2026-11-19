@@ -1,0 +1,217 @@
+scope,horizon_s,window_s,instants,mean_train_size,single_class_pct,fallback_fits
+D1 (baseline),0,5,48,5.0,95.83,0
+D1 (baseline),0,10,48,10.0,95.83,0
+D1 (baseline),0,15,48,14.98,93.75,0
+D1 (baseline),0,30,48,29.96,91.67,0
+D1 (baseline),0,45,48,44.94,89.58,0
+D1 (baseline),0,60,48,59.92,87.5,0
+D1 (baseline),1,5,48,5.0,95.83,0
+D1 (baseline),1,10,48,10.0,93.75,0
+D1 (baseline),1,15,48,15.0,93.75,0
+D1 (baseline),1,30,48,29.92,91.67,0
+D1 (baseline),1,45,48,44.92,89.58,0
+D1 (baseline),1,60,48,59.83,87.5,0
+D1 (baseline),5,5,48,5.0,95.83,0
+D1 (baseline),5,10,48,10.0,93.75,0
+D1 (baseline),5,15,48,14.96,93.75,0
+D1 (baseline),5,30,48,29.92,93.75,0
+D1 (baseline),5,45,48,44.88,89.58,0
+D1 (baseline),5,60,48,59.83,89.58,0
+D1 (baseline),15,5,48,4.98,95.83,0
+D1 (baseline),15,10,48,9.96,93.75,0
+D1 (baseline),15,15,48,14.96,93.75,0
+D1 (baseline),15,30,48,29.92,93.75,0
+D1 (baseline),15,45,48,44.88,89.58,0
+D1 (baseline),15,60,48,59.83,89.58,0
+D1 (baseline),30,5,46,5.0,100.0,0
+D1 (baseline),30,10,46,10.0,97.83,0
+D1 (baseline),30,15,46,15.0,95.65,0
+D1 (baseline),30,30,46,29.91,95.65,0
+D1 (baseline),30,45,46,44.91,91.3,0
+D1 (baseline),30,60,46,59.83,91.3,0
+D1 (baseline),60,5,44,4.98,100.0,0
+D1 (baseline),60,10,44,9.98,100.0,0
+D1 (baseline),60,15,44,14.98,97.73,0
+D1 (baseline),60,30,44,29.93,95.45,0
+D1 (baseline),60,45,44,44.89,93.18,0
+D1 (baseline),60,60,44,59.84,90.91,0
+D2 (constant background),0,5,50,5.0,46.0,0
+D2 (constant background),0,10,50,9.98,18.0,0
+D2 (constant background),0,15,50,14.96,6.0,0
+D2 (constant background),0,30,50,29.96,2.0,0
+D2 (constant background),0,45,50,44.92,0.0,0
+D2 (constant background),0,60,50,59.92,0.0,0
+D2 (constant background),1,5,50,5.0,44.0,0
+D2 (constant background),1,10,50,9.96,14.0,0
+D2 (constant background),1,15,50,14.92,10.0,0
+D2 (constant background),1,30,50,29.92,2.0,0
+D2 (constant background),1,45,50,44.84,0.0,0
+D2 (constant background),1,60,50,59.84,0.0,0
+D2 (constant background),5,5,50,4.98,42.0,0
+D2 (constant background),5,10,50,9.96,16.0,0
+D2 (constant background),5,15,50,14.94,8.0,0
+D2 (constant background),5,30,50,29.92,0.0,0
+D2 (constant background),5,45,50,44.86,0.0,0
+D2 (constant background),5,60,50,59.84,0.0,0
+D2 (constant background),15,5,48,4.98,43.75,0
+D2 (constant background),15,10,48,9.96,18.75,0
+D2 (constant background),15,15,48,14.96,2.08,0
+D2 (constant background),15,30,48,29.92,0.0,0
+D2 (constant background),15,45,48,44.88,0.0,0
+D2 (constant background),15,60,48,59.83,0.0,0
+D2 (constant background),30,5,48,5.0,35.42,0
+D2 (constant background),30,10,48,10.0,10.42,0
+D2 (constant background),30,15,48,14.96,4.17,0
+D2 (constant background),30,30,48,29.92,0.0,0
+D2 (constant background),30,45,48,44.88,0.0,0
+D2 (constant background),30,60,48,59.83,0.0,0
+D2 (constant background),60,5,44,5.0,40.91,0
+D2 (constant background),60,10,44,10.0,18.18,0
+D2 (constant background),60,15,44,15.0,4.55,0
+D2 (constant background),60,30,44,29.91,0.0,0
+D2 (constant background),60,45,44,44.91,0.0,0
+D2 (constant background),60,60,44,59.82,0.0,0
+D3 (long iperf flow),0,5,50,5.0,46.0,0
+D3 (long iperf flow),0,10,50,10.0,36.0,0
+D3 (long iperf flow),0,15,50,15.0,28.0,0
+D3 (long iperf flow),0,30,50,30.0,14.0,0
+D3 (long iperf flow),0,45,50,45.0,8.0,0
+D3 (long iperf flow),0,60,50,60.0,8.0,0
+D3 (long iperf flow),1,5,50,5.0,46.0,0
+D3 (long iperf flow),1,10,50,10.0,38.0,0
+D3 (long iperf flow),1,15,50,15.0,34.0,0
+D3 (long iperf flow),1,30,50,30.0,18.0,0
+D3 (long iperf flow),1,45,50,45.0,10.0,0
+D3 (long iperf flow),1,60,50,60.0,8.0,0
+D3 (long iperf flow),5,5,50,5.0,48.0,0
+D3 (long iperf flow),5,10,50,10.0,38.0,0
+D3 (long iperf flow),5,15,50,15.0,34.0,0
+D3 (long iperf flow),5,30,50,30.0,18.0,0
+D3 (long iperf flow),5,45,50,45.0,10.0,0
+D3 (long iperf flow),5,60,50,60.0,8.0,0
+D3 (long iperf flow),15,5,48,5.0,50.0,0
+D3 (long iperf flow),15,10,48,10.0,37.5,0
+D3 (long iperf flow),15,15,48,15.0,35.42,0
+D3 (long iperf flow),15,30,48,30.0,16.67,0
+D3 (long iperf flow),15,45,48,45.0,10.42,0
+D3 (long iperf flow),15,60,48,60.0,6.25,0
+D3 (long iperf flow),30,5,48,5.0,58.33,0
+D3 (long iperf flow),30,10,48,10.0,41.67,0
+D3 (long iperf flow),30,15,48,15.0,37.5,0
+D3 (long iperf flow),30,30,48,30.0,16.67,0
+D3 (long iperf flow),30,45,48,45.0,10.42,0
+D3 (long iperf flow),30,60,48,60.0,6.25,0
+D3 (long iperf flow),60,5,44,5.0,43.18,0
+D3 (long iperf flow),60,10,44,10.0,40.91,0
+D3 (long iperf flow),60,15,44,15.0,34.09,0
+D3 (long iperf flow),60,30,44,30.0,22.73,0
+D3 (long iperf flow),60,45,44,45.0,9.09,0
+D3 (long iperf flow),60,60,44,60.0,2.27,0
+D3a (2 routes),0,5,25,5.0,20.0,0
+D3a (2 routes),0,10,25,10.0,4.0,0
+D3a (2 routes),0,15,25,15.0,0.0,0
+D3a (2 routes),0,30,25,30.0,0.0,0
+D3a (2 routes),0,45,25,45.0,0.0,0
+D3a (2 routes),0,60,25,60.0,0.0,0
+D3a (2 routes),1,5,25,5.0,40.0,0
+D3a (2 routes),1,10,25,10.0,12.0,0
+D3a (2 routes),1,15,25,15.0,0.0,0
+D3a (2 routes),1,30,25,30.0,0.0,0
+D3a (2 routes),1,45,25,45.0,0.0,0
+D3a (2 routes),1,60,25,60.0,0.0,0
+D3a (2 routes),5,5,25,5.0,40.0,0
+D3a (2 routes),5,10,25,10.0,12.0,0
+D3a (2 routes),5,15,25,15.0,0.0,0
+D3a (2 routes),5,30,25,30.0,0.0,0
+D3a (2 routes),5,45,25,45.0,0.0,0
+D3a (2 routes),5,60,25,60.0,0.0,0
+D3a (2 routes),15,5,24,5.0,37.5,0
+D3a (2 routes),15,10,24,10.0,8.33,0
+D3a (2 routes),15,15,24,15.0,4.17,0
+D3a (2 routes),15,30,24,30.0,0.0,0
+D3a (2 routes),15,45,24,45.0,0.0,0
+D3a (2 routes),15,60,24,60.0,0.0,0
+D3a (2 routes),30,5,24,5.0,16.67,0
+D3a (2 routes),30,10,24,10.0,4.17,0
+D3a (2 routes),30,15,24,15.0,4.17,0
+D3a (2 routes),30,30,24,30.0,0.0,0
+D3a (2 routes),30,45,24,45.0,0.0,0
+D3a (2 routes),30,60,24,60.0,0.0,0
+D3a (2 routes),60,5,22,5.0,18.18,0
+D3a (2 routes),60,10,22,10.0,0.0,0
+D3a (2 routes),60,15,22,15.0,0.0,0
+D3a (2 routes),60,30,22,30.0,0.0,0
+D3a (2 routes),60,45,22,45.0,0.0,0
+D3a (2 routes),60,60,22,60.0,0.0,0
+D4 (concurrent iperf flows),0,5,52,4.98,55.77,0
+D4 (concurrent iperf flows),0,10,52,9.98,36.54,0
+D4 (concurrent iperf flows),0,15,52,14.96,28.85,0
+D4 (concurrent iperf flows),0,30,52,29.96,17.31,0
+D4 (concurrent iperf flows),0,45,52,44.92,15.38,0
+D4 (concurrent iperf flows),0,60,52,59.92,11.54,0
+D4 (concurrent iperf flows),1,5,51,4.96,52.94,0
+D4 (concurrent iperf flows),1,10,51,9.96,35.29,0
+D4 (concurrent iperf flows),1,15,51,14.92,29.41,0
+D4 (concurrent iperf flows),1,30,51,29.92,15.69,0
+D4 (concurrent iperf flows),1,45,51,44.84,13.73,0
+D4 (concurrent iperf flows),1,60,51,59.84,9.8,0
+D4 (concurrent iperf flows),5,5,51,4.98,54.9,0
+D4 (concurrent iperf flows),5,10,51,9.96,37.25,0
+D4 (concurrent iperf flows),5,15,51,14.94,31.37,0
+D4 (concurrent iperf flows),5,30,51,29.92,15.69,0
+D4 (concurrent iperf flows),5,45,51,44.86,13.73,0
+D4 (concurrent iperf flows),5,60,51,59.84,9.8,0
+D4 (concurrent iperf flows),15,5,50,4.98,54.0,0
+D4 (concurrent iperf flows),15,10,50,9.96,40.0,0
+D4 (concurrent iperf flows),15,15,50,14.96,34.0,0
+D4 (concurrent iperf flows),15,30,50,29.92,18.0,0
+D4 (concurrent iperf flows),15,45,50,44.88,12.0,0
+D4 (concurrent iperf flows),15,60,50,59.84,10.0,0
+D4 (concurrent iperf flows),30,5,49,5.0,44.9,0
+D4 (concurrent iperf flows),30,10,49,9.96,28.57,0
+D4 (concurrent iperf flows),30,15,49,14.96,24.49,0
+D4 (concurrent iperf flows),30,30,49,29.92,16.33,0
+D4 (concurrent iperf flows),30,45,49,44.88,10.2,0
+D4 (concurrent iperf flows),30,60,49,59.84,10.2,0
+D4 (concurrent iperf flows),60,5,47,5.0,40.43,0
+D4 (concurrent iperf flows),60,10,47,10.0,19.15,0
+D4 (concurrent iperf flows),60,15,47,15.0,14.89,0
+D4 (concurrent iperf flows),60,30,47,29.91,10.64,0
+D4 (concurrent iperf flows),60,45,47,44.91,6.38,0
+D4 (concurrent iperf flows),60,60,47,59.83,6.38,0
+D4a (2 routes),0,5,26,4.96,42.31,0
+D4a (2 routes),0,10,26,9.96,30.77,0
+D4a (2 routes),0,15,26,14.96,23.08,0
+D4a (2 routes),0,30,26,29.96,19.23,0
+D4a (2 routes),0,45,26,44.92,19.23,0
+D4a (2 routes),0,60,26,59.92,15.38,0
+D4a (2 routes),1,5,26,4.92,42.31,0
+D4a (2 routes),1,10,26,9.92,26.92,0
+D4a (2 routes),1,15,26,14.92,23.08,0
+D4a (2 routes),1,30,26,29.92,19.23,0
+D4a (2 routes),1,45,26,44.85,19.23,0
+D4a (2 routes),1,60,26,59.85,15.38,0
+D4a (2 routes),5,5,26,4.96,38.46,0
+D4a (2 routes),5,10,26,9.96,26.92,0
+D4a (2 routes),5,15,26,14.96,23.08,0
+D4a (2 routes),5,30,26,29.92,19.23,0
+D4a (2 routes),5,45,26,44.88,19.23,0
+D4a (2 routes),5,60,26,59.85,15.38,0
+D4a (2 routes),15,5,25,5.0,40.0,0
+D4a (2 routes),15,10,25,9.96,20.0,0
+D4a (2 routes),15,15,25,14.96,20.0,0
+D4a (2 routes),15,30,25,29.92,20.0,0
+D4a (2 routes),15,45,25,44.88,16.0,0
+D4a (2 routes),15,60,25,59.84,16.0,0
+D4a (2 routes),30,5,25,5.0,44.0,0
+D4a (2 routes),30,10,25,9.92,20.0,0
+D4a (2 routes),30,15,25,14.92,20.0,0
+D4a (2 routes),30,30,25,29.92,20.0,0
+D4a (2 routes),30,45,25,44.84,16.0,0
+D4a (2 routes),30,60,25,59.84,16.0,0
+D4a (2 routes),60,5,24,5.0,50.0,0
+D4a (2 routes),60,10,24,10.0,29.17,0
+D4a (2 routes),60,15,24,15.0,16.67,0
+D4a (2 routes),60,30,24,29.92,16.67,0
+D4a (2 routes),60,45,24,44.92,12.5,0
+D4a (2 routes),60,60,24,59.83,12.5,0
