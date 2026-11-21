@@ -1,0 +1,7 @@
+dataset,routes,label file,clock offset (h),store instants,label instants,store instants matched,store vs label agreement,instants | store: bandwidth features,columns of X | store: bandwidth features,instants | store: all features,columns of X | store: all features
+D1,4,rotulos_menor_latencia.txt,3.0,3599,3599,0.9997,1.0,3595,52,3594,100
+D2,4,rotulos_menor_latencia.txt,3.0,3659,3660,0.9997,1.0,3657,52,3656,100
+D3,4,rotulos_menor_latencia.txt,3.0,3661,3663,0.9997,1.0,3660,52,3659,100
+D3a,2,labels_h1_h6_12.txt,3.0,3661,3663,0.9997,1.0,3660,26,3659,50
+D4,4,rotulos_menor_latencia.txt,3.0,3850,3851,0.9997,1.0,3848,52,3847,100
+D4a,2,rotulos_h1_h6_12.txt,3.0,3850,3851,0.9997,1.0,3848,26,3847,50

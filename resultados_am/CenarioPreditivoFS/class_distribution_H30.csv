@@ -1,0 +1,7 @@
+dataset,full n,full classes,full dominant route,full dominant %,train n,train classes,train dominant route,train dominant %,test n,test classes,test dominant route,test dominant %,dominant route changes
+D1,3561,2,4,99.94,2849,2,4,99.93,682,1,4,100.0,False
+D2,3624,4,4,83.22,2900,4,4,86.24,695,4,4,71.51,False
+D3,3627,4,4,51.72,2902,4,4,49.31,695,4,4,61.58,False
+D3a,3627,2,1,68.96,2902,2,1,66.99,695,2,1,77.84,False
+D4,3816,4,4,50.13,3053,4,3,53.98,733,4,4,71.49,True
+D4a,3816,2,1,52.04,3053,2,2,52.93,733,2,1,72.44,True

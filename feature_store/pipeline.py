@@ -928,11 +928,46 @@ def construir_wide(features_longas, colunas_feature, chave_tempo=('dataset_id', 
 # Orquestracao
 ################################################################################
 
+# Route subsets that exist in datasets/ only as wide CSVs (no raw capture of
+#   their own): routes h11_h61 and h12_h62 of D3 and D4. Built from the raw
+#   capture of the source dataset with construir(..., rotas=...).
+SUBCONJUNTOS_CONHECIDOS = {
+    'D3a': ('D3', ['h11_h61', 'h12_h62']),
+    'D4a': ('D4', ['h11_h61', 'h12_h62']),
+}
+
+
+def normalizar_rota(rota):
+    """Accept 'h11_h61', 'rota_h11_h61' or the route number '1' (or 1)."""
+    rota = str(rota).strip()
+    if rota.isdigit():
+        return f'h1{rota}_h6{rota}'
+    return rota.removeprefix('rota_')
+
+
+def selecionar_rotas(topologia, rotas):
+    """Restrict the topology to `rotas`, in sorted order of rota_id.
+
+    The route list of the whole pipeline comes from topologia['rotas'], so this
+    is what makes construir build a subset: bandwidth ingestion, dim_rota and
+    the per-route aggregation all iterate over it.
+    """
+    rotas = sorted(dict.fromkeys(normalizar_rota(r) for r in rotas))
+    disponiveis = sorted(topologia['rotas'])
+    desconhecidas = sorted(set(rotas) - set(disponiveis))
+    if desconhecidas:
+        raise ValueError(f'unknown route(s) {desconhecidas}; available: {disponiveis}')
+    if len(rotas) < 2:
+        raise ValueError('a route subset needs at least two routes: the target compares them')
+    return {**topologia, 'rotas': {r: topologia['rotas'][r] for r in rotas}}
+
+
 def construir(pasta_relatorios=RELATORIOS_PADRAO,
               caminho_config='prototipo/config.json',
               pasta_destino=DESTINO_PADRAO,
               persistir_em_disco=True,
-              arquivo_banda=None):
+              arquivo_banda=None,
+              rotas=None):
     """Executa o pipeline completo e devolve as tabelas construidas.
 
     arquivo_banda: quando informado (caminho para um `banda.bwm`, formato dos
@@ -940,15 +975,30 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
         ingerir_banda_arquivo_unico, em vez dos banda_raw_rota_*.csv de
         pasta_relatorios. Usado para reconstruir a store sobre datasets/D*, que
         nao produzem um CSV por rota.
+    rotas: when given (e.g. ['h11_h61', 'h12_h62'] or [1, 2]), only these
+        routes are built, and the result is the store the collection would
+        have produced had it monitored just them. This is exact because every
+        step works on one route at a time (the clock alignment depends only on
+        the bandwidth source and eventos.txt) except the targets, which compare
+        routes and so are derived over the kept routes only. derivar_alvo
+        numbers them 1..k in sorted order of rota_id: for {h11_h61, h12_h62}
+        the labels stay 1 and 2, but for {h12_h62, h14_h64} they become 1 and
+        2, not 2 and 4. The mapping is written to subset.json in pasta_destino.
     """
     alinhamento = inferir_alinhamento(pasta_relatorios, arquivo_banda=arquivo_banda)
     topologia = carregar_topologia(caminho_config, pasta_relatorios)
+    if rotas is not None:
+        topologia = selecionar_rotas(topologia, rotas)
+
+    def manter(quadro):
+        # Ingestion of per-route files globs every route, so trim to the topology
+        return quadro[quadro.rota_id.isin(topologia['rotas'])].reset_index(drop=True)
 
     if arquivo_banda:
         fg_banda_interface = ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda)
     else:
-        fg_banda_interface = ingerir_banda(alinhamento, topologia, pasta_relatorios)
-    fg_latencia = ingerir_latencia(alinhamento, pasta_relatorios)
+        fg_banda_interface = manter(ingerir_banda(alinhamento, topologia, pasta_relatorios))
+    fg_latencia = manter(ingerir_latencia(alinhamento, pasta_relatorios))
     fg_banda_rota = agregar_por_rota(fg_banda_interface, topologia)
     dim_rota = metadados_das_rotas(topologia)
 
@@ -959,9 +1009,22 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
     # Bandwidth target in its own column; melhor_rota (latency) is unchanged
     view = derivar_alvo_banda(view)
 
+    rotulo_da_rota = {rota: i + 1 for i, rota in enumerate(sorted(topologia['rotas']))}
+
     if persistir_em_disco:
         exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
                      dim_rota, pasta_destino)
+        if rotas is not None:
+            metadados = {
+                'source': os.path.basename(os.path.normpath(pasta_relatorios)),
+                'routes': sorted(topologia['rotas']),
+                'label_of_route': rotulo_da_rota,
+                'built_by': 'feature_store/pipeline.py (construir, rotas=...)',
+                'alignment_offset_s': int(alinhamento['offset_s']),
+            }
+            with open(os.path.join(pasta_destino, 'subset.json'), 'w', encoding='utf-8') as arquivo:
+                json.dump(metadados, arquivo, indent=2)
+                arquivo.write('\n')
 
     return {
         'alinhamento': alinhamento,
@@ -971,4 +1034,53 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
         'fg_banda_interface': fg_banda_interface,
         'fg_banda_rota': fg_banda_rota,
         'view': view,
+        'rotulo_da_rota': rotulo_da_rota,
     }
+
+
+def construir_dataset(dataset, rotas=None, nome=None,
+                      raiz_datasets='datasets', raiz_store=DESTINO_PADRAO, **kwargs):
+    """construir() over datasets/<dataset>, persisted to <raiz_store>/<nome>.
+
+    nome defaults to the dataset itself, or to the predefined subset when
+    `dataset` is a key of SUBCONJUNTOS_CONHECIDOS (construir_dataset('D3a')
+    builds routes h11_h61, h12_h62 of D3 into <raiz_store>/D3a).
+    """
+    if rotas is None and dataset in SUBCONJUNTOS_CONHECIDOS:
+        nome = nome or dataset
+        dataset, rotas = SUBCONJUNTOS_CONHECIDOS[dataset]
+    pasta = os.path.join(raiz_datasets, dataset)
+    return construir(
+        pasta_relatorios=pasta,
+        caminho_config=os.path.join(pasta, 'config.json'),
+        pasta_destino=os.path.join(raiz_store, nome or dataset),
+        arquivo_banda=os.path.join(pasta, 'banda.bwm'),
+        rotas=rotas,
+        **kwargs,
+    )
+
+
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Build the feature store of a dataset in datasets/, or of a subset of its routes.')
+    parser.add_argument('datasets', nargs='+',
+                        help=f'datasets to build, e.g. D3, or a predefined subset {sorted(SUBCONJUNTOS_CONHECIDOS)}')
+    parser.add_argument('--rotas', nargs='+',
+                        help="routes to keep: 'h11_h61' or route number '1' (one dataset only)")
+    parser.add_argument('--nome', help='store folder name (default: the dataset name)')
+    parser.add_argument('--raiz-datasets', default=os.path.join(_RAIZ, 'datasets'))
+    parser.add_argument('--raiz-store', default=os.path.join(_RAIZ, DESTINO_PADRAO))
+    args = parser.parse_args()
+    if (args.rotas or args.nome) and len(args.datasets) > 1:
+        parser.error('--rotas and --nome apply to a single dataset')
+
+    for dataset in args.datasets:
+        resultado = construir_dataset(dataset, args.rotas, args.nome,
+                                      args.raiz_datasets, args.raiz_store)
+        view = resultado['view']
+        rotulos = view.groupby('ts_epoch').melhor_rota.first().dropna().astype(int)
+        partes = (rotulos.value_counts(normalize=True).sort_index() * 100).round(2).to_dict()
+        print(f"{args.nome or dataset}: routes {resultado['rotulo_da_rota']} | "
+              f"{view.ts_epoch.nunique()} instants | label share (%) {partes}")
