@@ -30,8 +30,8 @@ def salvarRelatorioBanda(topologia):
             pathIds.append(pathId)
 
     # Consolida a banda de todos os caminhos em um único CSV, assim como é
-    #   feito para a latência em 'latencia_rotas_h1_h6.csv'
-    consolidarBanda('relatorios', 'banda_rotas_h1_h6.csv', pathIds)
+    #   feito para a latência em 'latency_in_routes_pair-h1-h6.csv'
+    consolidarBanda('relatorios', 'bandwidth_in_routes_pair-h1-h6.csv', pathIds)
 
 ################################################################################
 # Salva o histórico de telemetria e dados de teste em arquivos texto

@@ -141,8 +141,8 @@ def main():
     dataset           = ""
     rotas             = [1, 2, 3, 4]
 
-    arquivo_latencias = "latencia_rotas_h1_h6.csv"
-    arquivo_rotulos    = "rotulos_h1_h6.txt"
+    arquivo_latencias = "latency_in_routes_pair-h1-h6.csv"
+    arquivo_rotulos    = "labels_lowest_latency.txt"
     arquivo_grafico     = "grafico_latencia.png"
     caminho_dataset   = os.path.join(diretorio_dataset, dataset)
 

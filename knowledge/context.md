@@ -140,7 +140,7 @@ instante.
 ```python
 def carregar_X_y(dataset, ...):
     ...
-    # y sempre vem de rotulos_h1_h6.txt (definido como argmin(latencia) no instante)
+    # y sempre vem de labels_lowest_latency.txt (definido como argmin(latencia) no instante)
 ```
 
 Mesmo padrão: treina em `D1`, testa em `D2`/`D3`/`D4` (ou variantes `b`),
@@ -301,7 +301,7 @@ Two switches drive the whole section:
 - `METRICA_PRED` — `'latencia'` or `'banda'`, which selects the feature CSV and
   the `<metric>__<route>` column prefix shared with the feature store.
 - `ALVO_PRED` — `'menor_latencia'` (the label of the paper, from
-  `rotulos_h1_h6.txt`) or `'maior_banda'` (from `rotulos_maior_banda.txt`).
+  `labels_lowest_latency.txt`) or `'maior_banda'` (from `labels_highest_bandwidth.txt`).
   Features and target may come from different metrics, which is the cross-metric
   experiment of the Tabela 2 section.
 
@@ -355,9 +355,9 @@ model-analysis notebook builds it with `largo_de_csv`.
 
 ### 8.1 Bandwidth and latency are one second apart
 
-`banda_rotas_h1_h6.csv` starts exactly **one second before**
-`latencia_rotas_h1_h6.csv` in all eight four-route datasets, and latency ends
-one second later in D2b, D4 and D4b. Since `rotulos_h1_h6.txt` has one line per
+`bandwidth_in_routes_pair-h1-h6.csv` starts exactly **one second before**
+`latency_in_routes_pair-h1-h6.csv` in all eight four-route datasets, and latency ends
+one second later in D2b, D4 and D4b. Since `labels_lowest_latency.txt` has one line per
 latency row, pairing bandwidth rows with that label **by position** shifts every
 label by one second.
 
@@ -464,16 +464,15 @@ from 98% accuracy.
 ## 10. Two-route datasets and the per-flow label
 
 D3a and D4a collect two routes and spell every file with a `_12` suffix
-(`latencia_rotas_h1_h6_12.csv`, `banda_rotas_h1_h6_12.csv`,
-`rotulos_maior_banda_12.txt`, and the label file is `labels_h1_h6_12.txt` in D3a
-but `rotulos_h1_h6_12.txt` in D4a). Both the predictive section and
+(`latency_in_routes_pair-h1-h6_12.csv`, `bandwidth_in_routes_pair-h1-h6_12.csv`,
+`labels_highest_bandwidth_12.txt`, `labels_lowest_latency_12.txt`). Both the predictive section and
 `gerar_historico_fluxo.py` now resolve those names by globbing the latency CSV
 and reading the suffix off it, so nothing downstream assumes four routes or one
 spelling.
 
 `gerar_historico_fluxo.py` also accepts dataset names on the command line
 (`python3 gerar_historico_fluxo.py D3a D4a`), which is what generated
-`historico_telemetria_h1_h6_12.csv` and `rotulos_por_fluxo_12.txt` for those
+`telemetry_history_pair-h1-h6_12.csv` and `labels_per_flow_12.txt` for those
 two: 7320 rows for D3a (3660 instants × 2 flow categories) and 7698 for D4a
 (3849 × 2). The tie-break of `desempate_rotulos.py` resolved almost everything
 from the past-10 s window, leaving 105 random draws out of 7320 in D3a and 10
@@ -499,8 +498,8 @@ clipped at zero — which changes *which* route holds the maximum.
 
 | file | current | regenerated | lines that change |
 |---|---|---|---|
-| `rotulos_maior_banda.txt` (8 datasets) | 1 to 5 lines short | matches the CSV exactly | 222 to 1933 |
-| `rotulos_por_fluxo.txt` (8 datasets) | 2 to 10 lines short | matches the CSV exactly | 715 to 2874 |
+| `labels_highest_bandwidth.txt` (8 datasets) | 1 to 5 lines short | matches the CSV exactly | 222 to 1933 |
+| `labels_per_flow.txt` (8 datasets) | 2 to 10 lines short | matches the CSV exactly | 715 to 2874 |
 
 The 22 missing lines across the bandwidth labels are exactly the 22 seconds the
 interpolation filled. Re-running `gerar_rotulos_banda.py` and

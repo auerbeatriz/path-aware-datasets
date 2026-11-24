@@ -10,8 +10,8 @@ métricas na mesma grade de 1 s e juntá-las em formato largo.
 
 Saídas disponíveis (argumento posicional, uma ou mais):
 
-    latencia  Apenas o dataset de latência (`latencia_rotas_h1_h6.csv`).
-    banda     Apenas o dataset de banda (`banda_rotas_h1_h6.csv`).
+    latencia  Apenas o dataset de latência (`latency_in_routes_pair-h1-h6.csv`).
+    banda     Apenas o dataset de banda (`bandwidth_in_routes_pair-h1-h6.csv`).
     ambas     As duas métricas em arquivos separados, interpoladas na mesma
               grade de timestamps (ver `alinhar`).
     wide      Latência e banda juntas em um único CSV em formato largo
@@ -57,9 +57,9 @@ import scripts.dataset_processing.gerar_relatorio_latencia as relatorio_latencia
 PASTA_DATASETS = os.path.join(RAIZ, 'datasets')
 DESTINO_PADRAO = os.path.join(RAIZ, 'datasets_gerados')
 
-ARQUIVO_LATENCIA = 'latencia_rotas_h1_h6.csv'
+ARQUIVO_LATENCIA = 'latency_in_routes_pair-h1-h6.csv'
 ARQUIVO_BANDA = relatorio_banda.ARQUIVO_BANDA_CONSOLIDADA
-ARQUIVO_ROTULOS = 'rotulos_h1_h6.txt'
+ARQUIVO_ROTULOS = 'labels_lowest_latency.txt'
 ARQUIVO_WIDE = 'latencia_banda_wide.csv'
 
 ROTAS_PADRAO = [1, 2, 3, 4]
@@ -426,7 +426,7 @@ def main(argv=None):
     )
     parser.add_argument(
         '--sem-rotulos', dest='rotulos', action='store_false',
-        help='não gera rotulos_h1_h6.txt nem a coluna melhor_rota',
+        help='não gera labels_lowest_latency.txt nem a coluna melhor_rota',
     )
     parser.add_argument(
         '--sobrescrever', action='store_true',

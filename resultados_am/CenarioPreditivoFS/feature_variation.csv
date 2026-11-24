@@ -1,13 +1,19 @@
 dataset,feature set,columns of X,constant up to noise,cv min,cv median,flagged features
-D1,store: bandwidth features,52,36,2.517757626058616e-07,4.025760134726431e-06,"['banda_delta_micro_longa', 'banda_media_Mbps', 'banda_media_curta_15s', 'banda_media_longa_30s', 'banda_media_micro_5s', 'gargalo_Mbps', 'gargalo_min_curta_15s', 'gargalo_min_longa_30s', 'gargalo_min_micro_5s']"
+D1,store: bandwidth features,56,36,2.517757626058616e-07,4.061054511281581e-06,"['banda_delta_micro_longa', 'banda_media_Mbps', 'banda_media_curta_15s', 'banda_media_longa_30s', 'banda_media_micro_5s', 'gargalo_Mbps', 'gargalo_min_curta_15s', 'gargalo_min_longa_30s', 'gargalo_min_micro_5s']"
+D1,store: latency features,44,0,0.0015055610814912865,0.01811691180121426,[]
 D1,store: all features,100,36,2.455599545054638e-07,0.010616661366476376,"['banda_delta_micro_longa', 'banda_media_Mbps', 'banda_media_curta_15s', 'banda_media_longa_30s', 'banda_media_micro_5s', 'gargalo_Mbps', 'gargalo_min_curta_15s', 'gargalo_min_longa_30s', 'gargalo_min_micro_5s']"
-D2,store: bandwidth features,52,0,0.019102332892340503,0.4413701575089178,[]
+D2,store: bandwidth features,56,0,0.019102332892340503,0.4237641412638349,[]
+D2,store: latency features,44,0,0.06178260890541607,0.3342428512309218,[]
 D2,store: all features,100,0,0.019080822230779393,0.3886311065611555,[]
-D3,store: bandwidth features,52,0,0.019570353665008856,0.7612178205660367,[]
+D3,store: bandwidth features,56,0,0.019570353665008856,0.7813332238477528,[]
+D3,store: latency features,44,0,0.07229786746450835,1.4021190416556015,[]
 D3,store: all features,100,0,0.019549678604651552,1.0979649884493936,[]
-D3a,store: bandwidth features,26,0,0.1495615756665901,0.8595023800610672,[]
+D3a,store: bandwidth features,28,0,0.1495615756665901,0.879347935478705,[]
+D3a,store: latency features,22,0,1.2985441696847104,1.4641427573169299,[]
 D3a,store: all features,50,0,0.14958179971738397,1.3606846685247436,[]
-D4,store: bandwidth features,52,0,0.024872626573455014,0.6287867934122718,[]
+D4,store: bandwidth features,56,0,0.024872626573455014,0.6505149573321927,[]
+D4,store: latency features,44,0,0.06746047270413641,0.7361491726798961,[]
 D4,store: all features,100,0,0.024860350131933565,0.711828328059922,[]
-D4a,store: bandwidth features,26,0,0.18431424707701802,1.1279127708601187,[]
+D4a,store: bandwidth features,28,0,0.18431424707701802,1.1622955326451185,[]
+D4a,store: latency features,22,0,0.42166958206576655,0.7284180391279507,[]
 D4a,store: all features,50,0,0.18433196939835292,0.7729766220925582,[]

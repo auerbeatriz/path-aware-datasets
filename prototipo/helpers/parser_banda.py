@@ -205,7 +205,7 @@ def lerArquivoBanda(caminho_arquivo):
 ################################################################################
 # Consolida os arquivos individuais de banda disponível por caminho
 #   (banda_rota_h1<r>_h6<r>.txt) em um único CSV, seguindo o mesmo formato
-#   usado para consolidar as latências em 'latencia_rotas_h1_h6.csv'
+#   usado para consolidar as latências em 'latency_in_routes_pair-h1-h6.csv'
 #
 # Parâmetros:
 #   diretorio - diretório contendo os arquivos de banda por rota

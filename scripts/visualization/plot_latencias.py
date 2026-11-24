@@ -71,7 +71,7 @@ def main():
     dataset           = ""
     caminho_dataset   = os.path.join(diretorio_dataset, dataset)
 
-    arquivo_latencias = "latencia_rotas_h1_h6.csv"
+    arquivo_latencias = "latency_in_routes_pair-h1-h6.csv"
     arquivo_grafico     = "grafico_latencia.png"
 
     leituras = pd.read_csv(f'{caminho_dataset}/{arquivo_latencias}')

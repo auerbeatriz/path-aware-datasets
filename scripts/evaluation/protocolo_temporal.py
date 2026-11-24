@@ -20,7 +20,7 @@ De onde vem esse quadro e escolha de quem chama:
     feature store - pipeline.construir_wide(features_longas, colunas_feature),
                     que pivota as features longas por rota_id
     datasets/D*   - largo_de_csv(...) deste modulo, que le um CSV consolidado
-                    (latencia_rotas_h1_h6.csv ou banda_rotas_h1_h6.csv) mais o
+                    (latency_in_routes_pair-h1-h6.csv ou bandwidth_in_routes_pair-h1-h6.csv) mais o
                     TXT de rotulos
 
 Nenhuma funcao daqui olha para nomes de coluna especificos de uma das fontes:
@@ -48,6 +48,14 @@ PREFIXO_POR_METRICA = {
 }
 PREFIXO_GENERICO = 'metrica'
 
+# Stem of the consolidated CSV of each metric (D3a and D4a add '_12' after it).
+#   The file names are in English while the metric keys and column prefixes
+#   above keep their original names, so the stem cannot be built from the key.
+ARQUIVO_POR_METRICA = {
+    'latencia': 'latency_in_routes_pair-h1-h6',
+    'banda': 'bandwidth_in_routes_pair-h1-h6',
+}
+
 _EPOCH = pd.Timestamp('1970-01-01')
 
 
@@ -72,13 +80,13 @@ def para_epoch(serie):
 def prefixo_do_arquivo(caminho):
     """Deduz o prefixo das colunas de feature pelo nome do arquivo.
 
-    'latencia_rotas_h1_h6.csv' -> 'latencia_ms'
-    'banda_rotas_h1_h6.csv'    -> 'banda_Mbps'
-    qualquer outro             -> 'metrica'
+    'latency_in_routes_pair-h1-h6.csv'   -> 'latencia_ms'
+    'bandwidth_in_routes_pair-h1-h6.csv' -> 'banda_Mbps'
+    qualquer outro                       -> 'metrica'
     """
     nome = os.path.basename(str(caminho)).lower()
     for chave, prefixo in PREFIXO_POR_METRICA.items():
-        if nome.startswith(chave):
+        if nome.startswith(ARQUIVO_POR_METRICA[chave]):
             return prefixo
     return PREFIXO_GENERICO
 
@@ -89,8 +97,8 @@ def largo_de_csv(caminho_csv, caminho_rotulos=None, grupo=None, prefixo=None,
     """Monta o quadro largo a partir de um CSV consolidado por rota.
 
     Funciona para qualquer CSV no formato 'timestamp na primeira coluna, uma
-    coluna por rota nas demais', o que cobre latencia_rotas_h1_h6.csv e
-    banda_rotas_h1_h6.csv sem tratamento especial.
+    coluna por rota nas demais', o que cobre latency_in_routes_pair-h1-h6.csv e
+    bandwidth_in_routes_pair-h1-h6.csv sem tratamento especial.
 
     Parametros:
         caminho_csv      - CSV consolidado (timestamp + uma coluna por rota)

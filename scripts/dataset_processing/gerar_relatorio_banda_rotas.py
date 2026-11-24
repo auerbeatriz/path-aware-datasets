@@ -18,7 +18,7 @@ from helpers.parser_banda import (
     parseBandaCaminho,
 )
 
-ARQUIVO_BANDA_CONSOLIDADA = 'banda_rotas_h1_h6.csv'
+ARQUIVO_BANDA_CONSOLIDADA = 'bandwidth_in_routes_pair-h1-h6.csv'
 
 ################################################################################
 # Lê o arquivo rotas.txt de um cenário e retorna a lista de rotas
@@ -38,7 +38,7 @@ def parseRotas(arquivo):
 
 ################################################################################
 # Consolida os arquivos de banda por caminho (banda_rota_h1<r>_h6<r>.txt) em
-#   um único CSV, no mesmo formato de 'latencia_rotas_h1_h6.csv' (ver
+#   um único CSV, no mesmo formato de 'latency_in_routes_pair-h1-h6.csv' (ver
 #   consolidar_latencias em gerar_relatorio_latencia.py), mas garantindo uma leitura por segundo.
 #
 #   A coleta do bwm-ng ocasionalmente perde um ciclo de amostragem, o que deixa
@@ -105,7 +105,7 @@ def consolidarBandaInterpolada(diretorio, nome_arquivo_saida, rotas):
 ################################################################################
 # Gera os relatórios de banda por caminho (banda_<rota>.txt) de um cenário,
 #   extraindo os dados do arquivo consolidado banda.bwm, e em seguida o CSV
-#   consolidado de todas as rotas (banda_rotas_h1_h6.csv)
+#   consolidado de todas as rotas (bandwidth_in_routes_pair-h1-h6.csv)
 #
 def gerarRelatoriosBanda(pasta):
     arquivo_bwm = os.path.join(pasta, 'banda.bwm')

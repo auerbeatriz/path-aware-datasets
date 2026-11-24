@@ -653,8 +653,8 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
     de cada caminho. Cada linha de um feature group e uma observacao no grao da
     tabela. E a camada canonica, lida de volta por get_features().
 
-    Largo (legado): latencia_rotas_h1_h6.csv, banda_rotas_h1_h6.csv e
-    rotulos_h1_h6.txt, com uma coluna por rota e uma linha por instante - o
+    Largo (legado): latency_in_routes_pair-h1-h6.csv, bandwidth_in_routes_pair-h1-h6.csv e
+    labels_lowest_latency.txt, com uma coluna por rota e uma linha por instante - o
     mesmo layout de datasets/D*, para que o notebook de ML original leia sem
     adaptacao. Cobre apenas latencia_ms e gargalo_Mbps.
 
@@ -712,15 +712,15 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
     latencia_larga = para_largo('latencia_ms')
     banda_larga = para_largo('gargalo_Mbps')
 
-    caminho_latencia = os.path.join(pasta_largo, 'latencia_rotas_h1_h6.csv')
-    caminho_banda = os.path.join(pasta_largo, 'banda_rotas_h1_h6.csv')
+    caminho_latencia = os.path.join(pasta_largo, 'latency_in_routes_pair-h1-h6.csv')
+    caminho_banda = os.path.join(pasta_largo, 'bandwidth_in_routes_pair-h1-h6.csv')
     latencia_larga.to_csv(caminho_latencia, index=False, date_format='%Y-%m-%d %H:%M:%S')
     banda_larga.to_csv(caminho_banda, index=False, date_format='%Y-%m-%d %H:%M:%S')
     gerados += [caminho_latencia, caminho_banda]
 
     rotulos = (com_rotulo.groupby('datetime_utc').melhor_rota.first()
                .astype(int).sort_index())
-    caminho_rotulos = os.path.join(pasta_largo, 'rotulos_h1_h6.txt')
+    caminho_rotulos = os.path.join(pasta_largo, 'labels_lowest_latency.txt')
     with open(caminho_rotulos, 'w') as arquivo:
         for valor in rotulos:
             arquivo.write(f'{valor}\n')
@@ -739,7 +739,7 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
         rotulos_banda = com_rotulo.groupby('datetime_utc')[COLUNA_ALVO_BANDA].first().sort_index()
         if rotulos_banda.isna().any() or len(rotulos_banda) != len(latencia_larga):
             raise ValueError('bandwidth target missing on instants that have a latency target')
-        caminho_rotulos_banda = os.path.join(pasta_largo, 'rotulos_maior_banda.txt')
+        caminho_rotulos_banda = os.path.join(pasta_largo, 'labels_highest_bandwidth.txt')
         with open(caminho_rotulos_banda, 'w') as arquivo:
             for valor in rotulos_banda.astype(int):
                 arquivo.write(f'{valor}\n')

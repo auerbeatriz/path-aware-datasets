@@ -5,7 +5,7 @@ RAIZ = os.path.dirname(os.path.abspath(__file__))
 
 ################################################################################
 # Gera um TXT com o ID da rota de maior banda disponível para cada timestamp,
-#   a partir do CSV consolidado banda_rotas_h1_h6.csv (mesmo formato usado por
+#   a partir do CSV consolidado bandwidth_in_routes_pair-h1-h6.csv (mesmo formato usado por
 #   criar_arquivo_rotulos em gerar_relatorio_latencia.py, porém buscando o máximo em vez do mínimo)
 #
 def criar_arquivo_rotulos_maior_banda(diretorio, nome_arquivo_entrada, nome_arquivo_saida):
@@ -51,8 +51,8 @@ def criar_arquivo_rotulos_maior_banda(diretorio, nome_arquivo_entrada, nome_arqu
     print(f"Arquivo de rotulos criado: {caminho_saida}")
 
 def main():
-    arquivo_banda   = "banda_rotas_h1_h6.csv"
-    arquivo_rotulos = "rotulos_maior_banda.txt"
+    arquivo_banda   = "bandwidth_in_routes_pair-h1-h6.csv"
+    arquivo_rotulos = "labels_highest_bandwidth.txt"
 
     for pasta in sorted(glob.glob(os.path.join(RAIZ, 'datasets', '*'))):
         if os.path.isdir(pasta):

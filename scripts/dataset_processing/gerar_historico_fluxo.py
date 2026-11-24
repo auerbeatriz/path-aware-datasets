@@ -17,7 +17,7 @@ from scripts.dataset_processing.desempate_rotulos import (
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 
 ################################################################################
-# Lê um CSV consolidado (latencia_rotas_h1_h6.csv ou banda_rotas_h1_h6.csv) e
+# Lê um CSV consolidado (latency_in_routes_pair-h1-h6.csv ou bandwidth_in_routes_pair-h1-h6.csv) e
 #   retorna (nomes_das_rotas, {timestamp: [valores_por_rota]})
 #
 def ler_csv_consolidado(caminho_arquivo):
@@ -30,7 +30,7 @@ def ler_csv_consolidado(caminho_arquivo):
 
 ################################################################################
 # Consolida os CSVs de latencia e banda de um dataset em um único arquivo
-#   historico_telemetria_h1_h6.csv, unindo pela coluna de timestamp
+#   telemetry_history_pair-h1-h6.csv, unindo pela coluna de timestamp
 #
 def consolidar_historico_telemetria(diretorio, arquivo_latencia, arquivo_banda, arquivo_saida):
     caminho_latencia = os.path.join(diretorio, arquivo_latencia)
@@ -174,19 +174,19 @@ def criar_arquivo_rotulos_por_fluxo(diretorio, arquivo_entrada, arquivo_saida, f
 #   consolidated latency CSV, or more than one.
 #
 def resolver_nomes(pasta):
-    caminhos = sorted(glob.glob(os.path.join(pasta, 'latencia_rotas_h1_h6*.csv')))
+    caminhos = sorted(glob.glob(os.path.join(pasta, 'latency_in_routes_pair-h1-h6*.csv')))
     if len(caminhos) != 1:
         return None
 
     nome = os.path.basename(caminhos[0])
-    sufixo = nome[len('latencia_rotas_h1_h6'):-len('.csv')]
+    sufixo = nome[len('latency_in_routes_pair-h1-h6'):-len('.csv')]
 
     return {
-        'latencia': f'latencia_rotas_h1_h6{sufixo}.csv',
-        'banda': f'banda_rotas_h1_h6{sufixo}.csv',
-        'historico': f'historico_telemetria_h1_h6{sufixo}.csv',
-        'historico_fluxo': f'historico_telemetria_flux_typeh1_h6{sufixo}.csv',
-        'rotulos': f'rotulos_por_fluxo{sufixo}.txt',
+        'latencia': f'latency_in_routes_pair-h1-h6{sufixo}.csv',
+        'banda': f'bandwidth_in_routes_pair-h1-h6{sufixo}.csv',
+        'historico': f'telemetry_history_pair-h1-h6{sufixo}.csv',
+        'historico_fluxo': f'telemetry_history_per_flow_pair-h1-h6{sufixo}.csv',
+        'rotulos': f'labels_per_flow{sufixo}.txt',
     }
 
 ################################################################################
@@ -207,7 +207,7 @@ def main(datasets=None):
 
         nomes = resolver_nomes(pasta)
         if nomes is None:
-            print(f"Nenhum latencia_rotas_h1_h6*.csv em: {pasta}")
+            print(f"Nenhum latency_in_routes_pair-h1-h6*.csv em: {pasta}")
             continue
 
         if consolidar_historico_telemetria(
@@ -216,11 +216,11 @@ def main(datasets=None):
             continue
 
         # Two files out of the same consolidation:
-        #   historico_telemetria_h1_h6{suffix}.csv          one row per instant,
+        #   telemetry_history_pair-h1-h6{suffix}.csv          one row per instant,
         #                                                   no category column
-        #   historico_telemetria_flux_typeh1_h6{suffix}.csv one copy of every row
+        #   telemetry_history_per_flow_pair-h1-h6{suffix}.csv one copy of every row
         #                                                   per flow category, the
-        #                                                   file rotulos_por_fluxo
+        #                                                   file labels_per_flow
         #                                                   is written from
         shutil.copyfile(os.path.join(pasta, nomes['historico']),
                         os.path.join(pasta, nomes['historico_fluxo']))
