@@ -16,9 +16,11 @@ colunas = ['unix_timestamp','interface','bytes_out_s','bytes_in_s','bytes_total_
 data = pd.read_csv(arq, delimiter=',', usecols=range(16))
 data.columns = colunas
 
-# Converte taxa para Mbps
+# Converts a rate in bytes/s to Mbit/s (decimal, 10^6 bits), the same unit as
+#   the TCLink `bw` capacities in config.json. It used to divide by 1 << 20
+#   (Mibit/s), which overstated available bandwidth by ~4.6% of the rate.
 def toMbps(df):
-    dfY = (df * 8.0) / (1 << 20)  ## 1byte x 8bits / 1048576
+    dfY = (df * 8.0) / 1e6
     return dfY
 
 # Filtra interfaces do tipo s{i}_eth (ex: s1_eth, s2_eth...)

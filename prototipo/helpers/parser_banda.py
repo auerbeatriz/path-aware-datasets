@@ -10,9 +10,11 @@ BWM_NG_COLUNAS = ['unix_timestamp','interface','bytes_out_s','bytes_in_s','bytes
 PADRAO_NOME_ROTA = re.compile(r'rota_h1(\d+)_h6\1')
 PADRAO_ARQUIVO_BANDA = re.compile(r'banda_rota_h1(\d+)_h6\1\.txt')
 
-# Converte taxa para Mbps
+# Converts a rate in bytes/s to Mbit/s (decimal, 10^6 bits), the same unit as
+#   the TCLink `bw` capacities in config.json. It used to divide by 1 << 20
+#   (Mibit/s), which overstated available bandwidth by ~4.6% of the rate.
 def toMbps(df):
-    dfY = (df * 8.0) / (1 << 20)  ## 1byte x 8bits / 1048576
+    dfY = (df * 8.0) / 1e6
     return dfY
         
 def parseBanda(rota, topologia, capacidade_por_interface):

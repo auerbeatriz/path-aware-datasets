@@ -5,7 +5,8 @@ import sys
 
 import pandas as pd
 
-RAIZ = os.path.dirname(os.path.abspath(__file__))
+# Repository root (this file lives in scripts/dataset_processing/)
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, os.path.join(RAIZ, 'prototipo'))
 
 from helpers.parser_banda import (

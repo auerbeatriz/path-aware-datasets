@@ -1,7 +1,18 @@
+import argparse
 import glob
 import os
 
-RAIZ = os.path.dirname(os.path.abspath(__file__))
+from scripts.dataset_processing.desempate_rotulos import (
+    escolher_rota,
+    ler_csv_consolidado_para_rotulo,
+    medias_janela_passado,
+    novas_estatisticas,
+    novo_gerador_aleatorio,
+    resumo_estatisticas,
+)
+
+# Repository root (this file lives in scripts/dataset_processing/)
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 ################################################################################
 # Gera um TXT com o ID da rota de maior banda disponível para cada timestamp,
@@ -50,13 +61,47 @@ def criar_arquivo_rotulos_maior_banda(diretorio, nome_arquivo_entrada, nome_arqu
 
     print(f"Arquivo de rotulos criado: {caminho_saida}")
 
-def main():
-    arquivo_banda   = "bandwidth_in_routes_pair-h1-h6.csv"
-    arquivo_rotulos = "labels_highest_bandwidth.txt"
+################################################################################
+# Tie-break variant, kept for future use (NOT the current default: every
+#   labels_highest_bandwidth*.txt is the plain argmax above, where a tie goes to
+#   the lowest pathId). Routes with exactly the same available bandwidth go
+#   through the shared rule of desempate_rotulos.py: best mean over the past
+#   'janela_segundos' (current instant excluded), then a seeded random choice.
+#   Enabled with `--desempate`.
+#
+def criar_arquivo_rotulos_maior_banda_desempate(diretorio, nome_arquivo_entrada, nome_arquivo_saida,
+                                                janela_segundos=10, semente=42):
+    caminho_entrada = os.path.join(diretorio, nome_arquivo_entrada)
+    if not os.path.exists(caminho_entrada):
+        print(f"Arquivo não encontrado: {caminho_entrada}")
+        return
+
+    timestamps, linhas_valores = ler_csv_consolidado_para_rotulo(caminho_entrada)
+    medias = medias_janela_passado(timestamps, linhas_valores, janela_segundos)
+    rng = novo_gerador_aleatorio(semente)
+    estatisticas = novas_estatisticas()
+
+    caminho_saida = os.path.join(diretorio, nome_arquivo_saida)
+    with open(caminho_saida, 'w') as saida:
+        for valores, medias_linha in zip(linhas_valores, medias):
+            saida.write(f"{escolher_rota(valores, False, medias_linha, rng, estatisticas)}\n")
+
+    print(f"Arquivo de rotulos criado: {caminho_saida} [{resumo_estatisticas(estatisticas)}]")
+
+def main(desempate=False):
+    gerar = criar_arquivo_rotulos_maior_banda_desempate if desempate else criar_arquivo_rotulos_maior_banda
 
     for pasta in sorted(glob.glob(os.path.join(RAIZ, 'datasets', '*'))):
-        if os.path.isdir(pasta):
-            criar_arquivo_rotulos_maior_banda(pasta, arquivo_banda, arquivo_rotulos)
+        if not os.path.isdir(pasta):
+            continue
+        if os.path.exists(os.path.join(pasta, 'bandwidth_in_routes_pair-h1-h6.csv')):
+            gerar(pasta, 'bandwidth_in_routes_pair-h1-h6.csv', 'labels_highest_bandwidth.txt')
+        # D3a and D4a: two routes, '_12' suffix
+        if os.path.exists(os.path.join(pasta, 'bandwidth_in_routes_pair-h1-h6_12.csv')):
+            gerar(pasta, 'bandwidth_in_routes_pair-h1-h6_12.csv', 'labels_highest_bandwidth_12.txt')
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description='Generate labels_highest_bandwidth*.txt for every dataset.')
+    parser.add_argument('--desempate', action='store_true',
+                        help='break exact ties by past-window mean + seeded draw (default: lowest pathId)')
+    main(parser.parse_args().desempate)

@@ -281,8 +281,8 @@ def ingerir_banda(alinhamento, topologia, pasta_relatorios=RELATORIOS_PADRAO):
     """Le os CSV crus do bwm-ng e monta o feature group por interface.
 
     Usa banda_raw_* em vez de banda_tratada_* por dois motivos: parser_banda.py
-    le o CSV sem header=None e perde a primeira amostra, e converte a taxa para
-    Mibit/s (divisao por 1<<20) enquanto a capacidade do TCLink e decimal.
+    le o CSV sem header=None e perde a primeira amostra. (It also used to convert
+    the rate to Mibit/s, dividing by 1<<20; toMbps now uses 1e6 like this module.)
     """
     capacidades = topologia['capacidade_por_interface']
     quadros = []
@@ -314,7 +314,10 @@ def ingerir_banda(alinhamento, topologia, pasta_relatorios=RELATORIOS_PADRAO):
                 f'interfaces sem capacidade em config.json para {rota_id}: {sem_capacidade}'
             )
 
-        dados['banda_disp_Mbps'] = dados.capacidade_Mbps - dados.taxa_Mbps
+        # Same clip as prototipo/helpers/parser_banda.py: shaper bursts or bwm-ng
+        # sampling windows shorter than 1s can push the measured rate above the
+        # nominal capacity; available bandwidth cannot be negative, so floor at 0.
+        dados['banda_disp_Mbps'] = (dados.capacidade_Mbps - dados.taxa_Mbps).clip(lower=0)
         dados['util_pct'] = 100 * dados.taxa_Mbps / dados.capacidade_Mbps
         dados['rota_id'] = rota_id
         dados['run_id'] = alinhamento['run_id']
@@ -366,7 +369,8 @@ def ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda):
 
     dados['taxa_Mbps'] = dados.bytes_total_s * 8.0 / 1e6
     dados['capacidade_Mbps'] = dados.interface.map(capacidades)
-    dados['banda_disp_Mbps'] = dados.capacidade_Mbps - dados.taxa_Mbps
+    # Same clip as in ingerir_banda.
+    dados['banda_disp_Mbps'] = (dados.capacidade_Mbps - dados.taxa_Mbps).clip(lower=0)
     dados['util_pct'] = 100 * dados.taxa_Mbps / dados.capacidade_Mbps
     dados['run_id'] = alinhamento['run_id']
 

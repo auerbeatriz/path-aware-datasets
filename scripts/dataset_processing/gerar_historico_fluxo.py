@@ -14,7 +14,8 @@ from scripts.dataset_processing.desempate_rotulos import (
     resumo_estatisticas,
 )
 
-RAIZ = os.path.dirname(os.path.abspath(__file__))
+# Repository root (this file lives in scripts/dataset_processing/)
+RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 ################################################################################
 # Lê um CSV consolidado (latency_in_routes_pair-h1-h6.csv ou bandwidth_in_routes_pair-h1-h6.csv) e
