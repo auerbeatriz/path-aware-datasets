@@ -426,8 +426,8 @@ O layout **longo** (`data/csv/`) contém um arquivo por feature group, em que
 cada registro corresponde a uma observação no grão da respectiva tabela.
 Constitui a camada canônica, recuperada por `get_features()`.
 
-O layout **largo** (`data/csv_ml/`) compreende `latencia_rotas_h1_h6.csv`,
-`banda_rotas_h1_h6.csv` e `rotulos_h1_h6.txt`, com uma coluna por rota e um
+O layout **largo** (`data/csv_ml/`) compreende `latency_in_routes_pair-h1-h6.csv`,
+`bandwidth_in_routes_pair-h1-h6.csv` e `labels_lowest_latency.txt`, com uma coluna por rota e um
 registro por instante. Reproduz o layout de `datasets/D*`, de modo que o
 notebook de aprendizado de máquina o consuma sem adaptação.
 
@@ -501,8 +501,8 @@ exportado, confirmando que este é consumido sem adaptação.
 """),
 
 code(r"""
-historico = pd.read_csv('feature_store/data/csv_ml/latencia_rotas_h1_h6.csv')
-rotulos = np.loadtxt('feature_store/data/csv_ml/rotulos_h1_h6.txt',
+historico = pd.read_csv('feature_store/data/csv_ml/latency_in_routes_pair-h1-h6.csv')
+rotulos = np.loadtxt('feature_store/data/csv_ml/labels_lowest_latency.txt',
                      comments='#', dtype=int)
 
 latencia_por_rota = historico.iloc[:, 1:].values

@@ -107,7 +107,7 @@ Os datasets incluem:
 - Arquivos de latência por rota (e.g., `latencia_rota_h11_h61.txt`)
 - Arquivo de configuração utilizado para a coleta (`config.json`)
 - Eventos e resumos (`eventos.txt`, `rotas.txt`, `iperf_procN.txt`)
-- Dados consolidados de latência e rótulos de classificação (`latencia_rotas_h1_h6.csv` e `rotulos_h1_h6.txt`)
+- Dados consolidados de latência e rótulos de classificação (`latency_in_routes_pair-h1-h6.csv` e `labels_lowest_latency.txt`)
 - Banda consolidada de todas as interfaces no momento da coleta (`banda.bwm`), a partir da qual são extraídos os relatórios de banda por caminho (ver `gerar_relatorio_banda_rotas.py`)
 
 ### Relatórios de banda por caminho
@@ -122,7 +122,7 @@ python3 gerar_relatorio_banda_rotas.py
 Para cada rota, são gerados dentro da própria pasta do cenário:
 - `banda_tratada_<rota>.csv`: taxa e banda disponível de cada interface do caminho, amostra a amostra.
 - `banda_<rota>.txt`: gargalo (menor banda disponível entre as interfaces do caminho) por segundo, no mesmo formato tabulado dos arquivos `latencia_rota_*.txt`.
-- `banda_rotas_h1_h6.csv`: consolidação das rotas em um único CSV (mesmo formato de `latencia_rotas_h1_h6.csv`), com exatamente uma leitura por segundo entre a primeira e a última coleta. Segundos sem leitura do `bwm-ng` em uma ou em todas as rotas são preenchidos por interpolação linear no tempo.
+- `bandwidth_in_routes_pair-h1-h6.csv`: consolidação das rotas em um único CSV (mesmo formato de `latency_in_routes_pair-h1-h6.csv`), com exatamente uma leitura por segundo entre a primeira e a última coleta. Segundos sem leitura do `bwm-ng` em uma ou em todas as rotas são preenchidos por interpolação linear no tempo.
 
 Cenários sem `banda.bwm`, `config.json` ou `rotas.txt` (e.g. `D3a`, `D4a`) são ignorados pelo script.
 

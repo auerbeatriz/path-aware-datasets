@@ -29,10 +29,14 @@ from helpers.parser_banda import BWM_NG_COLUNAS
 # O protocolo de avaliacao temporal (escala de tempo, deslocamento do alvo e
 # corte cronologico) e compartilhado com o notebook de analise de modelos, que
 # trabalha direto com os CSVs de datasets/ e nao passa pela feature store. Por
-# isso vive na raiz do projeto, em protocolo_temporal.py, e e reexportado aqui:
+# isso vive fora da feature store e e reexportado aqui:
 # quem chama fs.para_epoch, fs.deslocar_alvo ou fs.split_temporal continua
 # funcionando sem alteracao.
-sys.path.insert(0, _RAIZ)
+# The module now lives in scripts/evaluation/protocolo_temporal.py (it used to
+#   sit at the project root), so that folder is what goes on sys.path.
+_PASTA_PROTOCOLO = os.path.join(_RAIZ, 'scripts', 'evaluation')
+if _PASTA_PROTOCOLO not in sys.path:
+    sys.path.insert(0, _PASTA_PROTOCOLO)
 from protocolo_temporal import (  # noqa: F401
     COLUNA_ALVO_ATUAL,
     colunas_de_feature,
@@ -41,6 +45,18 @@ from protocolo_temporal import (  # noqa: F401
     para_epoch,
     preparar_treino_teste,
     split_temporal,
+)
+
+# Tie-break shared with the label generators of scripts/dataset_processing, so
+#   that the bandwidth target of the store follows the same rule as the label files
+_PASTA_ROTULOS = os.path.join(_RAIZ, 'scripts', 'dataset_processing')
+if _PASTA_ROTULOS not in sys.path:
+    sys.path.insert(0, _PASTA_ROTULOS)
+from desempate_rotulos import (  # noqa: E402
+    escolher_rota,
+    medias_janela_passado,
+    novas_estatisticas,
+    novo_gerador_aleatorio,
 )
 
 RELATORIOS_PADRAO = 'prototipo/relatorios'
@@ -265,8 +281,8 @@ def ingerir_banda(alinhamento, topologia, pasta_relatorios=RELATORIOS_PADRAO):
     """Le os CSV crus do bwm-ng e monta o feature group por interface.
 
     Usa banda_raw_* em vez de banda_tratada_* por dois motivos: parser_banda.py
-    le o CSV sem header=None e perde a primeira amostra, e converte a taxa para
-    Mibit/s (divisao por 1<<20) enquanto a capacidade do TCLink e decimal.
+    le o CSV sem header=None e perde a primeira amostra. (It also used to convert
+    the rate to Mibit/s, dividing by 1<<20; toMbps now uses 1e6 like this module.)
     """
     capacidades = topologia['capacidade_por_interface']
     quadros = []
@@ -298,7 +314,10 @@ def ingerir_banda(alinhamento, topologia, pasta_relatorios=RELATORIOS_PADRAO):
                 f'interfaces sem capacidade em config.json para {rota_id}: {sem_capacidade}'
             )
 
-        dados['banda_disp_Mbps'] = dados.capacidade_Mbps - dados.taxa_Mbps
+        # Same clip as prototipo/helpers/parser_banda.py: shaper bursts or bwm-ng
+        # sampling windows shorter than 1s can push the measured rate above the
+        # nominal capacity; available bandwidth cannot be negative, so floor at 0.
+        dados['banda_disp_Mbps'] = (dados.capacidade_Mbps - dados.taxa_Mbps).clip(lower=0)
         dados['util_pct'] = 100 * dados.taxa_Mbps / dados.capacidade_Mbps
         dados['rota_id'] = rota_id
         dados['run_id'] = alinhamento['run_id']
@@ -350,7 +369,8 @@ def ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda):
 
     dados['taxa_Mbps'] = dados.bytes_total_s * 8.0 / 1e6
     dados['capacidade_Mbps'] = dados.interface.map(capacidades)
-    dados['banda_disp_Mbps'] = dados.capacidade_Mbps - dados.taxa_Mbps
+    # Same clip as in ingerir_banda.
+    dados['banda_disp_Mbps'] = (dados.capacidade_Mbps - dados.taxa_Mbps).clip(lower=0)
     dados['util_pct'] = 100 * dados.taxa_Mbps / dados.capacidade_Mbps
     dados['run_id'] = alinhamento['run_id']
 
@@ -554,6 +574,64 @@ def derivar_alvo(view):
     return view
 
 
+# Bandwidth target: the route with the largest available bandwidth (bottleneck)
+#   at the instant. Kept in its own column, next to melhor_rota, so that the
+#   latency target and everything that reads it stay exactly as they were.
+COLUNA_ALVO_BANDA = 'melhor_rota_banda'
+
+# Tie-break of the label generators in scripts/dataset_processing: window of
+#   past seconds whose mean breaks an exact tie, and the seed of the final draw
+JANELA_DESEMPATE_S = 10
+SEMENTE_DESEMPATE = 42
+
+
+def derivar_alvo_banda(view, janela_desempate_s=JANELA_DESEMPATE_S,
+                       semente=SEMENTE_DESEMPATE, estatisticas=None):
+    """Add melhor_rota_banda: index (base 1) of the route with the largest gargalo_Mbps.
+
+    Routes are numbered as in derivar_alvo (sorted rota_id), so both targets
+    name the same route with the same number.
+
+    Exact ties are frequent with bandwidth, unlike latency: routes that share
+    their bottleneck interface have the very same gargalo_Mbps, and idle routes
+    sit at link capacity together. A plain argmax would hand every tie to the
+    lowest route number. Ties are therefore broken by desempate_rotulos.escolher_rota,
+    the rule of the label files in datasets/: among the routes with exactly the
+    best value, the best mean over the `janela_desempate_s` seconds strictly
+    before the instant; if the means tie too (or there is no past), a draw from
+    a generator seeded with `semente`. Only the past enters the decision, so the
+    label stays causal.
+
+    Instants where some route has no bottleneck reading get no label.
+    `estatisticas`, when given a dict, receives the tie counts of
+    desempate_rotulos.novas_estatisticas.
+    """
+    view = view.copy()
+    rotas_ordenadas = sorted(view.rota_id.unique())
+
+    largo = (view.pivot_table(index='ts_epoch', columns='rota_id', values='gargalo_Mbps')
+             .reindex(columns=rotas_ordenadas)
+             .dropna()
+             .sort_index())
+
+    instantes = list(pd.to_datetime(largo.index, unit='s'))
+    valores = largo.to_numpy(dtype=float).tolist()
+    medias = medias_janela_passado(instantes, valores, janela_desempate_s)
+
+    contagem = novas_estatisticas()
+    gerador = novo_gerador_aleatorio(semente)
+    rotulos = [
+        escolher_rota(linha, minimizar=False, medias=media, rng=gerador, estatisticas=contagem)
+        for linha, media in zip(valores, medias)
+    ]
+    if estatisticas is not None:
+        estatisticas.update(contagem)
+
+    melhor = pd.Series(rotulos, index=largo.index)
+    view[COLUNA_ALVO_BANDA] = view.ts_epoch.map(melhor).astype('Int64')
+    return view
+
+
 ################################################################################
 # Persistencia (CSV)
 ################################################################################
@@ -561,13 +639,13 @@ def derivar_alvo(view):
 # Colunas da view que precisam de conversao explicita na releitura, ja que o CSV
 # nao carrega tipos
 COLUNAS_DATA = ['datetime_utc']
-COLUNAS_INTEIRO_NULAVEL = ['melhor_rota']
+COLUNAS_INTEIRO_NULAVEL = ['melhor_rota', COLUNA_ALVO_BANDA]
 
 
 # Colunas da view que sao chave/identificacao/tempo, nunca features de pivot
 COLUNAS_NAO_FEATURE_WIDE = {
     'run_id', 'rota_id', 'ts_epoch', 'datetime_utc', 'tempo_relativo_s',
-    'melhor_rota',
+    'melhor_rota', COLUNA_ALVO_BANDA,
 }
 
 
@@ -579,8 +657,8 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
     de cada caminho. Cada linha de um feature group e uma observacao no grao da
     tabela. E a camada canonica, lida de volta por get_features().
 
-    Largo (legado): latencia_rotas_h1_h6.csv, banda_rotas_h1_h6.csv e
-    rotulos_h1_h6.txt, com uma coluna por rota e uma linha por instante - o
+    Largo (legado): latency_in_routes_pair-h1-h6.csv, bandwidth_in_routes_pair-h1-h6.csv e
+    labels_lowest_latency.txt, com uma coluna por rota e uma linha por instante - o
     mesmo layout de datasets/D*, para que o notebook de ML original leia sem
     adaptacao. Cobre apenas latencia_ms e gargalo_Mbps.
 
@@ -638,15 +716,15 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
     latencia_larga = para_largo('latencia_ms')
     banda_larga = para_largo('gargalo_Mbps')
 
-    caminho_latencia = os.path.join(pasta_largo, 'latencia_rotas_h1_h6.csv')
-    caminho_banda = os.path.join(pasta_largo, 'banda_rotas_h1_h6.csv')
+    caminho_latencia = os.path.join(pasta_largo, 'latency_in_routes_pair-h1-h6.csv')
+    caminho_banda = os.path.join(pasta_largo, 'bandwidth_in_routes_pair-h1-h6.csv')
     latencia_larga.to_csv(caminho_latencia, index=False, date_format='%Y-%m-%d %H:%M:%S')
     banda_larga.to_csv(caminho_banda, index=False, date_format='%Y-%m-%d %H:%M:%S')
     gerados += [caminho_latencia, caminho_banda]
 
     rotulos = (com_rotulo.groupby('datetime_utc').melhor_rota.first()
                .astype(int).sort_index())
-    caminho_rotulos = os.path.join(pasta_largo, 'rotulos_h1_h6.txt')
+    caminho_rotulos = os.path.join(pasta_largo, 'labels_lowest_latency.txt')
     with open(caminho_rotulos, 'w') as arquivo:
         for valor in rotulos:
             arquivo.write(f'{valor}\n')
@@ -657,6 +735,19 @@ def exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
             f'rotulos ({len(rotulos)}) e features ({len(latencia_larga)}) '
             'com contagens diferentes'
         )
+
+    # Bandwidth target on the same instants as the two CSVs above, under the name
+    #   of the label files in datasets/. A latency label needs every route's
+    #   reading, and so does a bandwidth one, so every instant written above has both.
+    if COLUNA_ALVO_BANDA in com_rotulo.columns:
+        rotulos_banda = com_rotulo.groupby('datetime_utc')[COLUNA_ALVO_BANDA].first().sort_index()
+        if rotulos_banda.isna().any() or len(rotulos_banda) != len(latencia_larga):
+            raise ValueError('bandwidth target missing on instants that have a latency target')
+        caminho_rotulos_banda = os.path.join(pasta_largo, 'labels_highest_bandwidth.txt')
+        with open(caminho_rotulos_banda, 'w') as arquivo:
+            for valor in rotulos_banda.astype(int):
+                arquivo.write(f'{valor}\n')
+        gerados.append(caminho_rotulos_banda)
 
     # --- layout largo completo: todas as features, via construir_wide ---
     colunas_numericas = view.select_dtypes(include='number').columns
@@ -695,8 +786,14 @@ def ler_csv(caminho, **kwargs):
 ################################################################################
 
 def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=None,
-                 incluir_dim_rota=False, pasta_origem=DESTINO_PADRAO):
+                 incluir_dim_rota=False, pasta_origem=DESTINO_PADRAO,
+                 incluir_alvo_banda=False):
     """Recupera features da store, opcionalmente filtrando rotas e janela.
+
+    incluir_alvo_banda: also returns melhor_rota_banda (route with the largest
+        bottleneck bandwidth). Off by default because callers written before it
+        existed treat every column outside a fixed list as a feature, and would
+        silently train on the label.
 
     rotas: lista de rota_id, ou None para todas
     metricas: quais grupos incluir - 'latencia', 'banda' ou ambos
@@ -733,7 +830,8 @@ def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=No
 
     selecionadas = [c for c in chaves if c in view.columns]
     for coluna in view.columns:
-        if coluna in selecionadas or coluna in cruzadas or coluna == 'melhor_rota':
+        if (coluna in selecionadas or coluna in cruzadas
+                or coluna in ('melhor_rota', COLUNA_ALVO_BANDA)):
             continue
         if eh_de_latencia(coluna) and 'latencia' in metricas:
             selecionadas.append(coluna)
@@ -744,6 +842,12 @@ def get_features(rotas=None, metricas=('latencia', 'banda'), inicio=None, fim=No
         selecionadas += [c for c in cruzadas if c in view.columns]
     if 'melhor_rota' in view.columns:
         selecionadas.append('melhor_rota')
+    if incluir_alvo_banda:
+        if COLUNA_ALVO_BANDA not in view.columns:
+            raise KeyError(
+                f'{pasta_origem}: store built before {COLUNA_ALVO_BANDA} existed; rebuild it'
+            )
+        selecionadas.append(COLUNA_ALVO_BANDA)
 
     resultado = view[selecionadas]
 
@@ -828,11 +932,46 @@ def construir_wide(features_longas, colunas_feature, chave_tempo=('dataset_id', 
 # Orquestracao
 ################################################################################
 
+# Route subsets that exist in datasets/ only as wide CSVs (no raw capture of
+#   their own): routes h11_h61 and h12_h62 of D3 and D4. Built from the raw
+#   capture of the source dataset with construir(..., rotas=...).
+SUBCONJUNTOS_CONHECIDOS = {
+    'D3a': ('D3', ['h11_h61', 'h12_h62']),
+    'D4a': ('D4', ['h11_h61', 'h12_h62']),
+}
+
+
+def normalizar_rota(rota):
+    """Accept 'h11_h61', 'rota_h11_h61' or the route number '1' (or 1)."""
+    rota = str(rota).strip()
+    if rota.isdigit():
+        return f'h1{rota}_h6{rota}'
+    return rota.removeprefix('rota_')
+
+
+def selecionar_rotas(topologia, rotas):
+    """Restrict the topology to `rotas`, in sorted order of rota_id.
+
+    The route list of the whole pipeline comes from topologia['rotas'], so this
+    is what makes construir build a subset: bandwidth ingestion, dim_rota and
+    the per-route aggregation all iterate over it.
+    """
+    rotas = sorted(dict.fromkeys(normalizar_rota(r) for r in rotas))
+    disponiveis = sorted(topologia['rotas'])
+    desconhecidas = sorted(set(rotas) - set(disponiveis))
+    if desconhecidas:
+        raise ValueError(f'unknown route(s) {desconhecidas}; available: {disponiveis}')
+    if len(rotas) < 2:
+        raise ValueError('a route subset needs at least two routes: the target compares them')
+    return {**topologia, 'rotas': {r: topologia['rotas'][r] for r in rotas}}
+
+
 def construir(pasta_relatorios=RELATORIOS_PADRAO,
               caminho_config='prototipo/config.json',
               pasta_destino=DESTINO_PADRAO,
               persistir_em_disco=True,
-              arquivo_banda=None):
+              arquivo_banda=None,
+              rotas=None):
     """Executa o pipeline completo e devolve as tabelas construidas.
 
     arquivo_banda: quando informado (caminho para um `banda.bwm`, formato dos
@@ -840,15 +979,30 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
         ingerir_banda_arquivo_unico, em vez dos banda_raw_rota_*.csv de
         pasta_relatorios. Usado para reconstruir a store sobre datasets/D*, que
         nao produzem um CSV por rota.
+    rotas: when given (e.g. ['h11_h61', 'h12_h62'] or [1, 2]), only these
+        routes are built, and the result is the store the collection would
+        have produced had it monitored just them. This is exact because every
+        step works on one route at a time (the clock alignment depends only on
+        the bandwidth source and eventos.txt) except the targets, which compare
+        routes and so are derived over the kept routes only. derivar_alvo
+        numbers them 1..k in sorted order of rota_id: for {h11_h61, h12_h62}
+        the labels stay 1 and 2, but for {h12_h62, h14_h64} they become 1 and
+        2, not 2 and 4. The mapping is written to subset.json in pasta_destino.
     """
     alinhamento = inferir_alinhamento(pasta_relatorios, arquivo_banda=arquivo_banda)
     topologia = carregar_topologia(caminho_config, pasta_relatorios)
+    if rotas is not None:
+        topologia = selecionar_rotas(topologia, rotas)
+
+    def manter(quadro):
+        # Ingestion of per-route files globs every route, so trim to the topology
+        return quadro[quadro.rota_id.isin(topologia['rotas'])].reset_index(drop=True)
 
     if arquivo_banda:
         fg_banda_interface = ingerir_banda_arquivo_unico(alinhamento, topologia, arquivo_banda)
     else:
-        fg_banda_interface = ingerir_banda(alinhamento, topologia, pasta_relatorios)
-    fg_latencia = ingerir_latencia(alinhamento, pasta_relatorios)
+        fg_banda_interface = manter(ingerir_banda(alinhamento, topologia, pasta_relatorios))
+    fg_latencia = manter(ingerir_latencia(alinhamento, pasta_relatorios))
     fg_banda_rota = agregar_por_rota(fg_banda_interface, topologia)
     dim_rota = metadados_das_rotas(topologia)
 
@@ -856,10 +1010,25 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
     view = calcular_features_janela(view)
     view = calcular_deltas_e_cross_features(view)
     view = derivar_alvo(view)
+    # Bandwidth target in its own column; melhor_rota (latency) is unchanged
+    view = derivar_alvo_banda(view)
+
+    rotulo_da_rota = {rota: i + 1 for i, rota in enumerate(sorted(topologia['rotas']))}
 
     if persistir_em_disco:
         exportar_csv(fg_latencia, fg_banda_interface, fg_banda_rota, view,
                      dim_rota, pasta_destino)
+        if rotas is not None:
+            metadados = {
+                'source': os.path.basename(os.path.normpath(pasta_relatorios)),
+                'routes': sorted(topologia['rotas']),
+                'label_of_route': rotulo_da_rota,
+                'built_by': 'feature_store/pipeline.py (construir, rotas=...)',
+                'alignment_offset_s': int(alinhamento['offset_s']),
+            }
+            with open(os.path.join(pasta_destino, 'subset.json'), 'w', encoding='utf-8') as arquivo:
+                json.dump(metadados, arquivo, indent=2)
+                arquivo.write('\n')
 
     return {
         'alinhamento': alinhamento,
@@ -869,4 +1038,53 @@ def construir(pasta_relatorios=RELATORIOS_PADRAO,
         'fg_banda_interface': fg_banda_interface,
         'fg_banda_rota': fg_banda_rota,
         'view': view,
+        'rotulo_da_rota': rotulo_da_rota,
     }
+
+
+def construir_dataset(dataset, rotas=None, nome=None,
+                      raiz_datasets='datasets', raiz_store=DESTINO_PADRAO, **kwargs):
+    """construir() over datasets/<dataset>, persisted to <raiz_store>/<nome>.
+
+    nome defaults to the dataset itself, or to the predefined subset when
+    `dataset` is a key of SUBCONJUNTOS_CONHECIDOS (construir_dataset('D3a')
+    builds routes h11_h61, h12_h62 of D3 into <raiz_store>/D3a).
+    """
+    if rotas is None and dataset in SUBCONJUNTOS_CONHECIDOS:
+        nome = nome or dataset
+        dataset, rotas = SUBCONJUNTOS_CONHECIDOS[dataset]
+    pasta = os.path.join(raiz_datasets, dataset)
+    return construir(
+        pasta_relatorios=pasta,
+        caminho_config=os.path.join(pasta, 'config.json'),
+        pasta_destino=os.path.join(raiz_store, nome or dataset),
+        arquivo_banda=os.path.join(pasta, 'banda.bwm'),
+        rotas=rotas,
+        **kwargs,
+    )
+
+
+if __name__ == '__main__':
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='Build the feature store of a dataset in datasets/, or of a subset of its routes.')
+    parser.add_argument('datasets', nargs='+',
+                        help=f'datasets to build, e.g. D3, or a predefined subset {sorted(SUBCONJUNTOS_CONHECIDOS)}')
+    parser.add_argument('--rotas', nargs='+',
+                        help="routes to keep: 'h11_h61' or route number '1' (one dataset only)")
+    parser.add_argument('--nome', help='store folder name (default: the dataset name)')
+    parser.add_argument('--raiz-datasets', default=os.path.join(_RAIZ, 'datasets'))
+    parser.add_argument('--raiz-store', default=os.path.join(_RAIZ, DESTINO_PADRAO))
+    args = parser.parse_args()
+    if (args.rotas or args.nome) and len(args.datasets) > 1:
+        parser.error('--rotas and --nome apply to a single dataset')
+
+    for dataset in args.datasets:
+        resultado = construir_dataset(dataset, args.rotas, args.nome,
+                                      args.raiz_datasets, args.raiz_store)
+        view = resultado['view']
+        rotulos = view.groupby('ts_epoch').melhor_rota.first().dropna().astype(int)
+        partes = (rotulos.value_counts(normalize=True).sort_index() * 100).round(2).to_dict()
+        print(f"{args.nome or dataset}: routes {resultado['rotulo_da_rota']} | "
+              f"{view.ts_epoch.nunique()} instants | label share (%) {partes}")

@@ -1,6 +1,7 @@
-prototipo/__pycache__
-prototipo/helpers/__pycache__
-feature_store/__pycache__
+# Python bytecode
+__pycache__/
+*.pyc
+
 # prototipo/relatorios
 prototipo/graph_topo.pickle
 
@@ -8,3 +9,6 @@ venv
 local
 
 .sf
+
+# Resume cache of the scenario loops (NOVO NOTEBOOK DE ANALISE)
+resultados_am/**/cache/

@@ -1,0 +1,7 @@
+dataset,routes,label file,clock offset (h),store instants,label instants,store instants matched,store vs label agreement,instants | store: bandwidth features,columns of X | store: bandwidth features,instants | store: latency features,columns of X | store: latency features,instants | store: all features,columns of X | store: all features
+D1,4,labels_lowest_latency.txt,3.0,3599,3599,0.9997,1.0,3595,56,3594,44,3594,100
+D2,4,labels_lowest_latency.txt,3.0,3659,3660,0.9997,1.0,3657,56,3656,44,3656,100
+D3,4,labels_lowest_latency.txt,3.0,3661,3663,0.9997,1.0,3660,56,3659,44,3659,100
+D3a,2,labels_lowest_latency_12.txt,3.0,3661,3663,0.9997,1.0,3660,28,3659,22,3659,50
+D4,4,labels_lowest_latency.txt,3.0,3850,3851,0.9997,1.0,3848,56,3847,44,3847,100
+D4a,2,labels_lowest_latency_12.txt,3.0,3850,3851,0.9997,1.0,3848,28,3847,22,3847,50

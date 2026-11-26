@@ -229,9 +229,9 @@ Para cada `feature_store/data/<DATASET>/`, o pipeline grava três layouts:
 
 | arquivo | conteúdo |
 |---|---|
-| `latencia_rotas_h1_h6.csv` | latência (ms) de cada rota, uma coluna por rota, indexado por `timestamp` |
-| `banda_rotas_h1_h6.csv` | gargalo (Mbps) de cada rota, mesmo layout |
-| `rotulos_h1_h6.txt` | índice (base 1) da rota de menor latência em cada instante |
+| `latency_in_routes_pair-h1-h6.csv` | latência (ms) de cada rota, uma coluna por rota, indexado por `timestamp` |
+| `bandwidth_in_routes_pair-h1-h6.csv` | gargalo (Mbps) de cada rota, mesmo layout |
+| `labels_lowest_latency.txt` | índice (base 1) da rota de menor latência em cada instante |
 
 **Layout largo completo** (`csv_wide/`) — mesma ideia do `csv_ml/`, mas com
 **todas** as features numéricas de `consolidado` (não apenas latência e
