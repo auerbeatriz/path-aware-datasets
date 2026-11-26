@@ -9,3 +9,6 @@ venv
 local
 
 .sf
+
+# Resume cache of the scenario loops (NOVO NOTEBOOK DE ANALISE)
+resultados_am/**/cache/
